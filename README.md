@@ -1,26 +1,7 @@
 # navidanindya.info
 
-## Project setup
-```
-npm install
-```
+`Codebase` for my *website*.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Made with **Vue.js**
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+Visit [here](https://navidanindya.info). :)
