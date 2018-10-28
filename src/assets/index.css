@@ -28,10 +28,8 @@ body {
 
 /* Vue.js Things */
 #app {
-    font-family: 'Jost*', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     text-align: center;
+    margin: 10px 0 0 0;
 }
 
 #nav {
