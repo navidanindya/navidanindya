@@ -1,6 +1,7 @@
 <template>
     <div>
         <div id="app">
+            <!--
             <div class="wrapper">
                 <h3>¯\_(ツ)_/¯</h3>
                 <div id="nav">
@@ -8,8 +9,9 @@
                     <router-link to="/about">About</router-link>
                 </div>
             </div>
+            -->
         </div>
-        <div class="wrapper">
+        <div class="site-body wrapper">
             <router-view/>
         </div>
     </div>

@@ -2,25 +2,25 @@
     <div>
         <div class="row">
             <div class="col">
-                <h2>This is home.</h2>
+                <h1>Hey. :)</h1>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            </div>
-            <div class="col">
-                Sint perspiciatis cumque tempora placeat voluptas.
-            </div>
-            <div class="col">
-                Facere fuga magnam repellendus nihil.
-            </div>
-            <div class="col">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            </div>
-            <div class="col">
-                Facere fuga magnam repellendus nihil.
+                <h2>I'm <strong>Navid Anindya.</strong></h2>
+                <h3>
+                    Currently making this site.
+                    For now please check my <a href="https://github.com/nealtheguitarist" target="_blank">GitHub</a>
+                    and <a href="https://www.linkedin.com/in/navidanindya" target="_blank">LinkedIn</a>.
+                </h3>
+                <h4>Have a great day! :D</h4>
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+.text-center {
+    text-align: center;
+}
+</style>

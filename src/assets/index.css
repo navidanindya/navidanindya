@@ -6,6 +6,13 @@
 }
 
 /* The body styling */
+html, body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 html {
     font-size: 1em;
     -webkit-font-smoothing: antialiased;
@@ -13,12 +20,20 @@ html {
 }
 
 body {
-    background-color: #F7FBFF;
-    font-family: 'Jost*', Helvetica, Arial, sans-serif;
-    /* font-family: 'Cutive Mono', monospace; */
-    color: #070D11;
+    /* background-color: #F7FBFF; */
+    /* background-color: #2C71A5; */
+    background-color: #dfe6e9;
+    /* font-family: 'Jost*', Helvetica, Arial, sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+    /* color: #070D11; */
+    color: #2d3436;
     font-weight: 400;
     line-height: 1.45;
+}
+
+a {
+    font-weight: bold;
+    color: #6c5ce7;
 }
 
 p {
@@ -57,6 +72,10 @@ small, .font_small {
     margin: 0 auto;
     padding: 0 20px;
     max-width: 768px;
+}
+
+.site-body {
+    display: flex;
 }
 
 /* Ungrid.css */ /* Added padding for simple gutters */
