@@ -7,13 +7,15 @@
         </div>
         <div class="row">
             <div class="col">
-                <h2>I'm <strong>Navid Anindya.</strong></h2>
-                <h3>
+                <h2>I'm <i>Navid Anindya.</i></h2>
+                <p>
                     Currently making this site.
+                </p>
+                <p>
                     For now please check my <a href="https://github.com/nealtheguitarist" target="_blank">GitHub</a>
                     and <a href="https://www.linkedin.com/in/navidanindya" target="_blank">LinkedIn</a>.
-                </h3>
-                <h4>Have a great day! :D</h4>
+                </p>
+                <h5>Have a great day! :D</h5>
             </div>
         </div>
     </div>
