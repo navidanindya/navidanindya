@@ -1,19 +1,7 @@
-# navidanindya.info-rewrite
+# navidanindya.info
 
-## Project setup
-```
-npm install
-```
+`Codebase` for my *website*.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Made with **Vue.js**
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Visit [here](https://navidanindya.info). :)
