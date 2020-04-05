@@ -30,11 +30,6 @@
 
 <script>
 export default {
-  metaInfo() {
-    return {
-      title: 'NavidAnindya.',
-    };
-  },
   data() {
     return {
       links: [
