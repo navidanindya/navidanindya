@@ -16,7 +16,11 @@
 
 <script>
 export default {
-
+  metaInfo() {
+    return {
+      title: 'NavidAnindya. | 404 :(',
+    };
+  },
 }
 </script>
 
