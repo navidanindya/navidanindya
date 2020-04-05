@@ -3,7 +3,7 @@ module.exports = {
     config
       .plugin('html')
       .tap(args => {
-        args[0].title = process.env.DEAFULT_PAGE_TITLE || "NavidAnindya."
+        args[0].title = "NavidAnindya." || process.env.DEFAULT_PAGE_TITLE
         return args
       })
   }
