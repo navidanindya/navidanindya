@@ -13,7 +13,7 @@ WebFont.load({
 });
 
 import "./assets/index.css";
-import "./assets/socials.css";
+import "./assets/social.css";
 
 new Vue({
   router,

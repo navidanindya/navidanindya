@@ -45,7 +45,7 @@ export default {
         },
         {
           name: 'LinkedIn',
-          icon: 'icon-facebook-squared',
+          icon: 'icon-linkedin',
           link: 'https://www.linkedin.com/in/navidanindya'
         },
         {
