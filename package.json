@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "serve:server": "netlify-lambda serve functions",
+    "start": "npm-run-all --parallel serve serve:server"
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "faunadb": "^2.13.1",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.11",
     "vue-meta": "^2.3.3",
@@ -19,6 +22,16 @@
     "@vue/cli-plugin-pwa": "~4.2.0",
     "@vue/cli-plugin-router": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
+    "netlify-lambda": "^1.6.3",
+    "npm-run-all": "^4.1.5",
     "vue-template-compiler": "^2.6.11"
+  },
+  "proxy": {
+    "/.netlify/functions": {
+      "target": "http://localhost:9000",
+      "pathRewrite": {
+        "^/\\.netlify/functions": ""
+      }
+    }
   }
 }
