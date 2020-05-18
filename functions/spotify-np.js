@@ -1,16 +1,16 @@
-import fauna from 'faunadb';
+// import fauna from 'faunadb';
 
-const q = faunadb.query;
-const client = new faunadb.Client({
-    secret: process.env.FAUNADB_SECRET
-});
+// const q = faunadb.query;
+// const client = new faunadb.Client({
+//     secret: process.env.FAUNADB_SECRET
+// });
 
 function refreshTheToken(refreshToken) {
-    clientIdClientSecret = 'Basic <YOUR BASE-64d APP TOKEN>';
-    data = { 'grant_type': 'refresh_token', 'refresh_token': refreshToken };
+    const clientIdClientSecret = 'Basic OTQ5YzIyNjBmNWUwNDlhOWJmODM5YmZmNzgwODE5OTA6YzM0MTUwNjIxNjdhNGMwNzgyZmM2ZDJlYzM1OGYwZDU=';
+    const data = { 'grant_type': 'refresh_token', 'refresh_token': refreshToken };
 
-    headers = { 'Authorization': clientIdClientSecret };
-    p = requests.post('https://accounts.spotify.com/api/token', data = data, headers = headers);
+    const headers = { 'Authorization': clientIdClientSecret };
+    const p = requests.post('https://accounts.spotify.com/api/token', data = data, headers = headers);
 
     spotifyToken = p.json();
 
@@ -35,8 +35,8 @@ exports.handler = (event, context, callback) => {
     let isPlaying = false;
 
     // See if "expiresAt" indeed indicates we need a new token.
-    // Spotify access tokens last for 3600 seconds.
-    const data = client.query(q.Get(q.Ref(q.Collection('auth'), '263445428525072907'))).then();
+    // Spotify access tokens last for 3600 seconds. Get this data from FaunaDB. Gonna try out MongoDB Atlas too.
+    // const data = client.query(q.Get(q.Ref(q.Collection('auth'), '263445428525072907'))).then();
 
     let dbResponse = null; // Get DB response here.
     let expiresAt = dbResponse['Item']['expiresAt']; // Get Unix EPOCH expiresAt
