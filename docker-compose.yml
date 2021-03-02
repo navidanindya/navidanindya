@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  app:
+    container_name: navidanindya.info
+    image: node:lts
+    volumes:
+      - ./app:/var/www/app
+      - /var/www/app/node_modules
+    working_dir: "/var/www/app"
+    restart: unless-stopped
+    environment:
+      - HOST=0.0.0.0
+      - PORT=5001
+      - NODE_ENV=development
+    command: npm run dev
+    ports:
+      - 5000:5001
