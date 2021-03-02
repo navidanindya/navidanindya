@@ -1,7 +1,7 @@
 # navidanindya.info
 
-`Codebase` for my *website*.
+`Codebase` for my *website*. Carries my articles and projects.
 
-Made with **Vue.js**
+Made with **Nuxt.js**. It's an SSR application.
 
 Visit [here](https://navidanindya.info). :)
