@@ -32,4 +32,5 @@ I am just going to write some `<html>` here underneath to see how the design wor
 
 ### Conclusion?
 
-I'll be writing more stuff soon. Stay tuned.
+I have yet to finish the design and some other small features to add in this site.
+I'll also be writing more stuff soon.
