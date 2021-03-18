@@ -7,4 +7,6 @@ Used:
 * [TailwindCSS](https://tailwindcss.nuxtjs.org) - Tailwind v2.
 * [Nuxt Content](https://content.nuxtjs.org/) - For articles.
 
-Visit [here](https://navidanindya.info). :)
+I use `docker` and `docker-compose` during development.
+
+Visit [here](https://navidanindya.info). :smile:

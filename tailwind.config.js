@@ -1,6 +1,5 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
     fontFamily: {
       'serif': ['Roboto Slab'],
@@ -11,14 +10,39 @@ module.exports = {
         DEFAULT: {
           css: {
             color: theme('colors.gray.200'),
+            blockquote: {
+              color: theme('colors.yellow.200'),
+              borderLeftColor: theme('colors.yellow.600')
+            },
+            code: {
+              color: theme('colors.yellow.200'),
+            },
             h1: {
-              color: theme('colors.blue.300'),
+              color: theme('colors.yellow.600'),
+              fontWeight: '900',
+              fontFamily: theme('fontFamily.serif')
+            },
+            h2: {
+              color: theme('colors.yellow.600'),
+              fontWeight: '900',
+              fontFamily: theme('fontFamily.serif')
+            },
+            h3: {
+              color: theme('colors.yellow.600'),
+              fontWeight: '900',
+              fontFamily: theme('fontFamily.serif')
+            },
+            h4: {
+              color: theme('colors.yellow.600'),
               fontWeight: '900',
               fontFamily: theme('fontFamily.serif')
             },
             p: {
-              fontWeight: '300',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.mono')
+            },
+            strong: {
+              color: theme('colors.yellow.700'),
             }
           },
         },
