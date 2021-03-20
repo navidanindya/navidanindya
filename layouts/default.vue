@@ -18,13 +18,55 @@
         <main class="flex-1 px-1 py-5 prose prose-yellow prose-sm lg:prose-lg">
           <Nuxt />
         </main>
+        <!-- TODO: This breaks in smaller screens less than 320px. Has to fix the line break. -->
         <footer class="flex flex-none h-16">
-          <span class="flex m-auto items-center text-xs md:text-base">linkedin. github. gitlab. instagram. spotify.</span>
+          <span class="flex m-auto items-center text-xs md:text-base">
+            <a
+              v-for="link in links"
+              :key="link.name"
+              :href="link.link"
+              target="_blank"
+              rel="noreferrer noopener"
+              class="hover:text-yellow-600 hover:underline">
+              {{ link.name }}
+            </a>
+          </span>
         </footer>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      links: [
+        {
+          link: 'https://www.linkedin.com/in/navidanindya',
+          name: 'linkedin.'
+        },
+        {
+          link: 'https://github.com/nealtheguitarist',
+          name: 'github.'
+        },
+        {
+          link: 'https://gitlab.com/nealtheguitarist',
+          name: 'gitlab.'
+        },
+        {
+          link: 'https://www.instagram.com/navidanindyaneel',
+          name: 'instagram.'
+        },
+        {
+          link: 'https://open.spotify.com/user/nealtheguitarist',
+          name: 'spotify.'
+        }
+      ]
+    }
+  }
+}
+</script>
 
 <style lang="postcss" scoped>
 .bg {

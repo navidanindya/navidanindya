@@ -2,6 +2,12 @@
   "name": "navidanindya.info",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://github.com/nealtheguitarist/navidanindya.info",
+  "author": {
+    "name": "Navid Anindya",
+    "email": "navidanindya@gmail.com",
+    "url": "https://navidanindya.info"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",

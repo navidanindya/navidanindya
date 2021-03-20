@@ -52,15 +52,26 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     icon: {
-      source: './static/na.png'
+      source: './static/icon.png'
     },
     manifest: {
+      background_color: '#111827',
+      description: 'Personal site for Navid Anindya. I make and explore things. I also write about things sometimes.',
       lang: 'en'
+    },
+    meta: {
+      description: 'Personal site for Navid Anindya. I make and explore things. I also write about things sometimes.',
     }
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
-  content: {},
+  content: {
+    markdown: {
+      prism: {
+        theme: false
+      }
+    }
+  },
 
   // Tailwind CSS configuration
   tailwindcss: {
