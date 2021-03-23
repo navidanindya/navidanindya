@@ -1,5 +1,5 @@
 <template>
-  <div class="bg default-text box-border min-h-screen">
+  <div class="bg default-text box-border min-h-screen overflow-y-auto">
     <div class="max-w-2xl xl:max-w-3xl mx-auto px-2 md:px-4">
       <div class="flex flex-col min-h-screen">
         <header class="flex flex-none justify-between h-16">
@@ -27,7 +27,8 @@
               :href="link.link"
               target="_blank"
               rel="noreferrer noopener"
-              class="hover:text-yellow-600 hover:underline">
+              class="hover:text-yellow-600 hover:underline"
+            >
               {{ link.name }}
             </a>
           </span>

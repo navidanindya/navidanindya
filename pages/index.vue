@@ -1,15 +1,18 @@
 <template>
   <div>
     <h1>Hello, world!</h1>
-    <blockquote>Of course that's the OG way to say hello to the internet.</blockquote>
-    <p>I make and explore things.</p>
+    <p>I'm <strong>Navid Anindya.</strong> I make and explore things.</p>
+    <!-- <blockquote>Of course that's the OG way to say hello to the internet.</blockquote> -->
     <p>You can check out some stuff here:</p>
     <ul>
       <li v-for="link in links" :key="link.name">
-        <NuxtLink :to="link.link">{{ link.name }}</NuxtLink>
+        <NuxtLink :to="link.link">
+          {{ link.name }}
+        </NuxtLink>
       </li>
     </ul>
-    <p>Hope you have a good day, fellow internet stranger!</p>
+    <p>My social links are down below.</p>
+    <p>Have a good day, fellow internet stranger!</p>
   </div>
 </template>
 

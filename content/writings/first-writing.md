@@ -24,7 +24,6 @@ if (!loggedIn) {
 console.assert(loggedIn, "Not logged in");
 ```
 
-
 ### Conclusion?
 
 I have yet to finish the design and some other small features to add in this site.
