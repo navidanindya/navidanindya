@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h1>Hello, world!</h1>
-    <p>Stuff that I wrote:</p>
-    <ul>
+    <h1>Stuff that I wrote</h1>
+    <ul class="text-base">
       <li v-for="writing of writings" :key="writing.slug">
         <NuxtLink :to="{ name: 'writing-slug', params: { slug: writing.slug } }">
-          {{ writing.title }}
+          {{ writing.title }} - {{ formatDate(writing.createdAt) }}
         </NuxtLink>
       </li>
     </ul>
@@ -31,11 +30,17 @@ export default {
   },
   async asyncData ({ $content, params }) {
     const writings = await $content('writings')
-      .only(['title', 'description', 'img', 'slug', 'author'])
+      .only(['title', 'description', 'slug', 'createdAt'])
       .sortBy('createdAt', 'desc')
       .fetch()
 
     return { writings }
+  },
+  methods: {
+    formatDate (date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' }
+      return new Date(date).toLocaleDateString('en', options)
+    }
   }
 }
 </script>

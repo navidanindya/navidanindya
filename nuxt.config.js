@@ -89,6 +89,7 @@ export default {
     families: {
       'Roboto+Slab': [900],
       'Roboto+Mono': {
+        wght: [400],
         ital: [600]
       },
     }

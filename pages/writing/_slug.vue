@@ -3,13 +3,15 @@
     <h1>
       {{ writing.title }}
     </h1>
-    <p class="lead">
+    <div class="text-base italic">
       {{ writing.description }}
-    </p>
-    <p class="text-sm">
-      First wrote: <strong>{{ formatDate(writing.createdAt) }}</strong> |
-      Last updated: <strong>{{ formatDate(writing.updatedAt) }}</strong>
-    </p>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+      <p class="text-sm text-yellow-200">
+        {{ minuteRead(writing.text) }} min read /
+        {{ formatDate(writing.createdAt) }}
+      </p>
+    </div>
     <nuxt-content :document="writing" />
   </article>
 </template>
@@ -17,8 +19,13 @@
 <script>
 export default {
   async asyncData ({ $content, params }) {
-    const writing = await $content('writings', params.slug).fetch()
+    const writing = await $content('writings', params.slug, { text: true }).fetch()
     return { writing }
+  },
+  data () {
+    return {
+      currrentUrl: this.$route.fullPath
+    }
   },
   head () {
     return {
@@ -41,6 +48,14 @@ export default {
     formatDate (date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' }
       return new Date(date).toLocaleDateString('en', options)
+    },
+    minuteRead (words) {
+      const wordsPerMinute = 190
+      const wordCountRegex = /\w+/g
+      const filteredWords = words.replace(wordCountRegex, '')
+      const wordCount = filteredWords.split(' ').length
+      const time = wordCount / wordsPerMinute
+      return (time < 0.5) ? 'less than a' : `${Math.ceil(time)}`
     }
   }
 }

@@ -1,16 +1,17 @@
 ---
 title: First writing!
 description: 'First writing on the internet by Navid Anindya. Also a small LPT for JavaScript coders on writing `console` statements.'
+createdAt: March 18, 2021
 ---
 
 ### Intro
 
 I finally started this. I finally designed something to start writing.
 
-It's crazy how **procrastination** can get you into a place where you keep snoozing something.
+It's crazy how _procrastination_ can get you into a place where you keep snoozing something.
 
 I am just going to write some `javascript` here underneath to see how the design works out,
-with a very simple **LPT (life pro tip)** that I think most coders who write `javascript` will like.
+with a very simple _LPT (life pro tip)_ that I think most coders who write `javascript` will like.
 
 ### The `console.assert` LPT
 

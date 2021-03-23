@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-base">
     <h1>About Me</h1>
     <p>Name's <strong>Navid Anindya</strong>.</p>
     <p>A human who likes to read and learn things continuously and try to look at things with a little more enthusiasm.</p>
