@@ -15,6 +15,20 @@
 
 <script>
 export default {
+  head () {
+    return {
+      title: 'About Navid Anindya',
+      meta: [
+        { hid: 'description', name: 'description', content: 'About Navid Anindya' },
+        // Open Graph
+        { hid: 'og:title', property: 'og:title', content: 'About Navid Anindya' },
+        { hid: 'og:description', property: 'og:description', content: 'About Navid Anindya' },
+        // Twitter Card
+        { hid: 'twitter:title', name: 'twitter:title', content: 'About Navid Anindya' },
+        { hid: 'twitter:description', name: 'twitter:description', content: 'About Navid Anindya' }
+      ]
+    }
+  },
   data () {
     return {
       links: [

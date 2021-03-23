@@ -4,14 +4,19 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Navid Anindya || I make and explore things.',
+    title: 'Navid Anindya',
+    titleTemplate: '%s | I make and explore things.',
+    htmlAttrs: {
+      lang: 'en'
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: 'Personal site for Navid Anindya. I make and explore things. I also write about things sometimes.' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { hid: "canonical", rel: "canonical", href: "https://navidanindya.info", },
     ]
   },
 
@@ -80,7 +85,7 @@ export default {
 
   // Google Web fonts
   googleFonts: {
-    display: 'swap',
+    display: 'auto',
     families: {
       'Roboto+Slab': [900],
       'Roboto+Mono': {

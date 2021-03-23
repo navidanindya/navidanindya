@@ -22,7 +22,7 @@ export default {
   },
   head () {
     return {
-      title: this.writing.title,
+      title: this.writing.title + ' - Navid Anindya',
       meta: [
         { hid: 'description', name: 'description', content: this.writing.description },
         // Open Graph
@@ -31,6 +31,9 @@ export default {
         // Twitter Card
         { hid: 'twitter:title', name: 'twitter:title', content: this.writing.title },
         { hid: 'twitter:description', name: 'twitter:description', content: this.writing.description }
+      ],
+      link: [
+        { hid: 'canonical', rel: 'canonical', href: `https://navidanindya.info/writing/${this.$route.params.slug}` }
       ]
     }
   },

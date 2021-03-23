@@ -2,8 +2,8 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      'serif': ['Roboto Slab'],
-      'mono': ['Roboto Mono']
+      'serif': ['"Roboto Slab"'],
+      'mono': ['"Roboto Mono"']
     },
     extend: {
       typography: (theme) => ({
