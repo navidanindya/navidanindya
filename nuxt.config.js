@@ -4,14 +4,19 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Navid Anindya || I make and explore things.',
+    title: 'Navid Anindya',
+    titleTemplate: '%s | I make and explore things.',
+    htmlAttrs: {
+      lang: 'en'
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: 'Personal site for Navid Anindya. I make and explore things. I also write about things sometimes.' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { hid: "canonical", rel: "canonical", href: "https://navidanindya.info", },
     ]
   },
 
@@ -31,7 +36,9 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    // https://google-fonts.nuxtjs.org/
+    '@nuxtjs/google-fonts'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -42,8 +49,6 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    // https://google-fonts.nuxtjs.org/
-    '@nuxtjs/google-fonts'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -68,7 +73,7 @@ export default {
   content: {
     markdown: {
       prism: {
-        theme: false
+        theme: 'prism-themes/themes/prism-nord.css'
       }
     }
   },
@@ -80,10 +85,11 @@ export default {
 
   // Google Web fonts
   googleFonts: {
-    display: 'swap',
+    display: 'auto',
     families: {
       'Roboto+Slab': [900],
       'Roboto+Mono': {
+        wght: [400],
         ital: [600]
       },
     }

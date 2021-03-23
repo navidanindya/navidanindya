@@ -9,4 +9,6 @@ Used:
 
 I use `docker` and `docker-compose` during development.
 
+Deployed to: ![Netlify Status](https://api.netlify.com/api/v1/badges/4ba8c74b-1eeb-4698-870d-5f059272b140/deploy-status)
+
 Visit [here](https://navidanindya.info). :smile:
