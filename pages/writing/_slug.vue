@@ -35,6 +35,8 @@ export default {
         // Open Graph
         { hid: 'og:title', property: 'og:title', content: this.writing.title },
         { hid: 'og:description', property: 'og:description', content: this.writing.description },
+        { hid: 'og:type', property: 'og:type', content: 'article' },
+        { hid: 'og:article:published_time', property: 'og:article:published_time', content: this.toISODate(this.writing.createdAt) },
         // Twitter Card
         { hid: 'twitter:title', name: 'twitter:title', content: this.writing.title },
         { hid: 'twitter:description', name: 'twitter:description', content: this.writing.description }
@@ -48,6 +50,9 @@ export default {
     formatDate (date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' }
       return new Date(date).toLocaleDateString('en', options)
+    },
+    toISODate (date) {
+      return new Date(date).toISOString().substring(0, 10)
     },
     minuteRead (words) {
       const wordsPerMinute = 190
