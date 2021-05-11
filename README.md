@@ -2,11 +2,6 @@
 
 Good day to you kind internet stranger! This is Navid Anindya. A guy who likes making simple stuff.
 
-📘 Check out my writings:
-
-<!-- BLOG-POST-LIST:START -->
-<!-- BLOG-POST-LIST:END -->
-
 ---
 
 This repository also contains source code to my website.
