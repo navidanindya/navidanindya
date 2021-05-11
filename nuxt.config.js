@@ -51,7 +51,7 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
     // https://firebase.nuxtjs.org/
-    '@nuxtjs/firebase'
+    // '@nuxtjs/firebase'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
