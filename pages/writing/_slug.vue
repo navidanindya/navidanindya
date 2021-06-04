@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="text-justify">
     <h1>
       {{ writing.title }}
     </h1>

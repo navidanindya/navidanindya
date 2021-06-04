@@ -81,11 +81,6 @@ export default {
     }
   },
 
-  // Tailwind CSS configuration
-  tailwindcss: {
-    jit: true
-  },
-
   // Google Web fonts
   googleFonts: {
     display: 'auto',
