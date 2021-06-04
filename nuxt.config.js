@@ -97,14 +97,22 @@ export default {
         const { $content } = require('@nuxt/content')
         const writings = await $content('writings').fetch()
 
-        writings.forEach((post) => {
-          const url = `https://navidanindya.info/writing/${post.slug}`
+        writings.forEach((writing) => {
+          const url = `https://navidanindya.info/writing/${writing.slug}`
           feed.addItem({
-            title: post.title,
+            title: writing.title,
             id: url,
             link: url,
-            description: post.blurb,
-            content: post.bodyText,
+            description: writing.blurb,
+            content: writing.bodyText,
+            date: new Date(writing.createdAt),
+            author: [
+              {
+                name: "Navid Anindya",
+                email: "navidanindya@gmail.com",
+                link: "https://navidanindya.info"
+              }
+            ]
           })
         })
       },
