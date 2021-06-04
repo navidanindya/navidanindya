@@ -50,6 +50,8 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    '@nuxtjs/feed',
+    '@nuxtjs/markdownit',
     // https://firebase.nuxtjs.org/
     // '@nuxtjs/firebase'
   ],
@@ -81,9 +83,45 @@ export default {
     }
   },
 
-  // Tailwind CSS configuration
-  tailwindcss: {
-    jit: true
+  feed: [
+    {
+      path: '/feed.xml',
+      async create(feed) {
+        feed.options = {
+          title: 'Navid Anindya',
+          description: 'Personal site for Navid Anindya. I make and explore things. I also write about things sometimes.',
+          link: 'https://navidanindya.info/feed.xml',
+        }
+
+        // eslint-disable-next-line global-require
+        const { $content } = require('@nuxt/content')
+        const writings = await $content('writings').fetch()
+
+        writings.forEach((post) => {
+          const url = `https://navidanindya.info/writing/${post.slug}`
+          feed.addItem({
+            title: post.title,
+            id: url,
+            link: url,
+            description: post.blurb,
+            content: post.bodyText,
+          })
+        })
+      },
+      cacheTime: 1000 * 60 * 15,
+      type: 'rss2',
+    },
+  ],
+
+  hooks: {
+    'content:file:beforeInsert': (document) => {
+      // eslint-disable-next-line
+      const md = require('markdown-it')()
+      if (document.extension === '.md') {
+        const mdToHtml = md.render(document.text)
+        document.bodyText = mdToHtml
+      }
+    },
   },
 
   // Google Web fonts
@@ -96,6 +134,12 @@ export default {
         ital: [600]
       },
     }
+  },
+
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
   },
 
   // Firebase Cloud Firestore

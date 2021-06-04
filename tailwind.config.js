@@ -1,5 +1,6 @@
 module.exports = {
   darkMode: false,
+  purge: [],
   theme: {
     fontFamily: {
       'serif': ['"Roboto Slab"'],

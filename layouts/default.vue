@@ -15,7 +15,7 @@
             </span>
           </div>
         </header>
-        <main class="flex-1 px-1 pt-10 pb-5 prose prose-yellow prose-sm lg:prose-lg">
+        <main class="flex-1 px-1 pt-10 pb-5 prose prose-yellow prose-sm lg:prose-lg xl:prose-xl">
           <Nuxt />
         </main>
         <div class="flexed-line justify-center">
@@ -42,13 +42,13 @@
           </div>
         </div>
         <footer class="flexed-line justify-around mb-5 mt-3">
-          <ul class="text-xs md:text-base list-none text-center">
-            <li v-for="link in links" :key="link.name" class="inline">
+          <ul class="flex text-xs md:text-base list-none text-center">
+            <li v-for="link in links" :key="link.name">
               <a
                 :href="link.link"
                 target="_blank"
                 rel="noreferrer noopener"
-                class="hover:text-yellow-600 hover:underline"
+                class="hover:text-yellow-600"
               >
                 {{ link.name }}
               </a>
@@ -99,6 +99,6 @@ export default {
   @apply antialiased text-gray-300 font-mono;
 }
 .flexed-line {
-  @apply flex flex-row w-full flex flex-row w-full;
+  @apply flex flex-row w-full;
 }
 </style>

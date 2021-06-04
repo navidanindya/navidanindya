@@ -4,6 +4,13 @@ Good day to you kind internet stranger! This is Navid Anindya. A guy who likes m
 
 ---
 
+## Writings
+
+<!-- BLOG-POST-LIST:START -->
+<!-- BLOG-POST-LIST:END -->
+
+---
+
 This repository also contains source code to my website.
 
 Used:
