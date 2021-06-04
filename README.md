@@ -22,4 +22,5 @@ Go to my site [here](https://navidanindya.info). :smile:
 ## Some stuff I wrote:
 
 <!-- BLOG-POST-LIST:START -->
+- [First writing!](https://navidanindya.info/writing/first-writing)
 <!-- BLOG-POST-LIST:END -->
