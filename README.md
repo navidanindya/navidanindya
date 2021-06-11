@@ -13,7 +13,7 @@ Used:
 
 I used `docker` and `docker-compose` during development.
 
-Deployed to: ![Cloudflare Pages](https://pages.cloudflare.com/).
+Deployed to: [Cloudflare Pages](https://pages.cloudflare.com/).
 
 Go to my site [here](https://navidanindya.info). :smile:
 
