@@ -152,6 +152,11 @@ export default {
     breaks: true,
   },
 
+  sitemap: {
+    hostname: 'https://navidanindya.info',
+    gzip: true,
+  },
+
   // Firebase Cloud Firestore
   // firebase: {
   //   config: {
