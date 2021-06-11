@@ -54,6 +54,8 @@ export default {
     '@nuxtjs/markdownit',
     // https://firebase.nuxtjs.org/
     // '@nuxtjs/firebase'
+    // https://sitemap.nuxtjs.org
+    '@nuxtjs/sitemap'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
