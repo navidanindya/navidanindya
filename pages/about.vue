@@ -1,13 +1,13 @@
 <template>
   <div class="text-base">
     <h1>About Me</h1>
-    <p>Name's <strong>Navid Anindya</strong>.</p>
+    <p>Name's <strong>Navid Anindya</strong>. Some people call me <strong>Neel</strong>.</p>
     <p>A human who likes to read and learn things continuously and try to look at things with a little more enthusiasm.</p>
-    <p>
+    <blockquote>
       I am a <strong>director</strong> and <strong>co-owner</strong> of
       <a href="https://sayburgh.com" target="_blank" rel="noreferrer noopener">Sayburgh Solutions</a>.
       I also work as a <strong>CTO</strong> for our company. I have been doing this since 2018.
-    </p>
+    </blockquote>
     <p>
       I currently maintain a team of devs and oversee devops tasks in our company.
     </p>
@@ -16,6 +16,10 @@
       I also make music in this little band called
       <a href="https://www.facebook.com/sevenminutes" target="_blank" rel="noreferrer noopener">Seven Minutes</a>.
     </p>
+    <blockquote>
+      I write stuff about coding, music, my philosophies and small lyrics and thoughts here; as a journal for myself and
+      knowledgebase (!) for people who stumble upon them.
+    </blockquote>
     <p>I like to read and explore random things on the internet and love thinking about life, science and philosophy.</p>
     <h3>Philosophies that intrigue me:</h3>
     <ul>
