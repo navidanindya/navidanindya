@@ -94,8 +94,6 @@ export default {
           description: 'Personal site for Navid Anindya. I make and explore things. I also write about things sometimes.',
           link: 'https://navidanindya.info/feed.xml',
         }
-
-        // eslint-disable-next-line global-require
         const { $content } = require('@nuxt/content')
         const writings = await $content('writings').fetch()
 
@@ -155,6 +153,12 @@ export default {
   sitemap: {
     hostname: 'https://navidanindya.info',
     gzip: true,
+    routes: async () => {
+      const { $content } = require("@nuxt/content");
+      const files = await $content({ deep: true }).only(["path"]).fetch();
+
+      return files.map((file) => (file.path === "/index" ? "/" : file.path));
+    }
   },
 
   // Firebase Cloud Firestore
