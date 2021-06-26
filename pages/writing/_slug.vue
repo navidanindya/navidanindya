@@ -12,7 +12,7 @@
         {{ formatDate(writing.createdAt) }}
       </p>
       <p class="text-sm text-yellow-100 flex">
-        {{ viewCount }} view(s)
+        {{ viewCount || '---' }} view(s)
       </p>
     </section>
     <nuxt-content :document="writing" />
@@ -51,6 +51,9 @@ export default {
       ]
     }
   },
+  created () {
+    this.incrementCounter()
+  },
   mounted () {
     this.viewCounter()
   },
@@ -70,19 +73,27 @@ export default {
       const time = wordCount / wordsPerMinute
       return (time < 0.5) ? 'less than a' : `${Math.ceil(time)}`
     },
-    async viewCounter () {
-      const messageRef = this.$fire.firestore.collection('views').doc(this.writingSlug)
+    viewCounter () {
+      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
       try {
-        const snapshot = await messageRef.get()
+        dbCol.onSnapshot((doc) => {
+          this.viewCount = doc.data().count
+        })
+      } catch (e) {
+        this.viewCount = 0
+      }
+    },
+    async incrementCounter () {
+      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
+      try {
+        const snapshot = await dbCol.get()
         const doc = snapshot.data()
         if (!doc) {
-          await messageRef.set({ count: 1 })
-        } else {
-          await messageRef.update({ count: this.$fireModule.firestore.FieldValue.increment(1) })
+          dbCol.set({ count: 1 })
         }
-        this.viewCount = doc.count
+        dbCol.update({ count: this.$fireModule.firestore.FieldValue.increment(1) })
       } catch (e) {
-        console.log(e, 'Fetch failed.')
+        this.viewCount = 0
       }
     }
   }
