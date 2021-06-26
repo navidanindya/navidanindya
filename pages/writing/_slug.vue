@@ -1,17 +1,20 @@
 <template>
-  <article class="text-justify">
+  <article class="xs:text-justify">
     <h1>
       {{ writing.title }}
     </h1>
     <div class="text-base italic">
       {{ writing.description }}
     </div>
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-      <p class="text-sm text-yellow-200">
+    <section class="flex xs:flex-row flex-col justify-between items-start md:items-center">
+      <p class="text-sm text-yellow-200 flex">
         {{ minuteRead(writing.text) }} min read /
         {{ formatDate(writing.createdAt) }}
       </p>
-    </div>
+      <p class="text-sm text-yellow-100 flex">
+        {{ viewCount }} view(s)
+      </p>
+    </section>
     <nuxt-content :document="writing" />
   </article>
 </template>
@@ -24,7 +27,9 @@ export default {
   },
   data () {
     return {
-      currrentUrl: this.$route.fullPath
+      writingSlug: this.$route.params.slug,
+      currrentUrl: this.$route.fullPath,
+      viewCount: 0
     }
   },
   head () {
@@ -42,9 +47,12 @@ export default {
         { hid: 'twitter:description', name: 'twitter:description', content: this.writing.description }
       ],
       link: [
-        { hid: 'canonical', rel: 'canonical', href: `https://navidanindya.info/writing/${this.$route.params.slug}` }
+        { hid: 'canonical', rel: 'canonical', href: `https://navidanindya.info/writing/${this.writingSlug}` }
       ]
     }
+  },
+  mounted () {
+    this.viewCounter()
   },
   methods: {
     formatDate (date) {
@@ -61,6 +69,21 @@ export default {
       const wordCount = filteredWords.split(' ').length
       const time = wordCount / wordsPerMinute
       return (time < 0.5) ? 'less than a' : `${Math.ceil(time)}`
+    },
+    async viewCounter () {
+      const messageRef = this.$fire.firestore.collection('views').doc(this.writingSlug)
+      try {
+        const snapshot = await messageRef.get()
+        const doc = snapshot.data()
+        if (!doc) {
+          await messageRef.set({ count: 1 })
+        } else {
+          await messageRef.update({ count: this.$fireModule.firestore.FieldValue.increment(1) })
+        }
+        this.viewCount = doc.count
+      } catch (e) {
+        console.log(e, 'Fetch failed.')
+      }
     }
   }
 }

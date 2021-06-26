@@ -7,6 +7,9 @@ module.exports = {
       'mono': ['"Roboto Mono"']
     },
     extend: {
+      screens: {
+        'xs': '560px',
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
