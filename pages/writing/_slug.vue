@@ -1,12 +1,12 @@
 <template>
-  <article class="xs:text-justify">
+  <article>
     <h1>
       {{ writing.title }}
     </h1>
-    <div class="text-base italic">
+    <div class="text-base italic xs:text-justify">
       {{ writing.description }}
     </div>
-    <section class="flex xs:flex-row flex-col justify-between items-start md:items-center">
+    <section class="flex xs:flex-row flex-col justify-between items-start md:items-center xs:text-justify">
       <p class="text-sm text-yellow-200 flex">
         {{ minuteRead(writing.text) }} min read /
         {{ formatDate(writing.createdAt) }}
@@ -15,7 +15,7 @@
         {{ viewCount || '---' }} view(s)
       </p>
     </section>
-    <nuxt-content :document="writing" />
+    <nuxt-content class="xs:text-justify" :document="writing" />
   </article>
 </template>
 

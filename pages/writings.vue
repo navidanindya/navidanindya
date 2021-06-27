@@ -1,16 +1,7 @@
 <template>
   <div>
     <h1>Stuff that I wrote</h1>
-    <ul class="text-base text-justify">
-      <li v-for="writing of writings" :key="writing.slug">
-        <NuxtLink :to="{ name: 'writing-slug', params: { slug: writing.slug } }">
-          {{ writing.title }}
-        </NuxtLink>
-        <p class="text-sm text-gray-200 italic">
-          {{ writing.description }}
-        </p>
-      </li>
-    </ul>
+    <list-writings :writings="writings" />
   </div>
 </template>
 
@@ -21,7 +12,6 @@ export default {
       .only(['title', 'description', 'slug', 'createdAt'])
       .sortBy('createdAt', 'desc')
       .fetch()
-
     return { writings }
   },
   head () {

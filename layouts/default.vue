@@ -1,6 +1,6 @@
 <template>
   <div class="bg default-text box-border min-h-screen">
-    <div class="max-w-2xl xl:max-w-3xl mx-auto px-3 md:px-5">
+    <div class="max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto px-3 md:px-5">
       <div class="flex flex-col min-h-screen">
         <header class="flex flex-none justify-between h-16">
           <span class="flex items-center hover:text-yellow-600">
