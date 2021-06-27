@@ -1,18 +1,21 @@
 <template>
-  <article class="text-justify">
+  <article>
     <h1>
       {{ writing.title }}
     </h1>
-    <div class="text-base italic">
+    <div class="text-base italic xs:text-justify">
       {{ writing.description }}
     </div>
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-      <p class="text-sm text-yellow-200">
+    <section class="flex xs:flex-row flex-col justify-between items-start md:items-center xs:text-justify">
+      <p class="text-sm text-yellow-200 flex">
         {{ minuteRead(writing.text) }} min read /
         {{ formatDate(writing.createdAt) }}
       </p>
-    </div>
-    <nuxt-content :document="writing" />
+      <p class="text-sm text-yellow-100 flex">
+        {{ viewCount || '---' }} view(s)
+      </p>
+    </section>
+    <nuxt-content class="xs:text-justify" :document="writing" />
   </article>
 </template>
 
@@ -24,7 +27,9 @@ export default {
   },
   data () {
     return {
-      currrentUrl: this.$route.fullPath
+      writingSlug: this.$route.params.slug,
+      currrentUrl: this.$route.fullPath,
+      viewCount: 0
     }
   },
   head () {
@@ -42,9 +47,15 @@ export default {
         { hid: 'twitter:description', name: 'twitter:description', content: this.writing.description }
       ],
       link: [
-        { hid: 'canonical', rel: 'canonical', href: `https://navidanindya.info/writing/${this.$route.params.slug}` }
+        { hid: 'canonical', rel: 'canonical', href: `https://navidanindya.info/writing/${this.writingSlug}` }
       ]
     }
+  },
+  created () {
+    this.incrementCounter()
+  },
+  mounted () {
+    this.viewCounter()
   },
   methods: {
     formatDate (date) {
@@ -61,6 +72,29 @@ export default {
       const wordCount = filteredWords.split(' ').length
       const time = wordCount / wordsPerMinute
       return (time < 0.5) ? 'less than a' : `${Math.ceil(time)}`
+    },
+    viewCounter () {
+      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
+      try {
+        dbCol.onSnapshot((doc) => {
+          this.viewCount = doc.data().count
+        })
+      } catch (e) {
+        this.viewCount = 0
+      }
+    },
+    async incrementCounter () {
+      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
+      try {
+        const snapshot = await dbCol.get()
+        const doc = snapshot.data()
+        if (!doc) {
+          dbCol.set({ count: 1 })
+        }
+        dbCol.update({ count: this.$fireModule.firestore.FieldValue.increment(1) })
+      } catch (e) {
+        this.viewCount = 0
+      }
     }
   }
 }

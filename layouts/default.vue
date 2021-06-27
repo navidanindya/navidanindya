@@ -1,6 +1,6 @@
 <template>
   <div class="bg default-text box-border min-h-screen">
-    <div class="max-w-2xl xl:max-w-3xl mx-auto px-3 md:px-5">
+    <div class="max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto px-3 md:px-5">
       <div class="flex flex-col min-h-screen">
         <header class="flex flex-none justify-between h-16">
           <span class="flex items-center hover:text-yellow-600">
@@ -15,10 +15,10 @@
             </span>
           </div>
         </header>
-        <main class="flex-1 px-1 pt-10 pb-5 prose prose-yellow prose-sm lg:prose-lg xl:prose-xl">
+        <main class="flex-1 px-1 pt-10 pb-5 prose prose-yellow prose lg:prose-lg xl:prose-xl">
           <Nuxt />
         </main>
-        <div class="flexed-line justify-center">
+        <section class="flexed-line justify-center mt-5">
           <div class="flex">
             <svg class="h-4 w-4 mx-auto mt-1" viewBox="0 0 168 168">
               <path
@@ -34,13 +34,13 @@
                   5.91 2.15 8.976v-.001zm.88-23.744c-26.99-16.031-71.52-17.505-97.289-9.684-4.138
                   1.255-8.514-1.081-9.768-5.219a7.835 7.835 0 015.221-9.771c29.581-8.98 78.756-7.245
                   109.83 11.202a7.823 7.823 0 012.74 10.733c-2.2 3.722-7.02 4.949-10.73 2.739z"
-              ></path>
+              />
             </svg>
           </div>
           <div class="flex items-center text-yellow-600 text-xs ml-2 truncate">
             <span>Not playing anything right now.</span>
           </div>
-        </div>
+        </section>
         <footer class="flexed-line justify-around mb-5 mt-3">
           <ul class="flex text-xs md:text-base list-none text-center">
             <li v-for="link in links" :key="link.name">
