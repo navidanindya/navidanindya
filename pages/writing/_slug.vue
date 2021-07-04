@@ -29,7 +29,8 @@ export default {
     return {
       writingSlug: this.$route.params.slug,
       currrentUrl: this.$route.fullPath,
-      viewCount: 0
+      viewCount: 0,
+      unsub: undefined
     }
   },
   head () {
@@ -52,10 +53,10 @@ export default {
     }
   },
   created () {
-    this.incrementCounter()
-  },
-  mounted () {
     this.viewCounter()
+  },
+  beforeDestroy () {
+    this.unsub()
   },
   methods: {
     formatDate (date) {
@@ -76,24 +77,14 @@ export default {
     viewCounter () {
       const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
       try {
-        dbCol.onSnapshot((doc) => {
+        // Increment first
+        dbCol.set({ count: this.$fireModule.firestore.FieldValue.increment(1) }, { merge: true })
+
+        // Subscribe to snapshot
+        this.unsub = dbCol.onSnapshot((doc) => {
           this.viewCount = doc.data().count
         })
       } catch (e) {
-        this.viewCount = 0
-      }
-    },
-    async incrementCounter () {
-      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
-      try {
-        const snapshot = await dbCol.get()
-        const doc = snapshot.data()
-        if (!doc) {
-          dbCol.set({ count: 1 })
-        }
-        dbCol.update({ count: this.$fireModule.firestore.FieldValue.increment(1) })
-      } catch (e) {
-        this.viewCount = 0
       }
     }
   }
