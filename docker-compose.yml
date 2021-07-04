@@ -14,5 +14,13 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=5001
+      - VIRTUAL_HOST=navidanindya.localhost
+    expose:
+      - "5001"
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
     ports:
-      - 5000:5001
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
