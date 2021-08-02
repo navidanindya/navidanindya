@@ -1,6 +1,6 @@
 ---
-title: Production-ready DOCKERFILE guide for SPAs (Single Page Applications)
-description: 'A guide to basics and procedures one can follow to create and deploy a container carrying an SPA built with almost any libraries.'
+title: Production-ready DOCKERFILE guide for SPAs
+description: 'A guide to basics and procedures one can follow to create and deploy a Docker container carrying an SPA (Single Page Application) built with almost any libraries.'
 createdAt: August 03, 2021
 ---
 
