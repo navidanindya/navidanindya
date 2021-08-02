@@ -3,8 +3,8 @@ module.exports = {
   purge: [],
   theme: {
     fontFamily: {
-      'serif': ['"Roboto Slab"'],
-      'mono': ['"Roboto Mono"']
+      'mono': ['"JetBrains Mono"'],
+      'display': ['"Major Mono Display"']
     },
     extend: {
       screens: {
@@ -24,22 +24,22 @@ module.exports = {
             h1: {
               color: theme('colors.yellow.600'),
               fontWeight: '900',
-              fontFamily: theme('fontFamily.serif')
+              fontFamily: theme('fontFamily.display')
             },
             h2: {
               color: theme('colors.yellow.600'),
               fontWeight: '900',
-              fontFamily: theme('fontFamily.serif')
+              fontFamily: theme('fontFamily.display')
             },
             h3: {
               color: theme('colors.yellow.600'),
               fontWeight: '900',
-              fontFamily: theme('fontFamily.serif')
+              fontFamily: theme('fontFamily.display')
             },
             h4: {
               color: theme('colors.yellow.600'),
               fontWeight: '900',
-              fontFamily: theme('fontFamily.serif')
+              fontFamily: theme('fontFamily.display')
             },
             p: {
               fontWeight: '400',

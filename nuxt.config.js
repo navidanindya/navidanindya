@@ -136,8 +136,8 @@ export default {
   googleFonts: {
     display: 'auto',
     families: {
-      'Roboto+Slab': [900],
-      'Roboto+Mono': {
+      'Major+Mono+Display': [400],
+      'JetBrains+Mono': {
         wght: [400],
         ital: [600]
       },
