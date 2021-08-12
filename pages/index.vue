@@ -2,7 +2,11 @@
   <div class="xs:text-justify">
     <section>
       <h1>Hello, world!</h1>
-      <p>I'm <strong>Navid Anindya.</strong> I make and explore things. You can check out some stuff here:</p>
+      <p class="text-base">
+        I'm <strong>Navid Anindya.</strong> I make and explore things. I code, do music, roam around
+        and think and talk about philosophical and existential stuff about life.
+      </p>
+      <p class="text-sm">You can check out some stuff here:</p>
       <ul class="text-base">
         <li v-for="link in links" :key="link.name">
           <NuxtLink :to="link.link">
@@ -18,7 +22,7 @@
       <h3>My latest writing</h3>
       <list-writings :writings="latest" />
     </section>
-    <h5>
+    <h5 class="text-base mt-10">
       Have a good day, fellow internet stranger! &#128075;
     </h5>
   </div>
@@ -39,11 +43,11 @@ export default {
       links: [
         {
           link: '/about',
-          name: 'About myself'
+          name: 'Details about myself'
         },
         {
           link: '/writings',
-          name: 'Writings'
+          name: 'Writings I wrote'
         }
       ]
     }

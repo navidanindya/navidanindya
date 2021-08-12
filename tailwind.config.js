@@ -1,6 +1,5 @@
 module.exports = {
   darkMode: false,
-  purge: [],
   theme: {
     fontFamily: {
       'mono': ['"JetBrains Mono"'],
