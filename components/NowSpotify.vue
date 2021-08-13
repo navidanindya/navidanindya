@@ -19,13 +19,26 @@
       </svg>
     </div>
     <div class="flex items-center text-yellow-600 text-xs ml-2 truncate">
-      <span>Not playing anything right now.</span>
+      <span v-if="$fetchState.pending">Fetching from Spotify...</span>
+      <span v-else>{{ currentTrackStr }}</span>
     </div>
   </section>
 </template>
 
 <script>
+import { getNowPlaying } from '../plugins/spotify'
 export default {
-
+  data () {
+    return {
+      currentTrackStr: 'Nothing playing right now.'
+    }
+  },
+  async fetch () {
+    const response = await getNowPlaying()
+    if (response.status === 200) {
+      const { item, is_playing: np } = await response.json()
+      this.currentTrackStr = `${np ? 'Now playing:' : 'Last played:'} ${item.name} by ${item.artists[0].name}.`
+    }
+  }
 }
 </script>

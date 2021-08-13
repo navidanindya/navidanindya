@@ -16,7 +16,7 @@
           </div>
         </header>
         <main class="flex-1 px-1 pt-10 pb-5 prose prose-yellow prose lg:prose-lg xl:prose-xl">
-          <Nuxt />
+          <Nuxt keep-alive />
         </main>
         <now-spotify />
         <footer class="flexed-line justify-around mb-5 mt-3">
