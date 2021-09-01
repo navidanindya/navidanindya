@@ -33,6 +33,19 @@ export default {
       unsub: undefined
     }
   },
+  fetch () {
+    try {
+      // Query.
+      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
+      // Increment first
+      dbCol.set({ count: this.$fireModule.firestore.FieldValue.increment(1) }, { merge: true })
+      // Subscribe to snapshot
+      this.unsub = dbCol.onSnapshot((doc) => {
+        this.viewCount = doc.data().count
+      })
+    } catch (e) {
+    }
+  },
   head () {
     return {
       title: this.writing.title + ' - Navid Anindya',
@@ -52,9 +65,6 @@ export default {
       ]
     }
   },
-  created () {
-    this.viewCounter()
-  },
   beforeDestroy () {
     this.unsub()
   },
@@ -67,25 +77,12 @@ export default {
       return new Date(date).toISOString().substring(0, 10)
     },
     minuteRead (words) {
-      const wordsPerMinute = 190
+      const wordsPerMinute = 150
       const wordCountRegex = /\w+/g
       const filteredWords = words.replace(wordCountRegex, '')
       const wordCount = filteredWords.split(' ').length
       const time = wordCount / wordsPerMinute
-      return (time < 0.5) ? 'less than a' : `${Math.ceil(time)}`
-    },
-    viewCounter () {
-      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
-      try {
-        // Increment first
-        dbCol.set({ count: this.$fireModule.firestore.FieldValue.increment(1) }, { merge: true })
-
-        // Subscribe to snapshot
-        this.unsub = dbCol.onSnapshot((doc) => {
-          this.viewCount = doc.data().count
-        })
-      } catch (e) {
-      }
+      return (time < 0.9) ? 'less than a' : `${Math.ceil(time)}`
     }
   }
 }
