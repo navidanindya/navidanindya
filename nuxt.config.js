@@ -56,7 +56,18 @@ export default {
     // https://firebase.nuxtjs.org/
     '@nuxtjs/firebase',
     // https://sitemap.nuxtjs.org
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    // https://github.com/joe-pritchard/nuxt-umami-module
+    [
+      'nuxt-umami-module', {
+        autoTrack: true,
+        doNotTrack: false,
+        cache: false,
+        domains: 'navidanindya.info',
+        websiteId: process.env.umamiWebsiteId || '',
+        scriptUrl: process.env.umamiScriptPath || '',
+      }
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
