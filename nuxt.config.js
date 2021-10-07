@@ -27,6 +27,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/spotify.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -55,7 +56,18 @@ export default {
     // https://firebase.nuxtjs.org/
     '@nuxtjs/firebase',
     // https://sitemap.nuxtjs.org
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    // https://github.com/joe-pritchard/nuxt-umami-module
+    [
+      'nuxt-umami-module', {
+        autoTrack: true,
+        doNotTrack: false,
+        cache: false,
+        domains: 'navidanindya.info',
+        websiteId: process.env.umamiWebsiteId || '',
+        scriptUrl: process.env.umamiScriptPath || '',
+      }
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -136,8 +148,8 @@ export default {
   googleFonts: {
     display: 'auto',
     families: {
-      'Roboto+Slab': [900],
-      'Roboto+Mono': {
+      'Major+Mono+Display': [400],
+      'JetBrains+Mono': {
         wght: [400],
         ital: [600]
       },
