@@ -38,7 +38,7 @@ export default {
       const response = await getNowPlaying()
       if (response.status === 200) {
         const { item, is_playing: np } = await response.json()
-        this.currentTrackStr = `${np ? 'Now playing:' : 'Last played:'} ${item.name} by ${item.artists[0].name}.`
+        this.currentTrackStr = `${np ? 'Now playing:' : 'Last played:'} ${item.name} by ${item.artists[0].name}`
       }
     } catch (e) {
       this.currentTrackStr = 'Cannot connect to the internet. :('
