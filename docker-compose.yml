@@ -4,12 +4,11 @@ services:
   app:
     build:
       context: ./
-      dockerfile: ./Dockerfile.dev
     container_name: navidanindya-dev
     image: navidanindya:dev
     volumes:
       - /home/node/app/node_modules
-      - .:/home/node/app
+      - ./:/home/node/app
     restart: unless-stopped
     environment:
       - HOST=0.0.0.0
