@@ -18,6 +18,14 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { hid: "canonical", rel: "canonical", href: "https://navidanindya.info", },
+    ],
+    script: [
+      {
+        src: process.env.umamiScriptPath || '',
+        'data-website-id': process.env.umamiWebsiteId || '',
+        async: true,
+        defer: true
+      },
     ]
   },
 
@@ -56,18 +64,7 @@ export default {
     // https://firebase.nuxtjs.org/
     '@nuxtjs/firebase',
     // https://sitemap.nuxtjs.org
-    '@nuxtjs/sitemap',
-    // https://github.com/joe-pritchard/nuxt-umami-module
-    [
-      'nuxt-umami-module', {
-        autoTrack: true,
-        doNotTrack: false,
-        cache: false,
-        domains: 'navidanindya.info',
-        websiteId: process.env.umamiWebsiteId || '',
-        scriptUrl: process.env.umamiScriptPath || '',
-      }
-    ],
+    '@nuxtjs/sitemap'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
