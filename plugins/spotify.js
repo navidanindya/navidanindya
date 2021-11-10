@@ -1,7 +1,7 @@
 // Reference: https://leerob.io/snippets/spotify-top-tracks
-const clientID = process.env.SPOTIFY_CLIENT_ID
-const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
-const refreshToken = process.env.SPOTIFY_RT
+const clientID = process.env.spotifyClientID
+const clientSecret = process.env.spotifyClientSecret
+const refreshToken = process.env.spotifyRefreshToken
 
 const basic = Buffer.from(`${clientID}:${clientSecret}`).toString('base64')
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'

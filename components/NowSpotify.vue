@@ -18,9 +18,8 @@
         />
       </svg>
     </div>
-    <div class="flex items-center text-yellow-600 text-xs ml-2 truncate">
-      <span v-if="$fetchState.pending">Fetching from Spotify...</span>
-      <span v-else>{{ currentTrackStr }}</span>
+    <div class="flex items-center text-yellow-600 text-xs ml-2">
+      <span>{{ currentTrackStr }}</span>
     </div>
   </section>
 </template>
@@ -33,21 +32,26 @@ export default {
       currentTrackStr: 'Nothing playing right now.'
     }
   },
-  activated () {
-    // Call fetch again if last fetch more than 30 sec ago
-    if (this.$fetchState.timestamp <= Date.now() - 10000) {
-      this.$fetch()
+  beforeMount () {
+    this.currentTrack()
+  },
+  methods: {
+    async currentTrack () {
+      try {
+        const response = await getNowPlaying()
+        if (response.status === 200) {
+          const { item, is_playing: np } = await response.json()
+          this.currentTrackStr = `${np ? 'Now playing:' : 'Last played:'} ${item.name}
+                                  by ${item.artists.map(artist => artist.name).join(', ')}.`
+        }
+      } catch (e) {
+        this.currentTrackStr = 'Couldn\'t fetch data :('
+      }
     }
   },
-  async fetch () {
-    try {
-      const response = await getNowPlaying()
-      if (response.status === 200) {
-        const { item, is_playing: np } = await response.json()
-        this.currentTrackStr = `${np ? 'Now playing:' : 'Last played:'} ${item.name} by ${item.artists[0].name}`
-      }
-    } catch (e) {
-      this.currentTrackStr = 'Cannot connect to the internet. :('
+  watch: {
+    '$route.path' () {
+      this.currentTrack()
     }
   }
 }

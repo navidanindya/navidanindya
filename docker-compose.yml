@@ -2,17 +2,17 @@ version: "3.7"
 
 services:
   app:
-    build:
-      context: ./
+    build: ./
     container_name: navidanindya-dev
     image: navidanindya:dev
     volumes:
-      - /home/node/app/node_modules
       - ./:/home/node/app
+      - /home/node/app/node_modules
     restart: unless-stopped
     environment:
       - HOST=0.0.0.0
       - PORT=5001
+      - CHOKIDAR_USEPOLLING=true
       - VIRTUAL_HOST=navidanindya.localhost
     expose:
       - "5001"
