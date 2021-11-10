@@ -33,19 +33,6 @@ export default {
       unsub: undefined
     }
   },
-  fetch () {
-    try {
-      // Query.
-      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
-      // Increment first
-      dbCol.set({ count: this.$fireModule.firestore.FieldValue.increment(1) }, { merge: true })
-      // Subscribe to snapshot
-      this.unsub = dbCol.onSnapshot((doc) => {
-        this.viewCount = doc.data().count
-      })
-    } catch (e) {
-    }
-  },
   head () {
     return {
       title: this.writing.title + ' - Navid Anindya',
@@ -63,6 +50,19 @@ export default {
       link: [
         { hid: 'canonical', rel: 'canonical', href: `https://navidanindya.info/writing/${this.writingSlug}` }
       ]
+    }
+  },
+  created () {
+    try {
+      // Query.
+      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
+      // Increment first
+      dbCol.set({ count: this.$fireModule.firestore.FieldValue.increment(1) }, { merge: true })
+      // Subscribe to snapshot
+      this.unsub = dbCol.onSnapshot((doc) => {
+        this.viewCount = doc.data().count
+      })
+    } catch (e) {
     }
   },
   beforeDestroy () {

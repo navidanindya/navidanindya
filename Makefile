@@ -25,3 +25,7 @@ shell:
 # Check container logs
 logs:
 	docker-compose logs --follow app
+
+# Static Generate site
+generate:
+	docker-compose exec app npm run generate

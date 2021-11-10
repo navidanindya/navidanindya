@@ -33,6 +33,12 @@ export default {
       currentTrackStr: 'Nothing playing right now.'
     }
   },
+  activated () {
+    // Call fetch again if last fetch more than 30 sec ago
+    if (this.$fetchState.timestamp <= Date.now() - 10000) {
+      this.$fetch()
+    }
+  },
   async fetch () {
     try {
       const response = await getNowPlaying()

@@ -57,12 +57,12 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    // https://firebase.nuxtjs.org/
+    '@nuxtjs/firebase',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
     '@nuxtjs/feed',
     '@nuxtjs/markdownit',
-    // https://firebase.nuxtjs.org/
-    '@nuxtjs/firebase',
     // https://sitemap.nuxtjs.org
     '@nuxtjs/sitemap'
   ],
