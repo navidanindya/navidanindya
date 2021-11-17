@@ -32,6 +32,11 @@ export default {
       currentTrackStr: 'Nothing playing right now.'
     }
   },
+  watch: {
+    '$route.path' () {
+      this.currentTrack()
+    }
+  },
   beforeMount () {
     this.currentTrack()
   },
@@ -47,11 +52,6 @@ export default {
       } catch (e) {
         this.currentTrackStr = 'Couldn\'t fetch data :('
       }
-    }
-  },
-  watch: {
-    '$route.path' () {
-      this.currentTrack()
     }
   }
 }

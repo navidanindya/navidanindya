@@ -20,6 +20,9 @@
 </template>
 
 <script>
+import { db } from '~/plugins/firebase.js'
+import { collection, doc, setDoc, getDoc } from 'firebase/firestore'
+
 export default {
   async asyncData ({ $content, params }) {
     const writing = await $content('writings', params.slug, { text: true }).fetch()
@@ -55,9 +58,9 @@ export default {
   created () {
     try {
       // Query.
-      const dbCol = this.$fire.firestore.collection('views').doc(this.writingSlug)
+      const dbCol = doc(db, 'views', this.writingSlug)
       // Increment first
-      dbCol.set({ count: this.$fireModule.firestore.FieldValue.increment(1) }, { merge: true })
+      dbCol.setDoc({ count: this.$fireModule.firestore.FieldValue.increment(1) }, { merge: true })
       // Subscribe to snapshot
       this.unsub = dbCol.onSnapshot((doc) => {
         this.viewCount = doc.data().count
