@@ -7,7 +7,7 @@ module.exports = {
     },
     extend: {
       screens: {
-        'xs': '560px',
+        'xs': '560px'
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -18,7 +18,7 @@ module.exports = {
               borderLeftColor: theme('colors.yellow.600')
             },
             code: {
-              color: theme('colors.yellow.200'),
+              color: theme('colors.yellow.200')
             },
             h1: {
               color: theme('colors.yellow.600'),
@@ -45,17 +45,17 @@ module.exports = {
               fontFamily: theme('fontFamily.mono')
             },
             strong: {
-              color: theme('colors.yellow.700'),
+              color: theme('colors.yellow.700')
             }
-          },
-        },
-      }),
-    },
+          }
+        }
+      })
+    }
   },
   variants: {
-    extend: {},
+    extend: {}
   },
   plugins: [
-    require('@tailwindcss/typography'),
-  ],
+    require('@tailwindcss/typography')
+  ]
 }

@@ -6,7 +6,9 @@
         I'm <strong>Navid Anindya.</strong> I make and explore things. I code, do music, roam around
         and think and talk about philosophical and existential stuff about life.
       </p>
-      <p class="text-sm">You can check out some stuff here:</p>
+      <p class="text-sm">
+        You can check out some stuff here:
+      </p>
       <ul class="text-base">
         <li v-for="link in links" :key="link.name">
           <NuxtLink :to="link.link">

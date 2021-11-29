@@ -1,9 +1,7 @@
 // Reference: https://leerob.io/snippets/spotify-top-tracks
-import querystring from 'querystring'
-
-const clientID = process.env.SPOTIFY_CLIENT_ID
-const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
-const refreshToken = process.env.SPOTIFY_RT
+const clientID = process.env.spotifyClientID
+const clientSecret = process.env.spotifyClientSecret
+const refreshToken = process.env.spotifyRefreshToken
 
 const basic = Buffer.from(`${clientID}:${clientSecret}`).toString('base64')
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
@@ -16,10 +14,10 @@ const getAccessToken = async () => {
       Authorization: `Basic ${basic}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: querystring.stringify({
+    body: new URLSearchParams({
       grant_type: 'refresh_token',
       refresh_token: refreshToken
-    })
+    }).toString()
   })
   return response.json()
 }
