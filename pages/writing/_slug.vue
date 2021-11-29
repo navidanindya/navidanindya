@@ -20,8 +20,8 @@
 </template>
 
 <script>
+import { doc, increment, onSnapshot, updateDoc } from 'firebase/firestore'
 import { db } from '~/plugins/firebase.js'
-import { collection, doc, setDoc, getDoc } from 'firebase/firestore'
 
 export default {
   async asyncData ({ $content, params }) {
@@ -57,21 +57,24 @@ export default {
   },
   created () {
     try {
-      // Query.
-      const dbCol = doc(db, 'views', this.writingSlug)
-      // Increment first
-      dbCol.setDoc({ count: this.$fireModule.firestore.FieldValue.increment(1) }, { merge: true })
-      // Subscribe to snapshot
-      this.unsub = dbCol.onSnapshot((doc) => {
-        this.viewCount = doc.data().count
-      })
+      this.getViews()
     } catch (e) {
+      this.viewCount = 0
     }
   },
-  beforeDestroy () {
+  beforeDestroyed () {
     this.unsub()
   },
   methods: {
+    async getViews () {
+      const ref = doc(db, 'views', this.writingSlug)
+      await updateDoc(ref, {
+        count: increment(1)
+      })
+      this.unsub = onSnapshot(ref, (doc) => {
+        this.viewCount = doc.data().count
+      })
+    },
     formatDate (date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' }
       return new Date(date).toLocaleDateString('en', options)
