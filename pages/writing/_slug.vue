@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { doc, increment, onSnapshot, updateDoc } from 'firebase/firestore'
+import { doc, increment, onSnapshot, setDoc } from 'firebase/firestore'
 import { db } from '~/plugins/firebase.js'
 
 export default {
@@ -68,9 +68,7 @@ export default {
   methods: {
     async getViews () {
       const ref = doc(db, 'views', this.writingSlug)
-      await updateDoc(ref, {
-        count: increment(1)
-      })
+      await setDoc(ref, { count: increment(1) }, { merge: true })
       this.unsub = onSnapshot(ref, (doc) => {
         this.viewCount = doc.data().count
       })
