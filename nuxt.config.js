@@ -2,6 +2,10 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  generate: {
+    fallback: true
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Navid Anindya',
@@ -150,6 +154,13 @@ export default {
         const mdToHtml = md.render(document.text)
         document.bodyText = mdToHtml
       }
+    },
+    generate: {
+      async done () {
+        const { db } = require('./plugins/firebase')
+        const { terminate } = require('firebase/firestore')
+        await terminate(db)
+      }
     }
   },
 
@@ -157,7 +168,7 @@ export default {
   googleFonts: {
     display: 'auto',
     families: {
-      'Major+Mono+Display': [400],
+      'Roboto+Slab': [900],
       'JetBrains+Mono': {
         wght: [400],
         ital: [600]

@@ -24,9 +24,15 @@ import { doc, increment, onSnapshot, setDoc } from 'firebase/firestore'
 import { db } from '~/plugins/firebase.js'
 
 export default {
-  async asyncData ({ $content, params }) {
-    const writing = await $content('writings', params.slug, { text: true }).fetch()
-    return { writing }
+  async asyncData ({ $content, params, error }) {
+    try {
+      const writing = await $content('writings', params.slug, { text: true }).fetch()
+      return { writing }
+    } catch (err) {
+      error({
+        statusCode: 404
+      })
+    }
   },
   data () {
     return {
@@ -55,7 +61,7 @@ export default {
       ]
     }
   },
-  created () {
+  mounted () {
     try {
       this.getViews()
     } catch (e) {

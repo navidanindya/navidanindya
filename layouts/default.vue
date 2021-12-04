@@ -81,4 +81,7 @@ export default {
 .flexed-line {
   @apply flex flex-row w-full;
 }
+.nuxt-link-active {
+  @apply text-yellow-600;
+}
 </style>
