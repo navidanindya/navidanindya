@@ -2,14 +2,14 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      'mono': ['"JetBrains Mono"'],
-      'display': ['"Major Mono Display"']
+      mono: ['"JetBrains Mono"'],
+      display: ['"Roboto Slab"']
     },
     extend: {
       screens: {
-        'xs': '560px'
+        xs: '560px'
       },
-      typography: (theme) => ({
+      typography: theme => ({
         DEFAULT: {
           css: {
             color: theme('colors.gray.200'),
