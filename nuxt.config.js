@@ -2,6 +2,8 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  fallback: true,
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Navid Anindya',
