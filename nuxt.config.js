@@ -159,9 +159,7 @@ export default {
       async done () {
         const { db } = require('./plugins/firebase')
         const { terminate } = require('firebase/firestore')
-        try {
-          await terminate(db)
-        } catch (e) { console.error(e) }
+        await terminate(db)
       }
     }
   },
