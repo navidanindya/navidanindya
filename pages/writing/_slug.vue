@@ -55,7 +55,7 @@ export default {
       ]
     }
   },
-  created () {
+  mounted () {
     try {
       this.getViews()
     } catch (e) {
