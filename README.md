@@ -22,6 +22,7 @@ Go to my site [here](https://navidanindya.info). :smile:
 ## Some stuff I wrote:
 
 <!-- BLOG-POST-LIST:START -->
+- [On optimistic nihilism](https://navidanindya.info/writing/on-optimistic-nihilism)
 - [Using the Spotify API to show Now Playing in Nuxt.js](https://navidanindya.info/writing/spotify-now-playing-nuxt)
 - [Lyric attempts and some thoughts on life](https://navidanindya.info/writing/lyric-attempts)
 - [First writing!](https://navidanindya.info/writing/first-writing)
