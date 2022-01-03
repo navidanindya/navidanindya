@@ -2,11 +2,12 @@
 title: On optimistic nihilism
 description: Some scribbles from my mind on a philosophical thought while the year ends.
 createdAt: December 31, 2021
+updated: January 4, 2021
 ---
 
 The year is ending. So I felt like writing some stuff.
 
-There's a channel on YouTube called *Kurzgesagt - In a Nutshell*. I love their content. They have beatiful animated videos that talk about very interesting questions and discusses about them brilliantly. I have been following them for over 5 years now.
+There's a channel on YouTube called *Kurzgesagt - In a Nutshell*. I love their content. They have beautiful animated videos that talk about very interesting questions and discusses about them brilliantly. I have been following them for over 5 years now.
 
 They made a video called **Optimistic Nihilism**.
 
@@ -15,7 +16,7 @@ They made a video called **Optimistic Nihilism**.
 
 When I first saw this, it intrigued me a lot. It explained so much so elegantly.
 
-In a gist, this talks about how our universe was created from the [Big Bang](https://en.wikipedia.org/wiki/Big_Bang) and basesd on our current understanding of the universe, [it will eventually end](https://en.wikipedia.org/wiki/Ultimate_fate_of_the_universe#Theories_about_the_end_of_the_universe) in a **Heat death**, a **Big Rip** or a **Big crunch**. Philosophically, from this understading of physics and our universe, it can be said that we are living a [nihilistic](https://en.wikipedia.org/wiki/Nihilism) life. As in, that life is meaningless as it will eventually end into nothingness. Popularly, this specifically refers to [existential nihilism](https://en.wikipedia.org/wiki/Existential_nihilism), which says the life is without any purpose.
+In a gist, this talks about how our universe was created from the [Big Bang](https://en.wikipedia.org/wiki/Big_Bang) and based on our current understanding of the universe, [it will eventually end](https://en.wikipedia.org/wiki/Ultimate_fate_of_the_universe#Theories_about_the_end_of_the_universe) in a **Heat death**, a **Big Rip** or a **Big crunch**. Philosophically, from this understanding of physics and our universe, it can be said that we are living a [nihilistic](https://en.wikipedia.org/wiki/Nihilism) life. As in, that life is meaningless as it will eventually end into nothingness. Popularly, this specifically refers to [existential nihilism](https://en.wikipedia.org/wiki/Existential_nihilism), which says the life is without any purpose.
 
 This is an extremely depressing thought. Surely a life without purpose means that everything that we are doing everyday is meaningless, and hence not worth living. A true sense of existential crisis.
 
@@ -39,7 +40,7 @@ This year is ending. Has been an extremely weird year for me in personal and pro
 
 I had let myself go. But slowly I have gained back my posture for my mind. Optimistic nihilism helped.
 
-This doesn't mean that it might for work someone else. Everybody is entitled to have their own philosophies about their lives. After all, we only know what's best for us.
+This doesn't mean that it might work for someone else. Everybody is entitled to have their own philosophies about their lives. After all, we only know what's best for us.
 
 To anyone who has been suffering, amidst all the pain of the pandemic and all, hope you find some peace somehow as another year passes by.
 
