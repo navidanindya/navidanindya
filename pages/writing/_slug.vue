@@ -15,6 +15,9 @@
         {{ viewCount || '---' }} view(s)
       </p>
     </section>
+    <h6 v-if="writing.updated !== undefined" class="text-sm italic text-yellow-50">
+      Updated on: {{ formatDate(writing.updated) }}
+    </h6>
     <nuxt-content class="xs:text-justify" :document="writing" />
   </article>
 </template>
@@ -37,7 +40,6 @@ export default {
   data () {
     return {
       writingSlug: this.$route.params.slug,
-      currrentUrl: this.$route.fullPath,
       viewCount: 0,
       unsub: undefined
     }
