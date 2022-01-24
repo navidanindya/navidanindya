@@ -3,7 +3,7 @@
     <section>
       <h1>Hello, world!</h1>
       <p class="text-base">
-        I'm <strong>Navid Anindya.</strong> I make and explore things.
+        I'm <strong>Navid Anindya</strong>. I make and explore things.
       </p>
       <p class="text-base">
         I code, do music, roam around

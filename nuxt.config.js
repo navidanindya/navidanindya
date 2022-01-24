@@ -169,7 +169,7 @@ export default {
     display: 'auto',
     families: {
       'Space+Grotesk': [600],
-      'IBM+Plex+Mono': {
+      'Roboto+Mono': {
         wght: [400],
         ital: [600]
       }

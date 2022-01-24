@@ -2,7 +2,7 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      mono: ['"IBM Plex Mono"'],
+      mono: ['"Roboto Mono"'],
       display: ['"Space Grotesk"']
     },
     extend: {
@@ -18,7 +18,8 @@ module.exports = {
               borderLeftColor: theme('colors.yellow.600')
             },
             code: {
-              color: theme('colors.yellow.200')
+              color: theme('colors.yellow.200'),
+              fontWeight: '400'
             },
             h1: {
               color: theme('colors.yellow.600'),
@@ -45,7 +46,8 @@ module.exports = {
               fontFamily: theme('fontFamily.mono')
             },
             strong: {
-              color: theme('colors.yellow.700')
+              color: theme('colors.yellow.700'),
+              fontWeight: '600'
             }
           }
         }
