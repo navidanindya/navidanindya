@@ -2,8 +2,8 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      mono: ['"JetBrains Mono"'],
-      display: ['"Roboto Slab"']
+      mono: ['"Roboto Mono"'],
+      display: ['"Space Grotesk"']
     },
     extend: {
       screens: {
@@ -18,26 +18,27 @@ module.exports = {
               borderLeftColor: theme('colors.yellow.600')
             },
             code: {
-              color: theme('colors.yellow.200')
+              color: theme('colors.yellow.200'),
+              fontWeight: '400'
             },
             h1: {
               color: theme('colors.yellow.600'),
-              fontWeight: '900',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h2: {
               color: theme('colors.yellow.600'),
-              fontWeight: '900',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h3: {
               color: theme('colors.yellow.600'),
-              fontWeight: '900',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h4: {
               color: theme('colors.yellow.600'),
-              fontWeight: '900',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             p: {
@@ -45,7 +46,8 @@ module.exports = {
               fontFamily: theme('fontFamily.mono')
             },
             strong: {
-              color: theme('colors.yellow.700')
+              color: theme('colors.yellow.700'),
+              fontWeight: '600'
             }
           }
         }

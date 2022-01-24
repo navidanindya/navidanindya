@@ -168,8 +168,8 @@ export default {
   googleFonts: {
     display: 'auto',
     families: {
-      'Roboto+Slab': [900],
-      'JetBrains+Mono': {
+      'Space+Grotesk': [600],
+      'Roboto+Mono': {
         wght: [400],
         ital: [600]
       }
