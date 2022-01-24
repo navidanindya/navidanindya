@@ -22,22 +22,22 @@ module.exports = {
             },
             h1: {
               color: theme('colors.yellow.600'),
-              fontWeight: '900',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h2: {
               color: theme('colors.yellow.600'),
-              fontWeight: '900',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h3: {
               color: theme('colors.yellow.600'),
-              fontWeight: '900',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h4: {
               color: theme('colors.yellow.600'),
-              fontWeight: '900',
+              fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             p: {
