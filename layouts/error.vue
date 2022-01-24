@@ -2,7 +2,7 @@
   <div class="flex">
     <div class="m-auto">
       <h2 v-if="error.statusCode === 404">
-        404. That's a deadend.
+        404. That's a dead-end.
       </h2>
       <h2 v-else>
         Something bad happened. :/
