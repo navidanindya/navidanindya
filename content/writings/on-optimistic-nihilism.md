@@ -2,7 +2,7 @@
 title: On optimistic nihilism
 description: Some scribbles from my mind on a philosophical thought while the year ends.
 createdAt: December 31, 2021
-updated: January 4, 2021
+updated: January 4, 2022
 ---
 
 The year is ending. So I felt like writing some stuff.
