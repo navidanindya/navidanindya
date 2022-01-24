@@ -9,16 +9,16 @@
       I also work as a <strong>CTO</strong> for our company. I have been doing this since 2018.
     </blockquote>
     <p>
-      I currently maintain a team of devs and oversee devops tasks in our company.
+      I currently maintain a team of developers and oversee devops tasks in our company.
     </p>
     <p>I also like to make little fun things, small snippets of code that automate very simple things.</p>
     <p>
       I also make music in this little band called
-      <a href="https://www.facebook.com/sevenminutes" target="_blank" rel="noreferrer noopener">Seven Minutes</a>.
+      <a href="https://www.facebook.com/7minutesband" target="_blank" rel="noreferrer noopener">7 Minutes</a>.
     </p>
     <blockquote>
       I write stuff about coding, music, my philosophies and small lyrics and thoughts here; as a journal for myself and
-      knowledgebase (!) for people who stumble upon them.
+      knowledge-base (!) for people who stumble upon them.
     </blockquote>
     <p>I like to read and explore random things on the internet and love thinking about life, science and philosophy.</p>
     <h3>Philosophies that intrigue me</h3>
