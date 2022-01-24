@@ -3,7 +3,10 @@
     <section>
       <h1>Hello, world!</h1>
       <p class="text-base">
-        I'm <strong>Navid Anindya.</strong> I make and explore things. I code, do music, roam around
+        I'm <strong>Navid Anindya.</strong> I make and explore things.
+      </p>
+      <p class="text-base">
+        I code, do music, roam around
         and think and talk about philosophical and existential stuff about life.
       </p>
       <p class="text-sm">
@@ -24,9 +27,9 @@
       <h3>My latest writing</h3>
       <list-writings :writings="latest" />
     </section>
-    <h5 class="text-base mt-10">
+    <h4 class="text-base mt-10">
       Have a good day, fellow internet stranger! &#128075;
-    </h5>
+    </h4>
   </div>
 </template>
 
@@ -34,7 +37,7 @@
 export default {
   async asyncData ({ $content, params }) {
     const latest = await $content('writings')
-      .only(['title', 'description', 'slug', 'createdAt'])
+      .only(['title', 'description', 'slug', 'createdAt', 'updated'])
       .sortBy('createdAt', 'desc')
       .limit(1)
       .fetch()

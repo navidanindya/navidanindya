@@ -2,8 +2,8 @@ module.exports = {
   darkMode: false,
   theme: {
     fontFamily: {
-      mono: ['"JetBrains Mono"'],
-      display: ['"Roboto Slab"']
+      mono: ['"IBM Plex Mono"'],
+      display: ['"Space Grotesk"']
     },
     extend: {
       screens: {

@@ -7,8 +7,11 @@
       <p class="text-sm text-gray-200 italic">
         {{ writing.description }}
       </p>
-      <p class="text-sm text-yellow-200 italic">
+      <p class="text-sm text-yellow-200">
         Written on {{ formatDate(writing.createdAt) }}
+        <span v-if="writing.updated !== undefined" class="text-xs italic text-yellow-100 mt-0">
+          (Updated on: {{ formatDate(writing.updated) }})
+        </span>
       </p>
     </li>
   </ul>
