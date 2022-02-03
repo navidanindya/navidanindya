@@ -1,5 +1,8 @@
 <template>
   <article>
+    <nuxt-link class="text-base h-10" to="/writings">
+      ❮ Back to writings
+    </nuxt-link>
     <h1>
       {{ writing.title }}
     </h1>
@@ -19,6 +22,14 @@
       Updated on: {{ formatDate(writing.updated) }}
     </h6>
     <nuxt-content class="xs:text-justify" :document="writing" />
+    <section class="mt-10 flex flex-row">
+      <nuxt-link v-if="prevWriting" class="text-base text-left flex-1 justify-start" :to="{ name: 'writing-slug', params: { slug: prevWriting.slug } }">
+        ❮ {{ prevWriting.title }}
+      </nuxt-link>
+      <nuxt-link v-if="nextWriting" class="text-base text-right flex-1 justify-end" :to="{ name: 'writing-slug', params: { slug: nextWriting.slug } }">
+        {{ nextWriting.title }} ❯
+      </nuxt-link>
+    </section>
   </article>
 </template>
 
@@ -30,7 +41,9 @@ export default {
   async asyncData ({ $content, params, error }) {
     try {
       const writing = await $content('writings', params.slug, { text: true }).fetch()
-      return { writing }
+      const [prevWriting, nextWriting] = await $content('writings').only(['title', 'slug'])
+        .surround(params.slug).sortBy('createdAt', 'asc').fetch()
+      return { writing, prevWriting, nextWriting }
     } catch (err) {
       error({
         statusCode: 404
