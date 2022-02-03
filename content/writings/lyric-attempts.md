@@ -1,13 +1,14 @@
 ---
 title: Lyric attempts and some thoughts on life
-description: 'Some attempts to write lyrics for the music I want to create as part of my band Seven Minutes. And some life thoughts.'
+description: 'Some attempts to write lyrics for the music I want to create as part of my band 7 Minutes. And some life thoughts.'
 createdAt: June 21, 2021
+updated: February 3, 2022
 ---
 
 This is a pretty different writing from what usually people write on the web. This writing is part of my thoughts and what I
 go through or think daily.
 
-I do music with my band [Seven Minutes](https://www.facebook.com/sevenminutes/) for 6 years now. We haven't really made a
+I do music with my band [7 Minutes](https://www.facebook.com/7minutesband) for 6 years now. We haven't really made a
 breakthrough yet in the industry but we have created our own music and lyrics though our own journeys. The band consists of two
 members only, including me.
 
@@ -22,7 +23,7 @@ It's a song in progress that we're making. I'm gonna write two lines from the so
 >
 > This song in my mind, wants to play.
 
-These are two lines from inside the song. I wrote this and some other lines within 5 minutes. I am going through a point of my life
+These are two lines from inside the song. I wrote this and some other lines within five minutes. I am going through a point of my life
 where I'm suffering from immense depression and going through a tough time figuring out what to do.
 
 When I do music and come up with these lines, it helps me feel a little better about everything.
