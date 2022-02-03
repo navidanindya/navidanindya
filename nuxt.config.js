@@ -166,7 +166,7 @@ export default {
 
   // Google Web fonts
   googleFonts: {
-    display: 'auto',
+    display: 'swap',
     families: {
       'Space+Grotesk': [600],
       'Roboto+Mono': {
