@@ -48,8 +48,6 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     // https://google-fonts.nuxtjs.org/
@@ -166,7 +164,7 @@ export default {
 
   // Google Web fonts
   googleFonts: {
-    display: 'auto',
+    display: 'swap',
     families: {
       'Space+Grotesk': [600],
       'Roboto+Mono': {
