@@ -8,6 +8,9 @@
           </span>
           <div class="flex items-center italic">
             <span class="px-3 text-xs md:text-base hover:text-yellow-600">
+              <NuxtLink to="/">/home</NuxtLink>
+            </span>
+            <span class="px-3 text-xs md:text-base hover:text-yellow-600">
               <NuxtLink to="/about">/about</NuxtLink>
             </span>
             <span class="pl-3 text-xs md:text-base hover:text-yellow-600">
@@ -81,7 +84,7 @@ export default {
 .flexed-line {
   @apply flex flex-row w-full;
 }
-.nuxt-link-active {
+.nuxt-link-exact-active {
   @apply text-yellow-600;
 }
 </style>
