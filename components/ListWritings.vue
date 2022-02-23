@@ -4,6 +4,9 @@
       <NuxtLink :to="{ name: 'writing-slug', params: { slug: writing.slug } }">
         {{ writing.title }}
       </NuxtLink>
+      <p v-if="writing.tags !== undefined" class="text-xs text-gray-300 italic">
+        {{ formatTags(writing.tags) }}
+      </p>
       <p class="text-sm text-gray-200 italic">
         {{ writing.description }}
       </p>
@@ -29,6 +32,11 @@ export default {
     formatDate (date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' }
       return new Date(date).toLocaleDateString('en', options)
+    },
+
+    // TODO: Tag system. Needs to generate links based on tags.
+    formatTags (tagString) {
+      return tagString.split(',').map(x => `#${x.trim()}`).join(', ')
     }
   }
 }
