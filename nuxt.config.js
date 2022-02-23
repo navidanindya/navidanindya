@@ -24,12 +24,15 @@ export default {
       { hid: 'canonical', rel: 'canonical', href: 'https://navidanindya.info' }
     ],
     script: [
-      {
-        src: process.env.umamiScriptPath || '',
-        'data-website-id': process.env.umamiWebsiteId || '',
-        async: true,
-        defer: true
-      }
+      ((process.env.NODE_ENV === 'development')
+        ? {}
+        : {
+            src: process.env.umamiScriptPath || '',
+            'data-website-id': process.env.umamiWebsiteId || '',
+            async: true,
+            defer: true
+          }
+      )
     ]
   },
 
