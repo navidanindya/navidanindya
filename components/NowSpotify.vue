@@ -18,7 +18,7 @@
         />
       </svg>
     </div>
-    <div class="flex items-center text-yellow-600 text-xs ml-2">
+    <div class="flex items-center text-amber-600 text-xs ml-2">
       <span>{{ currentTrackStr }}</span>
     </div>
   </section>

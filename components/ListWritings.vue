@@ -10,9 +10,9 @@
       <p class="text-sm text-gray-200 italic">
         {{ writing.description }}
       </p>
-      <p class="text-sm text-yellow-200">
+      <p class="text-sm text-amber-200">
         Written on {{ formatDate(writing.createdAt) }}
-        <span v-if="writing.updated !== undefined" class="text-xs italic text-yellow-100 mt-0">
+        <span v-if="writing.updated !== undefined" class="text-xs italic text-amber-100 mt-0">
           (Updated on: {{ formatDate(writing.updated) }})
         </span>
       </p>
