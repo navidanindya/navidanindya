@@ -1,15 +1,43 @@
-export async function onRequestGet (context) {
-// Contents of context object
-  const {
-    request, // same as existing Worker API
-    env, // same as existing Worker API
-    params, // if filename includes [id] or [[path]]
-    waitUntil, // same as ctx.waitUntil in existing Worker API
-    next, // used for middleware or to fetch assets
-    data, // arbitrary space for passing data between middlewares
-  } = context
+// Reference: https://leerob.io/snippets/spotify-top-tracks
+// This gets the access token from Spotify to connect to the API using provided refresh token.
+const getAccessToken = async (basic, refreshToken) => {
+  const response = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${basic}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    }).toString()
+  })
+  return response.json()
+}
 
-  const res = await fetch(`https://rickandmortyapi.com/api/character/${params.id}`)
+// Gets the top playing tracks of given user access token.
+export const getTopTracks = async (basic, refreshToken) => {
+  const { access_token: accessToken } = await getAccessToken(basic, refreshToken)
+  return fetch('https://api.spotify.com/v1/me/top/tracks', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+}
+
+// Get the current now playing track of given user access token.
+export const getNowPlaying = async (basic, refreshToken) => {
+  const { access_token: accessToken } = await getAccessToken(basic, refreshToken)
+  return fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+}
+
+export async function onRequestGet ({ request, env }) {
+  const basic = Buffer.from(`${env.spotifyClientID}:${env.spotifyClientSecret}`).toString('base64')
+  const res = await getNowPlaying(basic, env.spotifyRefreshToken)
 
   return new Response(res)
 }
