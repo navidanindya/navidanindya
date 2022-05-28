@@ -1,4 +1,11 @@
 // Reference: https://leerob.io/snippets/spotify-top-tracks
+export async function onRequestGet({ env }) {
+  const basic = Buffer.from(`${env.spotifyClientID}:${env.spotifyClientSecret}`).toString('base64')
+  const res = await getNowPlaying(basic, env.spotifyRefreshToken)
+
+  return new Response(res)
+}
+
 // This gets the access token from Spotify to connect to the API using provided refresh token.
 const getAccessToken = async (basic, refreshToken) => {
   const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -33,11 +40,4 @@ export const getNowPlaying = async (basic, refreshToken) => {
       Authorization: `Bearer ${accessToken}`
     }
   })
-}
-
-export async function onRequestGet ({ request, env }) {
-  const basic = Buffer.from(`${env.spotifyClientID}:${env.spotifyClientSecret}`).toString('base64')
-  const res = await getNowPlaying(basic, env.spotifyRefreshToken)
-
-  return new Response(res)
 }

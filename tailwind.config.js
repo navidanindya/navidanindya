@@ -1,5 +1,4 @@
 module.exports = {
-  darkMode: false,
   theme: {
     fontFamily: {
       mono: ['"Roboto Mono"'],
