@@ -11,15 +11,12 @@ WORKDIR /home/node
 USER node
 
 COPY --chown=node:node ./package*.json ./
-RUN npm install --no-optional && npm cache clean --force
+RUN npm install && npm cache clean --force
 ENV PATH /home/node/node_modules/.bin:$PATH
 
-RUN npm install && npm cache clean --force
-
-RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
 COPY --chown=node:node . .
-RUN cp -R ../package.json ../package-lock.json ../node_modules/ ./
+RUN cp /home/node/package.json /home/node/package-lock.json ./
 
 CMD [ "npm", "run", "dev" ]
 

@@ -24,12 +24,15 @@ export default {
       { hid: 'canonical', rel: 'canonical', href: 'https://navidanindya.info' }
     ],
     script: [
-      {
-        src: process.env.umamiScriptPath || '',
-        'data-website-id': process.env.umamiWebsiteId || '',
-        async: true,
-        defer: true
-      }
+      ((process.env.NODE_ENV === 'development')
+        ? {}
+        : {
+            src: process.env.umamiScriptPath || '',
+            'data-website-id': process.env.umamiWebsiteId || '',
+            async: true,
+            defer: true
+          }
+      )
     ]
   },
 
@@ -96,9 +99,7 @@ export default {
   },
 
   env: {
-    spotifyClientID: process.env.SPOTIFY_CLIENT_ID,
-    spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    spotifyRefreshToken: process.env.SPOTIFY_RT,
+    spotifyURI: process.env.SPOTIFY_URI,
     fbApiKey: process.env.FIREBASE_API_KEY,
     fbAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
     fbProjectId: process.env.FIREBASE_PROJECT_ID,

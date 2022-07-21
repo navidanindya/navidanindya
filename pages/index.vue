@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  async asyncData ({ $content, params }) {
+  async asyncData ({ $content }) {
     const latest = await $content('writings')
       .only(['title', 'description', 'slug', 'createdAt', 'updated'])
       .sortBy('createdAt', 'desc')

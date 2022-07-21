@@ -3,19 +3,22 @@
     <div class="max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto px-3 md:px-5">
       <div class="flex flex-col min-h-screen">
         <header class="flex flex-none justify-between h-16">
-          <span class="flex items-center hover:text-yellow-600">
+          <span class="flex items-center hover:text-amber-600">
             <NuxtLink to="/"><img src="/icon.png" alt="Navid Anindya Logo" class="w-auto h-14"></NuxtLink>
           </span>
           <div class="flex items-center italic">
-            <span class="px-3 text-xs md:text-base hover:text-yellow-600">
+            <span class="px-3 text-xs md:text-base hover:text-amber-600">
+              <NuxtLink to="/">/home</NuxtLink>
+            </span>
+            <span class="px-3 text-xs md:text-base hover:text-amber-600">
               <NuxtLink to="/about">/about</NuxtLink>
             </span>
-            <span class="pl-3 text-xs md:text-base hover:text-yellow-600">
+            <span class="pl-3 text-xs md:text-base hover:text-amber-600">
               <NuxtLink to="/writings">/writings</NuxtLink>
             </span>
           </div>
         </header>
-        <main class="flex-1 px-1 pt-10 pb-5 prose prose-yellow prose lg:prose-lg xl:prose-xl">
+        <main class="flex-1 px-1 pt-10 pb-5 prose prose-amber lg:prose-lg xl:prose-xl">
           <Nuxt keep-alive />
         </main>
         <now-spotify />
@@ -26,7 +29,7 @@
                 :href="link.link"
                 target="_blank"
                 rel="noreferrer noopener"
-                class="hover:text-yellow-600"
+                class="hover:text-amber-600"
               >
                 {{ link.name }}
               </a>
@@ -81,7 +84,7 @@ export default {
 .flexed-line {
   @apply flex flex-row w-full;
 }
-.nuxt-link-active {
-  @apply text-yellow-600;
+.nuxt-link-exact-active {
+  @apply text-amber-600;
 }
 </style>

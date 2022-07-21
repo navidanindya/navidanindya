@@ -1,5 +1,4 @@
 module.exports = {
-  darkMode: false,
   theme: {
     fontFamily: {
       mono: ['"Roboto Mono"'],
@@ -14,30 +13,30 @@ module.exports = {
           css: {
             color: theme('colors.gray.200'),
             blockquote: {
-              color: theme('colors.yellow.200'),
-              borderLeftColor: theme('colors.yellow.600')
+              color: theme('colors.amber.200'),
+              borderLeftColor: theme('colors.amber.600')
             },
             code: {
-              color: theme('colors.yellow.200'),
+              color: theme('colors.amber.200'),
               fontWeight: '400'
             },
             h1: {
-              color: theme('colors.yellow.600'),
+              color: theme('colors.amber.600'),
               fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h2: {
-              color: theme('colors.yellow.600'),
+              color: theme('colors.amber.600'),
               fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h3: {
-              color: theme('colors.yellow.600'),
+              color: theme('colors.amber.600'),
               fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
             h4: {
-              color: theme('colors.yellow.600'),
+              color: theme('colors.amber.600'),
               fontWeight: '600',
               fontFamily: theme('fontFamily.display')
             },
@@ -46,7 +45,7 @@ module.exports = {
               fontFamily: theme('fontFamily.mono')
             },
             strong: {
-              color: theme('colors.yellow.700'),
+              color: theme('colors.amber.700'),
               fontWeight: '600'
             }
           }
