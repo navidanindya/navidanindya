@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import { getNowPlaying } from '../plugins/spotify'
 export default {
   data () {
     return {
@@ -43,12 +42,7 @@ export default {
   methods: {
     async currentTrack () {
       try {
-        const response = await getNowPlaying()
-        if (response.status === 200) {
-          const { item, is_playing: np } = await response.json()
-          this.currentTrackStr = `${np ? 'Now playing:' : 'Last played:'} ${item.name}
-                                  by ${item.artists.map(artist => artist.name).join(', ')}.`
-        }
+        this.currentTrackStr = await this.$axios.$get(`${process.env.spotifyURI}/spotify`)
       } catch (e) {
         this.currentTrackStr = 'Couldn\'t fetch data :('
       }

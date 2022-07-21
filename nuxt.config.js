@@ -99,9 +99,7 @@ export default {
   },
 
   env: {
-    spotifyClientID: process.env.SPOTIFY_CLIENT_ID,
-    spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    spotifyRefreshToken: process.env.SPOTIFY_RT,
+    spotifyURI: process.env.SPOTIFY_URI,
     fbApiKey: process.env.FIREBASE_API_KEY,
     fbAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
     fbProjectId: process.env.FIREBASE_PROJECT_ID,

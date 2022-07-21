@@ -1,11 +1,4 @@
 // Reference: https://leerob.io/snippets/spotify-top-tracks
-export async function onRequestGet({ env }) {
-  const basic = Buffer.from(`${env.spotifyClientID}:${env.spotifyClientSecret}`).toString('base64')
-  const res = await getNowPlaying(basic, env.spotifyRefreshToken)
-
-  return new Response(res)
-}
-
 // This gets the access token from Spotify to connect to the API using provided refresh token.
 const getAccessToken = async (basic, refreshToken) => {
   const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -22,16 +15,6 @@ const getAccessToken = async (basic, refreshToken) => {
   return response.json()
 }
 
-// Gets the top playing tracks of given user access token.
-export const getTopTracks = async (basic, refreshToken) => {
-  const { access_token: accessToken } = await getAccessToken(basic, refreshToken)
-  return fetch('https://api.spotify.com/v1/me/top/tracks', {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  })
-}
-
 // Get the current now playing track of given user access token.
 export const getNowPlaying = async (basic, refreshToken) => {
   const { access_token: accessToken } = await getAccessToken(basic, refreshToken)
@@ -40,4 +23,24 @@ export const getNowPlaying = async (basic, refreshToken) => {
       Authorization: `Bearer ${accessToken}`
     }
   })
+}
+
+export async function onRequestGet({ env }) {
+  const basic = btoa(`${env.scid}:${env.scs}`)
+
+  const res = await getNowPlaying(basic, env.srt)
+  let currentTrackStr = ''
+  try {
+    if (res.status === 200) {
+      const { item, is_playing: np } = await res.json()
+
+      currentTrackStr = `${np ? 'Now playing:' : 'Last played:'} ${item.name} by ${item.artists.map(artist => artist.name).join(', ')}.`.trim()
+    } else if (res.status === 204) {
+      currentTrackStr = 'Nothing playing right now.'
+    }
+  } catch (e) {
+    currentTrackStr = 'Couldn\'t fetch data :('
+  }
+
+  return new Response(currentTrackStr)
 }
