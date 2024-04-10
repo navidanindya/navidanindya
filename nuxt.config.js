@@ -17,7 +17,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Personal site for Navid Anindya. I make and explore things. I also write about things sometimes.' },
-      { hid: 'og:image', property: 'og:image', content: '/og.png' }
+      { hid: 'og:image', property: 'og:image', content: '/og.webp' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -77,7 +77,7 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     icon: {
-      source: './static/icon.png'
+      source: './static/icon.webp'
     },
     manifest: {
       background_color: '#111827',
