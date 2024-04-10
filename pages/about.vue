@@ -4,12 +4,15 @@
     <p>Name's <strong>Navid Anindya</strong>. Some people call me <strong>Neel</strong>.</p>
     <p>A human who likes to read and learn things continuously and try to look at things with a little more enthusiasm.</p>
     <blockquote>
-      I am a <strong>director</strong> and <strong>co-owner</strong> of
-      <a href="https://sayburgh.com" target="_blank" rel="noreferrer noopener">Sayburgh Solutions</a>.
-      I also work as a <strong>CTO</strong> for our company. I have been doing this since 2018.
+      I am the <strong>CEO</strong> and <strong>co-founder</strong> of
+      <a href="https://sayburgh.com" target="_blank" rel="noreferrer noopener">Sayburgh Solutions</a>. I have been doing this since 2018.
     </blockquote>
     <p>
-      I currently maintain a team of developers and oversee devops tasks in our company.
+      I directly manage the Tech and Product teams and personally oversee DevOps in our company.
+      I also have the responsibility to overlook all other departments of our company as well.
+    </p>
+    <p>
+      I usually focus on softwares and tools like Git, FluxCD and Kubernetes.
     </p>
     <p>I also like to make little fun things, small snippets of code that automate very simple things.</p>
     <p>
