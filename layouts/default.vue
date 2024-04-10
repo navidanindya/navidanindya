@@ -4,7 +4,7 @@
       <div class="flex flex-col min-h-screen">
         <header class="flex flex-none justify-between h-16">
           <span class="flex items-center hover:text-amber-600">
-            <NuxtLink to="/"><img src="/icon.webp" alt="Navid Anindya Logo" class="w-auto h-14"></NuxtLink>
+            <NuxtLink to="/"><img src="/icon.png" alt="Navid Anindya Logo" class="w-auto h-14"></NuxtLink>
           </span>
           <div class="flex items-center italic">
             <span class="px-3 text-xs md:text-base hover:text-amber-600">
