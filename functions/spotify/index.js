@@ -25,7 +25,7 @@ export const getNowPlaying = async (basic, refreshToken) => {
   })
 }
 
-export async function onRequestGet({ env }) {
+export async function onRequestGet ({ env }) {
   const basic = btoa(`${env.scid}:${env.scs}`)
 
   const res = await getNowPlaying(basic, env.srt)

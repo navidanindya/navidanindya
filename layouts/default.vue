@@ -18,7 +18,7 @@
             </span>
           </div>
         </header>
-        <main class="flex-1 px-1 pt-10 pb-5 prose prose-amber lg:prose-lg xl:prose-xl">
+        <main class="flex-1 px-1 pt-10 pb-5 prose prose-amber lg:prose-lg xl:prose-xl prose-img:w-full">
           <Nuxt keep-alive />
         </main>
         <now-spotify />

@@ -1,10 +1,10 @@
 ---
-title: It is always DNS, isn't it?
-description: Lesson learned on not to mess with DNS in code, if you really don't need to
+title: It's always DNS, isn't it?
+description: Lesson learned on not to mess with DNS in code
 createdAt: August 16, 2026
 tags: debugging, devops, nestjs, dns
 ---
-# It Is Always DNS
+*It's always DNS. Always.*
 
 I was working on deploying a staging API,built on NestJS, in Docker, deployed on Railway's Singapore region — went down. Healthcheck failing, over and over, on a loop.
 
