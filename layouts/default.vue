@@ -22,9 +22,9 @@
           <Nuxt keep-alive />
         </main>
         <now-spotify />
-        <footer class="flexed-line justify-around mb-5 mt-3">
-          <ul class="flex text-xs md:text-base list-none text-center">
-            <li v-for="link in links" :key="link.name">
+        <footer class="flex justify-center mb-6 mt-4 overflow-hidden">
+          <ul class="flex flex-nowrap items-center justify-center text-[12px] sm:text-xs md:text-sm lg:text-base xl:text-lg font-medium list-none w-full">
+            <li v-for="(link, index) in links" :key="link.name" class="flex items-center whitespace-nowrap shrink-0">
               <a
                 :href="link.link"
                 target="_blank"
@@ -33,6 +33,7 @@
               >
                 {{ link.name }}
               </a>
+              <span v-if="index < links.length - 1" class="mx-1.5 sm:mx-2 md:mx-3 text-amber-600 font-bold shrink-0">•</span>
             </li>
           </ul>
         </footer>
@@ -50,23 +51,23 @@ export default {
       links: [
         {
           link: 'https://www.linkedin.com/in/navidanindya',
-          name: 'linkedin.'
+          name: 'linkedin'
         },
         {
           link: 'https://github.com/navidanindya',
-          name: 'github.'
+          name: 'github'
         },
         {
           link: 'https://gitlab.com/navidanindya',
-          name: 'gitlab.'
+          name: 'gitlab'
         },
         {
           link: 'https://www.instagram.com/navidanindyaneel',
-          name: 'instagram.'
+          name: 'instagram'
         },
         {
           link: 'https://open.spotify.com/user/nealtheguitarist',
-          name: 'spotify.'
+          name: 'spotify'
         }
       ]
     }
