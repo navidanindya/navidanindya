@@ -13,7 +13,7 @@
       <li>
         <p class="italic">
           Current
-        </p><strong> Technical Project Manager &amp; Solutions Architect, <a href="https://www.konstruct.agency/" target="_blank" rel="noreferrer noopener">Konstruct</a></strong>
+        </p><strong> Technical Project Manager &amp; Solutions Architect, <a href="https://www.konstruct.agency/" target="_blank" rel="noreferrer noopener">Konstruct, Inc.</a></strong>
         — Architecting the technical foundations for their US healthcare platforms: HIPAA-compliant systems, pull-based GitOps and CI/CD automation, desisgning systems and solutions, building SaaS
         and leading the engineering hub here in Dhaka.
       </li>
