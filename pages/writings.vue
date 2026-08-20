@@ -15,16 +15,22 @@ export default {
     return { writings }
   },
   head () {
+    const description = 'All the writings of Navid Anindya — notes and essays on engineering, cloud-native systems, music, and philosophy.'
     return {
       title: 'Writings of Navid Anindya',
       meta: [
-        { hid: 'description', name: 'description', content: 'Writings of Navid Anindya' },
-        // Open Graph
+        { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', property: 'og:title', content: 'Writings of Navid Anindya' },
-        { hid: 'og:description', property: 'og:description', content: 'Writings of Navid Anindya' },
-        // Twitter Card
+        { hid: 'og:description', property: 'og:description', content: description },
+        { hid: 'og:url', property: 'og:url', content: 'https://navidanindya.info/writings' },
+        { hid: 'og:image', property: 'og:image', content: 'https://navidanindya.info/og.png' },
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:title', name: 'twitter:title', content: 'Writings of Navid Anindya' },
-        { hid: 'twitter:description', name: 'twitter:description', content: 'Writings of Navid Anindya' }
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
+        { hid: 'twitter:image', name: 'twitter:image', content: 'https://navidanindya.info/og.png' }
+      ],
+      link: [
+        { hid: 'canonical', rel: 'canonical', href: 'https://navidanindya.info/writings' }
       ]
     }
   },

@@ -81,16 +81,41 @@ export default {
     }
   },
   head () {
+    const description = 'About Navid Anindya (Neel) — Technical Project Manager & Solutions Architect at Konstruct, Inc., formerly CTO & CEO of Sayburgh Solutions. Also a Fractional CTO.'
     return {
       title: 'About Navid Anindya',
       meta: [
-        { hid: 'description', name: 'description', content: 'About Navid Anindya' },
+        { hid: 'description', name: 'description', content: description },
         // Open Graph
         { hid: 'og:title', property: 'og:title', content: 'About Navid Anindya' },
-        { hid: 'og:description', property: 'og:description', content: 'About Navid Anindya' },
+        { hid: 'og:description', property: 'og:description', content: description },
+        { hid: 'og:type', property: 'og:type', content: 'profile' },
+        { hid: 'og:url', property: 'og:url', content: 'https://navidanindya.info/about' },
+        { hid: 'og:image', property: 'og:image', content: 'https://navidanindya.info/og.png' },
+        { hid: 'og:image:alt', property: 'og:image:alt', content: 'Navid Anindya — I make and explore things' },
         // Twitter Card
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:title', name: 'twitter:title', content: 'About Navid Anindya' },
-        { hid: 'twitter:description', name: 'twitter:description', content: 'About Navid Anindya' }
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
+        { hid: 'twitter:image', name: 'twitter:image', content: 'https://navidanindya.info/og.png' }
+      ],
+      link: [
+        { hid: 'canonical', rel: 'canonical', href: 'https://navidanindya.info/about' }
+      ],
+      script: [
+        {
+          hid: 'ld-json-profile',
+          type: 'application/ld+json',
+          json: {
+            '@context': 'https://schema.org',
+            '@type': 'ProfilePage',
+            '@id': 'https://navidanindya.info/about#profile',
+            url: 'https://navidanindya.info/about',
+            mainEntity: {
+              '@id': 'https://navidanindya.info/#person'
+            }
+          }
+        }
       ]
     }
   }

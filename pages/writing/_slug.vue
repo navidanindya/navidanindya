@@ -58,21 +58,51 @@ export default {
     }
   },
   head () {
+    const published = this.toISODate(this.writing.createdAt)
+    const modified = this.writing.updated ? this.toISODate(this.writing.updated) : published
     return {
-      title: this.writing.title + ' - Navid Anindya',
+      title: this.writing.title,
       meta: [
         { hid: 'description', name: 'description', content: this.writing.description },
         // Open Graph
         { hid: 'og:title', property: 'og:title', content: this.writing.title },
         { hid: 'og:description', property: 'og:description', content: this.writing.description },
         { hid: 'og:type', property: 'og:type', content: 'article' },
-        { hid: 'og:article:published_time', property: 'og:article:published_time', content: this.toISODate(this.writing.createdAt) },
+        { hid: 'og:url', property: 'og:url', content: `https://navidanindya.info/writing/${this.writingSlug}` },
+        { hid: 'og:image', property: 'og:image', content: 'https://navidanindya.info/og.png' },
+        { hid: 'og:image:alt', property: 'og:image:alt', content: 'Navid Anindya — I make and explore things' },
+        { hid: 'og:article:published_time', property: 'og:article:published_time', content: published },
+        { hid: 'og:article:modified_time', property: 'og:article:modified_time', content: modified },
+        { hid: 'og:article:author', property: 'og:article:author', content: 'https://navidanindya.info/about' },
         // Twitter Card
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:title', name: 'twitter:title', content: this.writing.title },
-        { hid: 'twitter:description', name: 'twitter:description', content: this.writing.description }
+        { hid: 'twitter:description', name: 'twitter:description', content: this.writing.description },
+        { hid: 'twitter:image', name: 'twitter:image', content: 'https://navidanindya.info/og.png' }
       ],
       link: [
         { hid: 'canonical', rel: 'canonical', href: `https://navidanindya.info/writing/${this.writingSlug}` }
+      ],
+      script: [
+        {
+          hid: 'ld-json-article',
+          type: 'application/ld+json',
+          json: {
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: this.writing.title,
+            description: this.writing.description,
+            image: 'https://navidanindya.info/og.png',
+            datePublished: published,
+            dateModified: modified,
+            author: { '@id': 'https://navidanindya.info/#person' },
+            publisher: { '@id': 'https://navidanindya.info/#person' },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': `https://navidanindya.info/writing/${this.writingSlug}`
+            }
+          }
+        }
       ]
     }
   },

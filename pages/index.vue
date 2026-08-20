@@ -61,6 +61,17 @@ export default {
         }
       ]
     }
+  },
+  head () {
+    return {
+      title: 'Navid Anindya',
+      meta: [
+        { hid: 'og:url', property: 'og:url', content: 'https://navidanindya.info' }
+      ],
+      link: [
+        { hid: 'canonical', rel: 'canonical', href: 'https://navidanindya.info' }
+      ]
+    }
   }
 }
 </script>
