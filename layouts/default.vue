@@ -77,7 +77,7 @@ export default {
 
 <style lang="postcss" scoped>
 .bg {
-  @apply bg-gradient-to-b from-gray-900 to-gray-800;
+  background-image: linear-gradient(to bottom, #111827, #1f2937);
 }
 .default-text {
   @apply antialiased text-gray-300 font-mono;
