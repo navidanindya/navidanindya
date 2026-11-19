@@ -1,113 +1,93 @@
 <template>
   <article>
-    <nuxt-link class="text-base h-10" to="/writings">
-      ❮ Back to writings
-    </nuxt-link>
-    <h1>
-      {{ writing.title }}
-    </h1>
+    <site-breadcrumbs :current-label="writing.title" />
+    <div class="entry-title-row">
+      <!-- Keep longer headlines readable within the title row. -->
+      <h1 class="!mb-0" :class="{ 'text-[clamp(1.625rem,5vw,2.5rem)]': writing.title.length > 48 }">
+        {{ writing.title }}
+      </h1>
+      <copy-link-button :path="'/writing/' + writing.slug" :title="writing.title" />
+    </div>
     <div class="text-base italic xs:text-justify">
       {{ writing.description }}
     </div>
     <section class="flex xs:flex-row flex-col justify-between items-start md:items-center xs:text-justify">
-      <p class="text-sm text-yellow-200 flex">
-        {{ minuteRead(writing.text) }} min read /
-        {{ formatDate(writing.createdAt) }}
+      <p class="text-sm text-gray-700 dark:text-gray-300">
+        By <nuxt-link to="/about" rel="author" v-text="'Navid Anindya'" /> · {{ readingMinutes(writing.body) }} min read ·
+        <span class="italic">Published on {{ formatDate(writing.createdAt) }}</span>
       </p>
-      <p class="text-sm text-yellow-100 flex">
-        {{ viewCount || '---' }} view(s)
-      </p>
+      <entry-view-count :key="writing.slug" kind="writing" :slug="writing.slug" class="text-sm" />
     </section>
-    <h6 v-if="writing.updated !== undefined" class="text-sm italic text-yellow-50">
+    <p v-if="writing.updated !== undefined" class="text-sm italic text-gray-700 dark:text-gray-300">
       Updated on: {{ formatDate(writing.updated) }}
-    </h6>
-    <nuxt-content class="xs:text-justify" :document="writing" />
-    <section class="mt-10 flex flex-row">
-      <nuxt-link v-if="prevWriting" class="text-base text-left flex-1 justify-start" :to="{ name: 'writing-slug', params: { slug: prevWriting.slug } }">
-        ❮ {{ prevWriting.title }}
-      </nuxt-link>
-      <nuxt-link v-if="nextWriting" class="text-base text-right flex-1 justify-end" :to="{ name: 'writing-slug', params: { slug: nextWriting.slug } }">
-        {{ nextWriting.title }} ❯
-      </nuxt-link>
-    </section>
+    </p>
+    <tag-links :value="writing.tags" />
+    <reading-content :entry="writing" />
+    <entry-navigation :neighbors="neighbors" prefix="/writing" />
   </article>
 </template>
 
 <script>
-import { doc, increment, onSnapshot, setDoc } from 'firebase/firestore'
-import { db } from '~/plugins/firebase.js'
+import { calendarDate, pageHead, publishedDate, readEntryNeighbors, readingMinutes } from '~/utils/content'
+import { articleSizes, canonicalUrl, postSocialCard, siteOrigin, socialImagePath } from '~/utils/socialCards'
 
 export default {
   async asyncData ({ $content, params, error }) {
     try {
-      const writing = await $content('writings', params.slug, { text: true }).fetch()
-      const [prevWriting, nextWriting] = await $content('writings').only(['title', 'slug'])
-        .surround(params.slug).sortBy('createdAt', 'asc').fetch()
-      return { writing, prevWriting, nextWriting }
+      const [writing, neighbors] = await Promise.all([
+        $content('writings', params.slug).fetch(),
+        readEntryNeighbors($content, 'writings', params.slug)
+      ])
+      return { writing, neighbors }
     } catch (err) {
       error({
         statusCode: 404
       })
     }
   },
-  data () {
-    return {
-      writingSlug: this.$route.params.slug,
-      viewCount: 0,
-      unsub: undefined
-    }
-  },
   head () {
+    const published = this.toISODate(this.writing.createdAt)
+    const modified = this.writing.updated ? this.toISODate(this.writing.updated) : published
+    const card = postSocialCard('writing', this.writing)
+    const head = pageHead(card)
     return {
-      title: this.writing.title + ' - Navid Anindya',
+      ...head,
       meta: [
-        { hid: 'description', name: 'description', content: this.writing.description },
-        // Open Graph
-        { hid: 'og:title', property: 'og:title', content: this.writing.title },
-        { hid: 'og:description', property: 'og:description', content: this.writing.description },
+        ...head.meta,
         { hid: 'og:type', property: 'og:type', content: 'article' },
-        { hid: 'og:article:published_time', property: 'og:article:published_time', content: this.toISODate(this.writing.createdAt) },
-        // Twitter Card
-        { hid: 'twitter:title', name: 'twitter:title', content: this.writing.title },
-        { hid: 'twitter:description', name: 'twitter:description', content: this.writing.description }
+        { hid: 'og:article:published_time', property: 'og:article:published_time', content: published },
+        { hid: 'og:article:modified_time', property: 'og:article:modified_time', content: modified },
+        { hid: 'og:article:author', property: 'og:article:author', content: canonicalUrl('/about') }
       ],
-      link: [
-        { hid: 'canonical', rel: 'canonical', href: `https://navidanindya.info/writing/${this.writingSlug}` }
+      script: [
+        {
+          hid: 'ld-json-article',
+          type: 'application/ld+json',
+          json: {
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: this.writing.title,
+            description: this.writing.description,
+            image: articleSizes.map(([width, height]) => siteOrigin + socialImagePath(card, width, height)),
+            datePublished: published,
+            dateModified: modified,
+            author: { '@id': 'https://navidanindya.info/#person' },
+            publisher: { '@id': 'https://navidanindya.info/#person' },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': canonicalUrl(card.path)
+            }
+          }
+        }
       ]
     }
   },
-  mounted () {
-    try {
-      this.getViews()
-    } catch (e) {
-      this.viewCount = 0
-    }
-  },
-  beforeDestroyed () {
-    this.unsub()
-  },
   methods: {
-    async getViews () {
-      const ref = doc(db, 'views', this.writingSlug)
-      await setDoc(ref, { count: increment(1) }, { merge: true })
-      this.unsub = onSnapshot(ref, (doc) => {
-        this.viewCount = doc.data().count
-      })
-    },
-    formatDate (date) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' }
-      return new Date(date).toLocaleDateString('en', options)
-    },
+    formatDate: publishedDate,
+    readingMinutes,
+    // Preserve the publication day in the article metadata.
     toISODate (date) {
-      return new Date(date).toISOString().substring(0, 10)
-    },
-    minuteRead (words) {
-      const wordsPerMinute = 150
-      const wordCountRegex = /\w+/g
-      const filteredWords = words.replace(wordCountRegex, '')
-      const wordCount = filteredWords.split(' ').length
-      const time = wordCount / wordsPerMinute
-      return (time < 0.9) ? 'less than a' : `${Math.ceil(time)}`
+      return calendarDate(date).toISOString().substring(0, 10)
     }
   }
 }

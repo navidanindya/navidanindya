@@ -88,3 +88,8 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Cloudflare Wrangler
+.wrangler
+.dev.vars
+.dev.vars.*

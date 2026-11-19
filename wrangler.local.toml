@@ -1,0 +1,8 @@
+# Use this file for local migrations. Match the ID in the preview:pages script. Hosted bindings live in the Pages dashboard.
+name = "navidanindya-local"
+compatibility_date = "2026-11-10"
+
+[[d1_databases]]
+binding = "VIEWS_DB"
+database_name = "site-views-local"
+database_id = "00000000-0000-4000-8000-000000000001"
