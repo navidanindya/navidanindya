@@ -26,11 +26,12 @@
         <!-- Keep section navigation available at the end of every page. -->
         <section-links />
         <footer class="mt-4 flex flex-col items-center gap-3 text-center text-xs min-[771px]:flex-row min-[771px]:justify-between min-[771px]:gap-2">
-          <p id="social-profiles" class="inline-flex shrink-0 items-center gap-1.5 font-medium text-site-accent dark:text-site-accent-dark">
+          <!-- Use a footer-specific ID because social filters hide the generic one. -->
+          <p id="footer-elsewhere-label" class="inline-flex shrink-0 items-center gap-1.5 font-medium text-site-accent dark:text-site-accent-dark">
             <site-icon name="pin" class="h-4 w-4" />
             Find me elsewhere
           </p>
-          <ul aria-labelledby="social-profiles" class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 font-medium min-[771px]:flex-nowrap min-[771px]:justify-end min-[771px]:gap-x-1.5">
+          <ul aria-labelledby="footer-elsewhere-label" class="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 font-medium min-[771px]:flex-nowrap min-[771px]:justify-end min-[771px]:gap-x-1.5">
             <li v-for="(link, index) in links" :key="link.name" class="inline-flex items-center gap-2 min-[771px]:gap-1.5">
               <span v-if="index" aria-hidden="true" class="hidden text-site-accent dark:text-site-accent-dark min-[771px]:inline">·</span>
               <a
