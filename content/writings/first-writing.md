@@ -2,9 +2,10 @@
 title: First writing!
 description: 'First writing on the internet by Navid Anindya. Also a small LPT for JavaScript coders on writing `console` statements.'
 createdAt: March 18, 2021
+tags: javascript, coding-guide
 ---
 
-### Intro
+## Intro
 
 I finally started this. I finally designed something to start writing.
 
@@ -13,7 +14,7 @@ It's crazy how _procrastination_ can get you into a place where you keep snoozin
 I am just going to write some `javascript` here underneath to see how the design works out,
 with a very simple _LPT (life pro tip)_ that I think most coders who write `javascript` will like.
 
-### The `console.assert` LPT
+## The `console.assert` LPT
 
 ```js
 // Instead of writing this
@@ -25,7 +26,7 @@ if (!loggedIn) {
 console.assert(loggedIn, "Not logged in");
 ```
 
-### Conclusion?
+## Conclusion?
 
 I have yet to finish the design and some other small features to add in this site.
 I'll also be writing more stuff soon.

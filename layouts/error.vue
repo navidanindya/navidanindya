@@ -1,22 +1,25 @@
 <template>
-  <div class="flex">
-    <div class="m-auto text-center max-w-md">
-      <h1 class="tracking-widest">
+  <div class="flex px-3 pt-10 sm:pt-16">
+    <div class="mx-auto max-w-md text-center">
+      <!-- Use the same icon treatment for missing pages and failed requests. -->
+      <site-icon :name="isNotFound ? 'missing' : 'error'" class="mx-auto h-12 w-12 text-site-accent dark:text-site-accent-dark" />
+      <h1 class="!mb-0 !mt-4 tracking-widest">
         {{ statusCode }}
       </h1>
-      <h2>
+      <h2 class="!mt-8">
         {{ heading }}
       </h2>
-      <p v-if="!isNotFound && error.message" class="text-sm italic">
-        {{ error.message }}
-      </p>
       <p>
         {{ description }}
       </p>
-      <nav class="flex flex-col gap-1">
-        <nuxt-link to="/">Go back home</nuxt-link>
-        <nuxt-link to="/writings">
-          Read some writings I wrote
+      <nav class="not-prose flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-semibold italic" aria-label="Recover from error">
+        <nuxt-link to="/" class="inline-flex items-center gap-1.5 desktop-hover:text-site-accent dark:desktop-hover:text-site-accent-dark">
+          <site-icon name="home" class="h-4 w-4" />
+          <span v-text="'/home'" />
+        </nuxt-link>
+        <nuxt-link to="/writings" class="inline-flex items-center gap-1.5 desktop-hover:text-site-accent dark:desktop-hover:text-site-accent-dark">
+          <site-icon name="writing" class="h-4 w-4" />
+          <span v-text="'/writings'" />
         </nuxt-link>
       </nav>
     </div>
@@ -24,7 +27,10 @@
 </template>
 
 <script>
+import SiteIcon from '~/components/icons/SiteIcon.vue'
+
 export default {
+  components: { SiteIcon },
   props: {
     error: {
       type: Object,

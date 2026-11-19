@@ -1,10 +1,17 @@
+import { mkdir, writeFile } from 'fs/promises'
+import { dirname, join } from 'path'
+import { canonicalUrl } from './utils/socialCards'
+import { generateSocialImages } from './scripts/social-images'
+import { writeEntryViewSeed } from './scripts/entry-view-seed'
+import { calendarDate, contentRoutes, normalizeContentDates } from './utils/content'
+import { bandReleases } from './utils/band'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
-  generate: {
-    fallback: true
-  },
+  // The generate hook writes a rendered 404 in place of Nuxt's empty fallback.
+  generate: { fallback: false },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -15,6 +22,7 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
+      { name: 'color-scheme', content: 'light dark' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.' },
       { hid: 'robots', name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
@@ -25,7 +33,6 @@ export default {
       { hid: 'og:site_name', property: 'og:site_name', content: 'Navid Anindya' },
       { hid: 'og:title', property: 'og:title', content: 'Navid Anindya | I make and explore things.' },
       { hid: 'og:description', property: 'og:description', content: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.' },
-      { hid: 'og:url', property: 'og:url', content: 'https://navidanindya.info' },
       { hid: 'og:image', property: 'og:image', content: 'https://navidanindya.info/og.png' },
       { hid: 'og:image:width', property: 'og:image:width', content: '1200' },
       { hid: 'og:image:height', property: 'og:image:height', content: '630' },
@@ -39,10 +46,13 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'apple-touch-icon', href: '/icon.png' },
-      { hid: 'canonical', rel: 'canonical', href: 'https://navidanindya.info' }
+      // Prefer an adaptive SVG in browsers that support it.
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      { rel: 'apple-touch-icon', href: '/pwa-icon.png' },
+      { rel: 'alternate', type: 'application/rss+xml', title: 'Navid Anindya — Writings and Notes', href: '/feed.xml' }
     ],
     script: [
+      { hid: 'theme-preference', src: '/theme.js' },
       {
         hid: 'ld-json-website',
         type: 'application/ld+json',
@@ -50,7 +60,7 @@ export default {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           '@id': 'https://navidanindya.info/#website',
-          url: 'https://navidanindya.info',
+          url: canonicalUrl('/'),
           name: 'Navid Anindya',
           description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.',
           inLanguage: 'en',
@@ -66,7 +76,7 @@ export default {
           '@id': 'https://navidanindya.info/#person',
           name: 'Navid Anindya',
           alternateName: 'Neel',
-          url: 'https://navidanindya.info',
+          url: canonicalUrl('/'),
           image: 'https://navidanindya.info/icon.png',
           email: 'me@navidanindya.info',
           jobTitle: 'Technical Project Manager & Solutions Architect',
@@ -105,12 +115,6 @@ export default {
   css: [
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '~/plugins/firebase.js',
-    '~/plugins/spotify.js'
-  ],
-
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -141,8 +145,13 @@ export default {
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    workbox: {
+      // Let the update toast activate an installed worker when the visitor is ready.
+      skipWaiting: false,
+      workboxExtensions: ['~/assets/service-worker/update.js']
+    },
     icon: {
-      source: './static/icon.png'
+      source: './static/pwa-icon.png'
     },
     manifest: {
       name: 'Navid Anindya',
@@ -173,139 +182,110 @@ export default {
     }
   },
 
-  env: {
-    spotifyURI: process.env.SPOTIFY_URI,
-    fbApiKey: process.env.FIREBASE_API_KEY,
-    fbAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
-    fbProjectId: process.env.FIREBASE_PROJECT_ID,
-    fbStorageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-    fbmMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-    fbAppId: process.env.FIREBASE_APP_ID,
-    fbMeasurementId: process.env.FIREBASE_MEASUREMENT_ID
-  },
-
+  // Generate all three formats from writings, notes, and dated music releases.
   feed: [
-    {
-      path: '/feed.xml',
-      async create (feed) {
-        feed.options = {
-          title: 'Navid Anindya',
-          description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.',
-          link: 'https://navidanindya.info/feed.xml'
-        }
-        const { $content } = require('@nuxt/content')
-        const writings = await $content('writings').fetch()
+    { path: '/feed.xml', type: 'rss2' },
+    { path: '/feed.atom.xml', type: 'atom1' },
+    { path: '/feed.json', type: 'json1' }
+  ].map(({ path, type }) => ({
+    path,
+    type,
+    cacheTime: 1000 * 60 * 15,
+    // Keep full article content and sort all entries by their publication date.
+    async create (feed) {
+      const site = 'https://navidanindya.info'
+      const author = { name: 'Navid Anindya', email: 'me@navidanindya.info', link: site }
+      feed.options = {
+        title: 'Navid Anindya',
+        description: 'Writings, notes, and music releases from Navid Anindya.',
+        id: site,
+        link: canonicalUrl('/'),
+        language: 'en',
+        feedLinks: { rss: site + '/feed.xml', atom: site + '/feed.atom.xml', json: site + '/feed.json' }
+      }
 
-        writings.forEach((writing) => {
-          const url = `https://navidanindya.info/writing/${writing.slug}`
-          feed.addItem({
-            title: writing.title,
-            id: url,
-            link: url,
-            description: writing.description,
-            content: writing.bodyText,
-            date: new Date(writing.createdAt),
-            author: [
-              {
-                name: 'Navid Anindya',
-                email: 'me@navidanindya.info',
-                link: 'https://navidanindya.info'
-              }
-            ]
-          })
-        })
-      },
-      cacheTime: 1000 * 60 * 15,
-      type: 'rss2'
-    },
-    {
-      path: '/feed.atom.xml',
-      async create (feed) {
-        feed.options = {
-          title: 'Navid Anindya',
-          description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.',
-          link: 'https://navidanindya.info/feed.atom.xml'
-        }
-        const { $content } = require('@nuxt/content')
-        const writings = await $content('writings').fetch()
+      const { $content } = require('@nuxt/content')
+      const [writings, notes] = await Promise.all([
+        $content('writings').fetch(),
+        $content('notes').fetch()
+      ])
+      const entries = [
+        ...writings.map(entry => ({ ...entry, url: site + '/writing/' + entry.slug })),
+        ...notes.map(entry => ({ ...entry, url: site + '/notes/' + entry.slug })),
+        // Release dates and stable song links keep playback changes out of the feeds.
+        ...bandReleases.map(song => ({
+          title: `${song.title} by ${song.performers}`,
+          description: `Listen to ${song.title}, a single by ${song.performers}.`,
+          url: `${site}/fun-stuff/7-minutes#${song.anchor}`,
+          createdAt: song.releaseDate
+        }))
+      ].map(entry => ({ ...entry, published: calendarDate(entry.createdAt) }))
+      entries.sort((first, second) => second.published - first.published)
 
-        writings.forEach((writing) => {
-          const url = `https://navidanindya.info/writing/${writing.slug}`
-          feed.addItem({
-            title: writing.title,
-            id: url,
-            link: url,
-            description: writing.description,
-            content: writing.bodyText,
-            date: new Date(writing.createdAt),
-            author: [
-              {
-                name: 'Navid Anindya',
-                email: 'me@navidanindya.info',
-                link: 'https://navidanindya.info'
-              }
-            ]
-          })
+      entries.forEach(({ title, url, description, bodyText, published, updated }) => {
+        feed.addItem({
+          title,
+          // Keep feed item IDs stable while linking to their canonical URLs.
+          id: url,
+          link: canonicalUrl(url),
+          description,
+          // Feed readers need absolute URLs for images embedded in notes and writings.
+          content: bodyText?.replace(/\bsrc="\/(?!\/)/g, 'src="' + site + '/'),
+          published,
+          date: updated ? calendarDate(updated) : published,
+          author: [author]
         })
-      },
-      cacheTime: 1000 * 60 * 15,
-      type: 'atom1'
-    },
-    {
-      path: '/feed.json',
-      async create (feed) {
-        feed.options = {
-          title: 'Navid Anindya',
-          description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.',
-          link: 'https://navidanindya.info/feed.json'
-        }
-        const { $content } = require('@nuxt/content')
-        const writings = await $content('writings').fetch()
-
-        writings.forEach((writing) => {
-          const url = `https://navidanindya.info/writing/${writing.slug}`
-          feed.addItem({
-            title: writing.title,
-            id: url,
-            link: url,
-            description: writing.description,
-            content: writing.bodyText,
-            date: new Date(writing.createdAt),
-            author: [
-              {
-                name: 'Navid Anindya',
-                email: 'me@navidanindya.info',
-                link: 'https://navidanindya.info'
-              }
-            ]
-          })
-        })
-      },
-      cacheTime: 1000 * 60 * 15,
-      type: 'json1'
+      })
     }
-  ],
+  })),
 
   hooks: {
+    // Give date-only posts the same dates in every build timezone.
+    'content:file:beforeParse' (file) {
+      if (file.extension === '.md') { file.data = normalizeContentDates(file.data) }
+    },
     'content:file:beforeInsert': (document) => {
+      // Render author-controlled note embeds in the feed HTML.
       // eslint-disable-next-line
-      const md = require('markdown-it')()
+      const md = require('markdown-it')({ html: true })
       if (document.extension === '.md') {
         const mdToHtml = md.render(document.text)
         document.bodyText = mdToHtml
       }
     },
     generate: {
-      async done () {
-        const { db } = require('./plugins/firebase')
-        const { terminate } = require('firebase/firestore')
-        await terminate(db)
+      // Generate share cards and seed rows from the published collections.
+      async done (generator) {
+        const { $content } = require('@nuxt/content')
+        await generateSocialImages(generator, $content)
+        await writeEntryViewSeed(generator.nuxt.options.rootDir, $content)
+        // Publish the branded error HTML so missing URLs work before JavaScript.
+        const renderContext = {
+          renderNotFound: true,
+          staticAssetsBase: generator.staticAssetsBase
+        }
+        const { html, error } = await generator.nuxt.server.renderRoute('/404', renderContext)
+        if (error?.statusCode !== 404) { throw new Error('Nuxt did not render the 404 fallback.') }
+        // Save the serialized state when Nuxt emits it separately from the HTML.
+        for (const asset of renderContext.staticAssets) {
+          const path = join(generator.staticAssetsDir, asset.path)
+          await mkdir(dirname(path), { recursive: true })
+          await writeFile(path, asset.src)
+        }
+        await writeFile(join(generator.distPath, '404.html'), html)
       }
+    },
+    'vue-renderer:context' (context) {
+      // Nuxt 2 skips error markup in static mode. Render only the fallback as SSR.
+      if (context.renderNotFound) { context.target = 'server' }
     }
   },
 
   // Google Web fonts
   googleFonts: {
+    // Keep using the Google Fonts stylesheet instead of downloading fonts at build time.
+    download: false,
+    useStylesheet: true,
     display: 'swap',
     families: {
       'Space+Grotesk': [600],
@@ -325,22 +305,22 @@ export default {
   sitemap: {
     hostname: 'https://navidanindya.info',
     gzip: true,
+    trailingSlash: true,
     exclude: [],
-    routes: async () => {
+    routes: () => {
       const { $content } = require('@nuxt/content')
-      const files = await $content({ deep: true }).only(['path', 'updatedAt']).fetch()
-
-      return files.map((file) => {
-        const route = { route: file.path === '/index' ? '/' : file.path }
-        if (file.updatedAt instanceof Date) {
-          route.lastmod = file.updatedAt.toISOString()
-        }
-        return route
-      })
+      // Content paths use the public URL of each writing, note, and tag.
+      return contentRoutes($content)
     }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    html: {
+      minify: {
+        // Keep the space in Tailwind dark descendant selectors when minifying inline CSS.
+        minifyCSS: { level: { 1: { tidySelectors: false } } }
+      }
+    }
   }
 }

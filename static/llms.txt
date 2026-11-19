@@ -1,0 +1,13 @@
+# Navid Anindya
+
+> Personal site with writings on engineering, music, and philosophy, short notes and finds, and small projects.
+
+- [About](https://navidanindya.info/about/): Background, interests, and ways to work together.
+- [Writings](https://navidanindya.info/writings/): Essays and technical guides.
+- [Notes & Finds](https://navidanindya.info/notes/): Short posts about things worth sharing.
+- [Browse tags](https://navidanindya.info/tags/): Topic archives across writings and notes.
+- [Fun Stuff](https://navidanindya.info/fun-stuff/): Projects and experiments.
+- [Music on Repeat](https://navidanindya.info/fun-stuff/music-on-repeat/): Top Spotify tracks and the most recent track.
+- [7 Minutes](https://navidanindya.info/fun-stuff/7-minutes/): Navid’s indie duo, discography, and listening links.
+- [Lexical Analyzer](https://navidanindya.info/fun-stuff/lexical-analyzer/): Java lexer built for a university compiler course.
+- [RSS feed](https://navidanindya.info/feed.xml): Published writings and notes.

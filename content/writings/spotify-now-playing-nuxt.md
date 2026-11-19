@@ -2,14 +2,19 @@
 title: Using the Spotify API to show Now Playing in Nuxt.js
 description: A simple guide on how to use the Spotify API to show off one's music taste using Nuxt.js.
 createdAt: December 01, 2021
+updatedAt: "2026-11-07"
 tags: spotify-api, coding-guide, nuxtjs, vuejs
 ---
+
+**Update, November 7, 2026**
+
+Spotify has updated its authorization rules since I wrote this, so the setup below no longer works as written.
 
 I am an avid music listener. I love finding out and listening to new music almost everyday. I use Spotify as my music subscription service and I personally love it. As someone who is into music so much, I wanted to show what song I'm currently listening to.
 
 In order to do this, I needed to use the [Spotify API](https://developer.spotify.com/documentation/web-api/) and add them to Nuxt.js using the [plugins module](https://nuxtjs.org/docs/directory-structure/plugins). The Spotify API is a bit painful to setup, but let's see how it can be done.
 
-### Create an application in Spotify Developer Dashboard
+## Create an application in Spotify Developer Dashboard
 
 * First go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
 * Log in with your Spotify account.
@@ -23,7 +28,7 @@ The reason we're doing this is to get a refresh token from the Spotify Web API s
 
 We'll be using the [Authorization Code Flow](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/) process of the Spotify API to get the refresh token and then use it to get our track information.
 
-### Get the refresh token and authenticate
+## Get the refresh token and authenticate
 
 We need to go to an URL first to authorize your account by logging in using you spotify account and giving permission of [scopes](https://developer.spotify.com/documentation/general/guides/authorization/scopes/) that we will be using. These scopes let you have control on what you can share after authorizing your account. These are basically [OAuth 2.0 scopes](https://oauth.net/2/scope/).
 
@@ -80,7 +85,7 @@ Let's save this.
 
 Whew! That was a lot of work to get a refresh token. Now let's move on to preparing our Nuxt.js application to fetch data using this refresh token.
 
-### Use the Spotify API in Nuxt.js
+## Use the Spotify API in Nuxt.js
 
 Assuming you have already created a Nuxt.js application, let's save the Client ID, Client Secret and the Refresh Token in environment variables. We can use our trusty `.env` file for this.
 

@@ -3,6 +3,7 @@ title: Lyric attempts and some thoughts on life
 description: 'Some attempts to write lyrics for the music I want to create as part of my band 7 Minutes. And some life thoughts.'
 createdAt: June 21, 2021
 updated: February 3, 2022
+tags: music, songwriting
 ---
 
 This is a pretty different writing from what usually people write on the web. This writing is part of my thoughts and what I
