@@ -91,3 +91,5 @@ sw.*
 
 # Cloudflare Wrangler
 .wrangler
+.dev.vars
+.dev.vars.*
