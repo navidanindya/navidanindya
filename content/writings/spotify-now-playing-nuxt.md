@@ -2,13 +2,15 @@
 title: Using the Spotify API to show Now Playing in Nuxt.js
 description: A simple guide on how to use the Spotify API to show off one's music taste using Nuxt.js.
 createdAt: December 01, 2021
-updatedAt: "2026-11-07"
+updatedAt: "2026-11-20"
 tags: spotify-api, coding-guide, nuxtjs, vuejs
 ---
 
-**Update, November 7, 2026**
+> **Update, November 20, 2026**
+>
+> *Every six months, you’ll need to manually reauthorize your Spotify app and replace the refresh token in your environment.*
 
-Spotify has updated its authorization rules since I wrote this, so the setup below no longer works as written.
+---
 
 I am an avid music listener. I love finding out and listening to new music almost everyday. I use Spotify as my music subscription service and I personally love it. As someone who is into music so much, I wanted to show what song I'm currently listening to.
 
