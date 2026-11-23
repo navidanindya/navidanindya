@@ -3,9 +3,10 @@ import { dirname, join } from 'path'
 import { canonicalUrl } from './utils/socialCards'
 import { generateSocialImages } from './scripts/social-images'
 import { calendarDate, contentRoutes, normalizeContentDates } from './utils/content'
-import { bandReleases } from './utils/band'
+import { bandFeedHistory, fetchBandReleases } from './utils/band'
 
-export default {
+// The static feeds share one release snapshot per build.
+const siteConfig = bandReleases => ({
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -214,7 +215,7 @@ export default {
         // Release dates and stable song links keep playback changes out of the feeds.
         ...bandReleases.map(song => ({
           title: `${song.title} by ${song.performers}`,
-          description: `Listen to ${song.title}, a single by ${song.performers}.`,
+          description: `Listen to ${song.title} by ${song.performers}.`,
           url: `${site}/fun-stuff/7-minutes#${song.anchor}`,
           createdAt: song.releaseDate
         }))
@@ -322,4 +323,11 @@ export default {
       }
     }
   }
-}
+})
+
+// Keep the existing feed history available to builds without Spotify credentials.
+export default async () => siteConfig(
+  process.env.CF_PAGES === '1' && process.env.scid && process.env.scs
+    ? await fetchBandReleases(process.env)
+    : bandFeedHistory
+)

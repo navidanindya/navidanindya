@@ -23,8 +23,14 @@
           description="A two-piece indie band I make music with."
           link-label="Check out our stuff"
         >
-          <div class="flex items-start gap-3">
-            <square-image :src="latestRelease.cover" :alt="latestRelease.coverAlt" :size="96" class="rounded-lg" />
+          <p v-if="$fetchState.error" role="status" class="!my-0">
+            Could not load Spotify releases.
+          </p>
+          <p v-else-if="$fetchState.pending && !latestRelease" role="status" class="!my-0">
+            Loading Spotify releases…
+          </p>
+          <div v-if="latestRelease" class="flex items-start gap-3">
+            <square-image v-if="latestRelease.cover" :src="latestRelease.cover" :alt="latestRelease.coverAlt" :size="96" class="rounded-lg" />
             <div class="min-w-0">
               <p class="!my-0 font-medium">
                 Latest release
@@ -57,18 +63,27 @@
 </template>
 
 <script>
-import { bandReleases } from '~/utils/band'
 import { pageHead } from '~/utils/content'
 import { staticSocialCard } from '~/utils/socialCards'
+import { readSpotifyReleases } from '~/utils/spotify-releases'
 
 export default {
-  // Read the latest release from the same list as the portfolio.
   data () {
-    return { latestRelease: bandReleases[0] }
+    return { latestRelease: null }
+  },
+  // The portfolio and its card share the same browser-side catalog.
+  fetchOnServer: false,
+  async fetch () {
+    const [latestRelease] = await readSpotifyReleases()
+    this.latestRelease = latestRelease
   },
   // Give the project directory its own search title and canonical URL.
   head () {
     return pageHead(staticSocialCard('/fun-stuff'))
+  },
+  // Check expiry when revisiting this kept-alive page.
+  activated () {
+    if (!this.$fetchState.pending) { this.$fetch() }
   }
 }
 </script>
