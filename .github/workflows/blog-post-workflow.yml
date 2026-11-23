@@ -1,14 +1,19 @@
-name: Latest blog post workflow
+name: Update latest writings
+
 on:
-  schedule: # Run workflow automatically
-    - cron: '0 * * * *' # Runs every hour, on the hour
-  workflow_dispatch: # Run workflow manually (without waiting for the cron to be called), through the Github Actions Workflow page directly
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
 jobs:
-  update-readme-with-blog:
-    name: Update this repo's README with latest blog posts
+  update:
+    if: github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: gautamkrishnar/blog-post-workflow@master
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: gautamkrishnar/blog-post-workflow@f177491c77670f150ab4e9b9890254d8eba4164b # 1.9.7
         with:
-          feed_list: "https://navidanindya.info/feed.xml"
+          feed_list: https://navidanindya.info/writings/feed.xml
+          enable_keepalive: false

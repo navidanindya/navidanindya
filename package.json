@@ -12,9 +12,8 @@
     "dev": "NODE_OPTIONS=--openssl-legacy-provider nuxt",
     "build": "NODE_OPTIONS=--openssl-legacy-provider nuxt build",
     "start": "NODE_OPTIONS=--openssl-legacy-provider nuxt start",
-    "generate": "NODE_OPTIONS=--openssl-legacy-provider nuxt generate",
-    "seed:views": "case \"$VIEWS_TABLE\" in entry_views|entry_views_preview) wrangler d1 execute \"${VIEWS_DATABASE_NAME:?Set VIEWS_DATABASE_NAME}\" --remote --yes --file \".nuxt/$VIEWS_TABLE.sql\" ;; *) echo Set VIEWS_TABLE to entry_views or entry_views_preview >&2; exit 1 ;; esac",
-    "preview:pages": "wrangler pages dev dist --d1 VIEWS_DB=00000000-0000-4000-8000-000000000001 --binding VIEWS_TABLE=entry_views --ip 127.0.0.1 --port 8788",
+    "generate": "NODE_OPTIONS=--openssl-legacy-provider nuxt generate --fail-on-error",
+    "preview:pages": "wrangler pages dev dist --d1 VIEWS_DB=00000000-0000-4000-8000-000000000001 --binding VIEWS_TABLE=entry_views --ip 0.0.0.0 --port 8788",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js"
   },

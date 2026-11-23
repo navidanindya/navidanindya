@@ -20,18 +20,24 @@
       <h2 id="discography">
         Discography
       </h2>
+      <p v-if="$fetchState.error" role="status">
+        Could not load Spotify releases.
+      </p>
+      <p v-else-if="$fetchState.pending && !songs.length" role="status">
+        Loading Spotify releases…
+      </p>
       <timeline-list :items="songs">
         <template #default="{ item: song }">
           <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,8rem)] items-center gap-3 max-[359px]:grid-cols-[minmax(0,1fr)_minmax(0,6.5rem)] sm:grid-cols-[minmax(280px,19rem)_minmax(0,1fr)] sm:gap-5">
             <div class="min-w-0 sm:col-start-2 sm:row-start-1">
-              <h3 :id="song.anchor" class="!m-0">
+              <h3 :id="song.anchor" :ref="song.anchor" class="!m-0">
                 {{ song.title }}
               </h3>
               <p class="!mb-0 !mt-2 text-sm">
                 {{ song.performers }}
               </p>
               <p class="!mb-0 !mt-1 text-xs text-gray-700 dark:text-gray-300">
-                Single · <time :datetime="song.releaseDate">{{ song.year }}</time>
+                {{ song.type }} · <time :datetime="song.releaseDate">{{ song.year }}</time>
               </p>
               <release-links :release="song" />
             </div>
@@ -44,6 +50,7 @@
               @click="playSong(song, $event.currentTarget)"
             >
               <img
+                v-if="song.cover"
                 :src="song.cover"
                 :alt="song.coverAlt"
                 width="304"
@@ -97,16 +104,16 @@
 <script>
 import SiteIcon from '~/components/icons/SiteIcon.vue'
 import SocialIcon from '~/components/icons/SocialIcon.vue'
-import { bandReleases } from '~/utils/band'
 import { pageHead } from '~/utils/content'
 import { staticSocialCard } from '~/utils/socialCards'
+import { readSpotifyReleases } from '~/utils/spotify-releases'
 
 export default {
   components: { SiteIcon, SocialIcon },
   // Use the public 7 Minutes releases and the links from the band's Feature.fm page.
   data () {
     return {
-      songs: bandReleases,
+      songs: [],
       activeSong: null,
       linkGroups: [
         {
@@ -129,9 +136,24 @@ export default {
       ]
     }
   },
+  // Fetch the current discography in the browser.
+  fetchOnServer: false,
+  async fetch () {
+    this.songs = await readSpotifyReleases()
+    const anchor = this.$route.hash.slice(1)
+    if (this.songs.some(song => song.anchor === anchor)) {
+      // Feed links can arrive before the release headings exist.
+      await this.$nextTick()
+      this.$refs[anchor]?.scrollIntoView()
+    }
+  },
   // Give the band portfolio its own canonical and sharing metadata.
   head () {
     return pageHead(staticSocialCard('/fun-stuff/7-minutes'))
+  },
+  // Check expiry when revisiting this kept-alive page.
+  activated () {
+    if (!this.$fetchState.pending) { this.$fetch() }
   },
   methods: {
     // Mount the selected player after its cover is pressed.
