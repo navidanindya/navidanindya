@@ -2,7 +2,6 @@ import { mkdir, writeFile } from 'fs/promises'
 import { dirname, join } from 'path'
 import { canonicalUrl } from './utils/socialCards'
 import { generateSocialImages } from './scripts/social-images'
-import { writeEntryViewSeed } from './scripts/entry-view-seed'
 import { calendarDate, contentRoutes, normalizeContentDates } from './utils/content'
 import { bandReleases } from './utils/band'
 
@@ -254,11 +253,11 @@ export default {
       }
     },
     generate: {
-      // Generate share cards and seed rows from the published collections.
-      async done (generator) {
+      // Generate share cards for the published collections.
+      async done (generator, errors) {
+        if (errors.length) { return }
         const { $content } = require('@nuxt/content')
         await generateSocialImages(generator, $content)
-        await writeEntryViewSeed(generator.nuxt.options.rootDir, $content)
         // Publish the branded error HTML so missing URLs work before JavaScript.
         const renderContext = {
           renderNotFound: true,
