@@ -15,19 +15,14 @@ module.exports = {
       display: ['"Space Grotesk"']
     },
     extend: {
-      // Keep the menu and centered viewer entrances as short as the theme toggle.
+      // Keep the viewer entrance as short as the theme toggle.
       keyframes: {
-        'menu-drop': {
-          from: { opacity: '0', transform: 'translateY(-0.25rem)' },
-          to: { opacity: '1', transform: 'translateY(0)' }
-        },
         'viewer-zoom': {
           from: { opacity: '0.7', transform: 'scale(0.96)' },
           to: { opacity: '1', transform: 'scale(1)' }
         }
       },
       animation: {
-        'menu-drop': 'menu-drop 160ms ease-out',
         'viewer-zoom': 'viewer-zoom 180ms ease-out'
       },
       colors: {
