@@ -1,24 +1,17 @@
-# Permissions added for node user because of this: https://github.com/BretFisher/node-docker-good-defaults
-FROM node:lts-slim
+FROM node:26-bookworm-slim
 
-ENV NODE_ENV=development
-
-# Latest npm regardless of node version.
-RUN npm i npm@latest -g
-
-WORKDIR /home/node
-
-USER node
-
-COPY --chown=node:node ./package*.json ./
-RUN npm install && npm cache clean --force
-ENV PATH /home/node/node_modules/.bin:$PATH
+ENV HOST=0.0.0.0 PORT=5001
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/node/app
+RUN chown node:node .
+
+USER node
+COPY --chown=node:node package.json package-lock.json ./
+RUN npm ci
 COPY --chown=node:node . .
-RUN cp /home/node/package.json /home/node/package-lock.json ./
 
-CMD [ "npm", "run", "dev" ]
-
-# This command can be used to test the container to check for abnormalities without starting it.
-# CMD ["sleep","3600"]
+EXPOSE 5001
+CMD ["npm", "run", "dev"]

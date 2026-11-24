@@ -2,11 +2,11 @@ import { mkdir, writeFile } from 'fs/promises'
 import { dirname, join } from 'path'
 import { canonicalUrl } from './utils/socialCards'
 import { generateSocialImages } from './scripts/social-images'
-import { writeEntryViewSeed } from './scripts/entry-view-seed'
 import { calendarDate, contentRoutes, normalizeContentDates } from './utils/content'
-import { bandReleases } from './utils/band'
+import { bandFeedHistory, fetchBandReleases } from './utils/band'
 
-export default {
+// The static feeds share one release snapshot per build.
+const siteConfig = bandReleases => ({
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -182,11 +182,12 @@ export default {
     }
   },
 
-  // Generate all three formats from writings, notes, and dated music releases.
+  // Generate the site feeds and the writings-only feed used by the README.
   feed: [
     { path: '/feed.xml', type: 'rss2' },
     { path: '/feed.atom.xml', type: 'atom1' },
-    { path: '/feed.json', type: 'json1' }
+    { path: '/feed.json', type: 'json1' },
+    { path: '/writings/feed.xml', type: 'rss2' }
   ].map(({ path, type }) => ({
     path,
     type,
@@ -194,28 +195,31 @@ export default {
     // Keep full article content and sort all entries by their publication date.
     async create (feed) {
       const site = 'https://navidanindya.info'
+      const writingsOnly = path === '/writings/feed.xml'
       const author = { name: 'Navid Anindya', email: 'me@navidanindya.info', link: site }
       feed.options = {
         title: 'Navid Anindya',
-        description: 'Writings, notes, and music releases from Navid Anindya.',
+        description: writingsOnly ? 'Writings from Navid Anindya.' : 'Writings, notes, and music releases from Navid Anindya.',
         id: site,
-        link: canonicalUrl('/'),
+        link: canonicalUrl(writingsOnly ? '/writings' : '/'),
         language: 'en',
-        feedLinks: { rss: site + '/feed.xml', atom: site + '/feed.atom.xml', json: site + '/feed.json' }
+        feedLinks: writingsOnly
+          ? { rss: site + path }
+          : { rss: site + '/feed.xml', atom: site + '/feed.atom.xml', json: site + '/feed.json' }
       }
 
       const { $content } = require('@nuxt/content')
       const [writings, notes] = await Promise.all([
         $content('writings').fetch(),
-        $content('notes').fetch()
+        writingsOnly ? [] : $content('notes').fetch()
       ])
       const entries = [
         ...writings.map(entry => ({ ...entry, url: site + '/writing/' + entry.slug })),
         ...notes.map(entry => ({ ...entry, url: site + '/notes/' + entry.slug })),
         // Release dates and stable song links keep playback changes out of the feeds.
-        ...bandReleases.map(song => ({
+        ...(writingsOnly ? [] : bandReleases).map(song => ({
           title: `${song.title} by ${song.performers}`,
-          description: `Listen to ${song.title}, a single by ${song.performers}.`,
+          description: `Listen to ${song.title} by ${song.performers}.`,
           url: `${site}/fun-stuff/7-minutes#${song.anchor}`,
           createdAt: song.releaseDate
         }))
@@ -254,11 +258,11 @@ export default {
       }
     },
     generate: {
-      // Generate share cards and seed rows from the published collections.
-      async done (generator) {
+      // Generate share cards for the published collections.
+      async done (generator, errors) {
+        if (errors.length) { return }
         const { $content } = require('@nuxt/content')
         await generateSocialImages(generator, $content)
-        await writeEntryViewSeed(generator.nuxt.options.rootDir, $content)
         // Publish the branded error HTML so missing URLs work before JavaScript.
         const renderContext = {
           renderNotFound: true,
@@ -323,4 +327,11 @@ export default {
       }
     }
   }
-}
+})
+
+// Keep the existing feed history available to builds without Spotify credentials.
+export default async () => siteConfig(
+  process.env.CF_PAGES === '1' && process.env.scid && process.env.scs
+    ? await fetchBandReleases(process.env)
+    : bandFeedHistory
+)

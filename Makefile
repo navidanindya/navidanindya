@@ -1,31 +1,25 @@
-# Build container
+.PHONY: build destroy lint start stop shell logs generate
+
 build:
-	docker-compose up --build --detach
+	docker compose up --build --detach --renew-anon-volumes
 
-# Destroy container
 destroy:
-	docker-compose down --volumes
+	docker compose down --volumes
 
-# Lint check application
 lint:
-	docker-compose exec app npm run lint
+	docker compose exec app npm run lint
 
-# Start containers
 start:
-	docker-compose up --detach
+	docker compose up --detach
 
-# Stop containers
 stop:
-	docker-compose stop
+	docker compose stop
 
-# Access container shell
 shell:
-	docker-compose exec app bash
+	docker compose exec app bash
 
-# Check container logs
 logs:
-	docker-compose logs --follow app
+	docker compose logs --follow app
 
-# Static Generate site
 generate:
-	docker-compose exec app npm run generate
+	docker compose exec app npm run generate
