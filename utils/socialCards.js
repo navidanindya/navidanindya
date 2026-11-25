@@ -16,6 +16,9 @@ export const canonicalPagePath = (path) => {
 // Publish the absolute canonical URL for metadata and sharing.
 export const canonicalUrl = path => pageUrl(path).href
 
+// Locate the Markdown build artifact for a public page.
+export const markdownPagePath = path => '/_markdown' + pageUrl(path).pathname + 'index.md'
+
 // Keep static page metadata and share card copy in one place.
 export const staticCards = {
   '/': { title: 'Navid Anindya', shareTitle: 'Navid Anindya | I make and explore things.', cardTitle: 'I make and explore things.', description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.', label: 'HOME' },

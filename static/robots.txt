@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+Content-Signal: search=yes, ai-train=no
+
+# Keep public pages discoverable while opting out of training crawls.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
 
 Sitemap: https://navidanindya.info/sitemap.xml

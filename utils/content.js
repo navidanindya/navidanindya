@@ -1,4 +1,4 @@
-import { canonicalUrl, socialImageMeta } from './socialCards'
+import { canonicalUrl, markdownPagePath, socialImageMeta } from './socialCards'
 
 // Parse the site's comma-separated tags for links, archives, and generation.
 export const contentTags = value => [...new Set((value || '').split(',').map(tag => tag.trim().toLowerCase().replace(/\s+/g, '-')).filter(Boolean))]
@@ -68,7 +68,7 @@ export const publishedDate = value => calendarDate(value).toLocaleDateString('en
   year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
 })
 
-// Give each new page a descriptive canonical and sharing metadata.
+// Give each public page canonical, sharing, and Markdown metadata.
 export const pageHead = card => ({
   title: card.title,
   meta: [
@@ -80,5 +80,8 @@ export const pageHead = card => ({
     { hid: 'twitter:description', name: 'twitter:description', content: card.description },
     ...socialImageMeta(card)
   ],
-  link: [{ hid: 'canonical', rel: 'canonical', href: canonicalUrl(card.path) }]
+  link: [
+    { hid: 'canonical', rel: 'canonical', href: canonicalUrl(card.path) },
+    { hid: 'markdown', rel: 'alternate', type: 'text/markdown', href: markdownPagePath(card.path) }
+  ]
 })
