@@ -1,11 +1,20 @@
 export const siteOrigin = 'https://navidanindya.info'
 
 // Match the directory URLs that Cloudflare Pages serves without a redirect.
-export const canonicalUrl = (path) => {
+const pageUrl = (path) => {
   const url = new URL(path, siteOrigin)
   url.pathname = url.pathname.replace(/\/+$/, '') + '/'
-  return url.href
+  return url
 }
+
+// Use the same page path in Nuxt links, including any query and fragment.
+export const canonicalPagePath = (path) => {
+  const { pathname, search, hash } = pageUrl(path)
+  return pathname + search + hash
+}
+
+// Publish the absolute canonical URL for metadata and sharing.
+export const canonicalUrl = path => pageUrl(path).href
 
 // Keep static page metadata and share card copy in one place.
 export const staticCards = {

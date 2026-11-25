@@ -19,6 +19,7 @@
 
 <script>
 import SiteIcon from '~/components/icons/SiteIcon.vue'
+import { canonicalPagePath } from '~/utils/socialCards'
 
 export default {
   components: { SiteIcon },
@@ -37,11 +38,11 @@ export default {
     linkTag () {
       return this.isExternal ? 'a' : 'nuxt-link'
     },
-    // Open external project pages in a new tab.
+    // Open external pages in a new tab and link directly to canonical site pages.
     linkAttributes () {
       return this.isExternal
         ? { href: this.to, target: '_blank', rel: 'noopener noreferrer' }
-        : { to: this.to }
+        : { to: canonicalPagePath(this.to) }
     }
   }
 }

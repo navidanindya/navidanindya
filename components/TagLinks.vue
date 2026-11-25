@@ -1,13 +1,14 @@
 <template>
   <ul v-if="tags.length" class="!mb-0 !mt-2 flex !list-none flex-wrap gap-x-3 gap-y-1 !p-0 text-sm" aria-label="Tags">
     <li v-for="tag in tags" :key="tag" class="!m-0 !p-0">
-      <nuxt-link :to="'/tags/' + encodeURIComponent(tag)" class="underline" v-text="'#' + tag" />
+      <nuxt-link :to="canonicalPagePath('/tags/' + encodeURIComponent(tag))" class="underline" v-text="'#' + tag" />
     </li>
   </ul>
 </template>
 
 <script>
 import { contentTags } from '~/utils/content'
+import { canonicalPagePath } from '~/utils/socialCards'
 
 export default {
   props: {
@@ -19,6 +20,7 @@ export default {
     tags () {
       return contentTags(this.value)
     }
-  }
+  },
+  methods: { canonicalPagePath }
 }
 </script>
