@@ -6,7 +6,7 @@
         Hello, world! <site-icon name="system" class="inline-block h-[.65em] w-[.65em] align-baseline" />
       </h1>
       <p class="text-base">
-        I'm <nuxt-link to="/about" class="font-semibold" v-text="'Navid Anindya'" />. I make and explore things.
+        I'm <nuxt-link to="/about/" class="font-semibold" v-text="'Navid Anindya'" />. I make and explore things.
       </p>
       <p class="text-base">
         I code, do music, roam around, and ruminate about philosophical and existentialism of life.
@@ -21,8 +21,8 @@
         which mostly taught me to handle real-life production level scenarios in SaaS and web applications, and how to manage people and teams in a way that is both productive and humane.
       </p>
       <nav aria-label="More about this site" class="flex flex-wrap gap-x-5 gap-y-2">
-        <nuxt-link to="/about" v-text="'Learn more details about me'" />
-        <nuxt-link to="/writings" v-text="'Read some of the writings I wrote'" />
+        <nuxt-link to="/about/" v-text="'Learn more details about me'" />
+        <nuxt-link to="/writings/" v-text="'Read some of the writings I wrote'" />
       </nav>
       <p class="text-base">
         My socials are down below.

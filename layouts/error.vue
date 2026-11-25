@@ -17,7 +17,7 @@
           <site-icon name="home" class="h-4 w-4" />
           <span v-text="'/home'" />
         </nuxt-link>
-        <nuxt-link to="/writings" class="inline-flex items-center gap-1.5 desktop-hover:text-site-accent dark:desktop-hover:text-site-accent-dark">
+        <nuxt-link to="/writings/" class="inline-flex items-center gap-1.5 desktop-hover:text-site-accent dark:desktop-hover:text-site-accent-dark">
           <site-icon name="writing" class="h-4 w-4" />
           <span v-text="'/writings'" />
         </nuxt-link>

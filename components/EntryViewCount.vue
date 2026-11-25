@@ -1,5 +1,6 @@
 <template>
-  <p class="text-gray-700 dark:text-gray-300">
+  <!-- Omit the client-side counter placeholder from the static Markdown export. -->
+  <p data-markdown-ignore class="text-gray-700 dark:text-gray-300">
     {{ count === null ? '---' : count }} view(s)
   </p>
 </template>

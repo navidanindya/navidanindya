@@ -1,10 +1,8 @@
-// Absolute links to the site itself use the same styling as relative links.
-const siteLinkSelectors = ['https://', 'http://', '//'].flatMap(protocol =>
-  ['navidanindya.info', 'www.navidanindya.info'].flatMap((host) => {
-    const origin = protocol + host
-    return [`[href="${origin}" i]`, ...['/', '?', '#'].map(separator => `[href^="${origin + separator}" i]`)]
-  })
-).join(', ')
+// Style absolute links to the canonical host like relative links.
+const siteLinkSelectors = ['https://', 'http://', '//'].flatMap((protocol) => {
+  const origin = protocol + 'navidanindya.info'
+  return [`[href="${origin}" i]`, ...['/', '?', '#'].map(separator => `[href^="${origin + separator}" i]`)]
+}).join(', ')
 
 module.exports = {
   // Apply dark utilities when the theme script sets .dark on the document.
