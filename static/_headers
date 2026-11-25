@@ -1,0 +1,23 @@
+# Keep the HTTP content policy consistent with robots.txt.
+/*
+  Content-Signal: search=yes, ai-train=no
+
+# Advertise the site index and Markdown homepage to clients that only read headers.
+/
+  Link: </llms.txt>; rel="describedby"; type="text/plain", </_markdown/index.md>; rel="alternate"; type="text/markdown"
+  Vary: Accept
+
+/*/
+  Vary: Accept
+
+# The same Markdown can be served directly or through an Accept-based rewrite.
+/_markdown/*
+  Content-Type: text/markdown; charset=utf-8
+  Vary: Accept
+  Cache-Control: no-store
+
+/_markdown/index.md
+  Link: <https://navidanindya.info/>; rel="canonical"; type="text/html"
+
+/_markdown/*/index.md
+  Link: <https://navidanindya.info/:splat/>; rel="canonical"; type="text/html"

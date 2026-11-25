@@ -13,7 +13,7 @@
     </div>
     <section class="flex xs:flex-row flex-col justify-between items-start md:items-center xs:text-justify">
       <p class="text-sm text-gray-700 dark:text-gray-300">
-        By <nuxt-link to="/about" rel="author" v-text="'Navid Anindya'" /> · {{ readingMinutes(writing.body) }} min read ·
+        By <nuxt-link to="/about/" rel="author" v-text="'Navid Anindya'" /> · {{ readingMinutes(writing.body) }} min read ·
         <span class="italic">Published on {{ formatDate(writing.createdAt) }}</span>
       </p>
       <entry-view-count :key="writing.slug" kind="writing" :slug="writing.slug" class="text-sm" />

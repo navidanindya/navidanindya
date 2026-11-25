@@ -31,7 +31,7 @@
       For more about my career, you can find me on <a href="https://www.linkedin.com/in/navidanindya" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
     </p>
     <p>
-      I also make music in this little band called <nuxt-link to="/fun-stuff/7-minutes" v-text="'7 Minutes'" />.
+      I also make music in this little band called <nuxt-link to="/fun-stuff/7-minutes/" v-text="'7 Minutes'" />.
     </p>
     <blockquote>
       I write stuff about coding, music, my philosophies and small lyrics and thoughts here; as a journal for myself and

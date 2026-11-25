@@ -2,7 +2,7 @@
   <article>
     <div class="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3">
       <component :is="headingTag" class="!my-0 text-[1.33rem]">
-        <nuxt-link :to="to" v-text="title.trim()" />
+        <nuxt-link :to="canonicalPagePath(to)" v-text="title.trim()" />
       </component>
       <slot name="action" />
     </div>
@@ -18,6 +18,7 @@
 
 <script>
 import { publishedDate } from '~/utils/content'
+import { canonicalPagePath } from '~/utils/socialCards'
 
 export default {
   // Optional card metadata is supplied only by the collections that have it.
@@ -33,6 +34,6 @@ export default {
     updated: { type: [String, Date], required: false }
   },
   /* eslint-enable vue/require-default-prop */
-  methods: { publishedDate }
+  methods: { canonicalPagePath, publishedDate }
 }
 </script>

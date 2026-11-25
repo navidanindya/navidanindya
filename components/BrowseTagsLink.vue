@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link to="/tags" class="inline-flex items-center gap-2">
+  <nuxt-link to="/tags/" class="inline-flex items-center gap-2">
     <site-icon name="tag" class="h-4 w-4 shrink-0" />
     <span>Browse tags</span>
   </nuxt-link>

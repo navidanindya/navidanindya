@@ -1,7 +1,7 @@
 <template>
   <!-- Align the icon with the first line and let long track credits wrap. -->
   <section aria-label="Spotify playback" class="mt-1.5 flex items-start justify-end gap-2 text-right text-xs leading-5 text-site-ink dark:text-gray-200">
-    <nuxt-link to="/fun-stuff/music-on-repeat" class="min-w-0 underline decoration-dotted underline-offset-2 [overflow-wrap:anywhere]">
+    <nuxt-link to="/fun-stuff/music-on-repeat/" class="min-w-0 underline decoration-dotted underline-offset-2 [overflow-wrap:anywhere]">
       <template v-if="playback">
         <span class="text-site-accent dark:text-site-accent-dark">{{ playback[1] }}</span>
         {{ playback[2] }}

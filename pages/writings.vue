@@ -3,7 +3,7 @@
     <h1>Stuff that I wrote</h1>
     <p>Notes and essays on engineering, music, philosophy, and things I’m figuring out.</p>
     <p class="text-sm">
-      By <nuxt-link to="/about" rel="author" v-text="'Navid Anindya'" />
+      By <nuxt-link to="/about/" rel="author" v-text="'Navid Anindya'" />
     </p>
     <p class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
       <browse-tags-link />

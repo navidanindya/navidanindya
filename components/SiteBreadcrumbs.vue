@@ -5,14 +5,14 @@
     <span v-for="(crumb, index) in crumbs" :key="crumb.to" :class="{ 'whitespace-nowrap': index < crumbs.length - 1 }">
       <site-icon name="forward" class="ml-1 inline-block h-3 w-3 align-text-bottom" />&#160;
       <span v-if="index === crumbs.length - 1" :class="crumb.currentClass" aria-current="page">{{ crumb.label }}</span>
-      <nuxt-link v-else :to="crumb.to" class="desktop-hover:text-site-accent dark:desktop-hover:text-site-accent-dark">{{ crumb.label }}</nuxt-link>
+      <nuxt-link v-else :to="canonicalPagePath(crumb.to)" class="desktop-hover:text-site-accent dark:desktop-hover:text-site-accent-dark">{{ crumb.label }}</nuxt-link>
     </span>
   </nav>
 </template>
 
 <script>
 import SiteIcon from '~/components/icons/SiteIcon.vue'
-import { staticSocialCard } from '~/utils/socialCards'
+import { canonicalPagePath, staticSocialCard } from '~/utils/socialCards'
 
 export default {
   components: { SiteIcon },
@@ -42,6 +42,7 @@ export default {
         return { to, label: '/' + section, currentClass: 'text-site-accent dark:text-site-accent-dark' }
       })
     }
-  }
+  },
+  methods: { canonicalPagePath }
 }
 </script>

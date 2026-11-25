@@ -17,10 +17,10 @@
 <script>
 const links = [
   { to: '/', label: '/home' },
-  { to: '/about', label: '/about' },
-  { to: '/writings', label: '/writings' },
-  { to: '/notes', label: '/notes' },
-  { to: '/fun-stuff', label: '/fun-stuff' }
+  { to: '/about/', label: '/about' },
+  { to: '/writings/', label: '/writings' },
+  { to: '/notes/', label: '/notes' },
+  { to: '/fun-stuff/', label: '/fun-stuff' }
 ]
 
 export default {

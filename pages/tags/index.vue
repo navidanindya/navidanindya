@@ -4,7 +4,7 @@
     <p>Find writings and notes by topic.</p>
     <ul class="site-divided-list">
       <li v-for="entry in tags" :key="entry.tag" class="!my-0 flex items-baseline justify-between gap-3 !px-0 py-2">
-        <nuxt-link :to="'/tags/' + encodeURIComponent(entry.tag)" class="min-w-0 text-base underline" v-text="'#' + entry.tag" />
+        <nuxt-link :to="canonicalPagePath('/tags/' + encodeURIComponent(entry.tag))" class="min-w-0 text-base underline" v-text="'#' + entry.tag" />
         <span class="shrink-0 text-xs text-gray-700 dark:text-gray-300">
           {{ entry.count }} {{ entry.count === 1 ? 'entry' : 'entries' }}
         </span>
@@ -15,7 +15,7 @@
 
 <script>
 import { contentTags, pageHead, readContentCollections } from '~/utils/content'
-import { staticSocialCard } from '~/utils/socialCards'
+import { canonicalPagePath, staticSocialCard } from '~/utils/socialCards'
 
 export default {
   // Count both collections so each topic has a meaningful list row.
@@ -35,6 +35,7 @@ export default {
   // Identify the shared tag directory.
   head () {
     return pageHead(staticSocialCard('/tags'))
-  }
+  },
+  methods: { canonicalPagePath }
 }
 </script>

@@ -3,7 +3,7 @@
     <nuxt-link
       v-for="link in otherSections"
       :key="link"
-      :to="link"
+      :to="canonicalPagePath(link)"
       class="whitespace-nowrap desktop-hover:text-site-accent dark:desktop-hover:text-site-accent-dark aria-[current=page]:text-site-accent dark:aria-[current=page]:text-site-accent-dark"
       v-text="link === '/' ? '/home' : link"
     />
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { canonicalPagePath } from '~/utils/socialCards'
+
 export default {
   computed: {
     // Cross-link the main sections and skip the index the visitor is already on.
@@ -18,6 +20,7 @@ export default {
       const currentPath = this.$route.path.replace(/\/$/, '') || '/'
       return ['/', '/about', '/writings', '/notes', '/fun-stuff', '/tags'].filter(path => path !== currentPath)
     }
-  }
+  },
+  methods: { canonicalPagePath }
 }
 </script>
