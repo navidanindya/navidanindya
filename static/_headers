@@ -2,6 +2,14 @@
 /*
   Content-Signal: search=yes, ai-train=no
 
+# Font URLs change when their upstream version changes.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Webpack assigns a content hash to the shared stylesheet.
+/_nuxt/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Advertise the site index and Markdown homepage to clients that only read headers.
 /
   Link: </llms.txt>; rel="describedby"; type="text/plain", </_markdown/index.md>; rel="alternate"; type="text/markdown"

@@ -1,4 +1,5 @@
 export const siteOrigin = 'https://navidanindya.info'
+export const homeDescription = "I'm Navid Anindya, a Technical Project Manager, Solutions Architect and fractional CTO. I write about cloud-native systems, music and philosophy."
 
 // Match the directory URLs that Cloudflare Pages serves without a redirect.
 const pageUrl = (path) => {
@@ -21,8 +22,8 @@ export const markdownPagePath = path => '/_markdown' + pageUrl(path).pathname + 
 
 // Keep static page metadata and share card copy in one place.
 export const staticCards = {
-  '/': { title: 'Navid Anindya', shareTitle: 'Navid Anindya | I make and explore things.', cardTitle: 'I make and explore things.', description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.', label: 'HOME' },
-  '/about': { title: 'About Me', description: 'About Navid Anindya (Neel) — Technical Project Manager & Solutions Architect at Konstruct, Inc., formerly CTO & CEO of Sayburgh Solutions. Also a Fractional CTO.', label: 'ABOUT' },
+  '/': { title: 'Navid Anindya', shareTitle: 'Navid Anindya | I make and explore things.', cardTitle: 'I make and explore things.', description: homeDescription, label: 'HOME' },
+  '/about': { title: 'About Me', description: 'About Navid Anindya (Neel), a technical project manager, solutions architect and fractional CTO. Former CTO and CEO of Sayburgh Solutions.', label: 'ABOUT' },
   '/writings': { title: 'Writings of Navid Anindya', cardTitle: 'Writings', description: 'All the writings of Navid Anindya — notes and essays on engineering, cloud-native systems, music, and philosophy.', label: 'WRITINGS' },
   '/notes': { title: 'Notes & Finds', description: 'Short notes, useful tips, and interesting links for developers, musicians, and designers.', label: 'NOTES & FINDS' },
   '/tags': { title: 'Browse tags', description: 'Browse Navid Anindya’s writings and notes by topic.', label: 'TAGS' },
@@ -59,24 +60,34 @@ export const postSocialCard = (section, entry) => {
 }
 
 export const socialSize = [1200, 630]
-export const articleSizes = [[1200, 675], [1200, 900], [1200, 1200]]
+export const squareSocialSize = [1200, 1200]
+export const articleSizes = [[1200, 675], [1200, 900], squareSocialSize]
 
 // Invalidate cached cards when the visible copy or SVG template changes.
 export const socialImagePath = (card, width, height) => {
   const input = JSON.stringify([card.cardTitle || card.title, card.description, card.label, card.date, card.art])
   const hash = Array.from(input).reduce((state, char) => Math.imul(state ^ char.codePointAt(0), 16777619), 2166136261)
   const route = card.path === '/' ? '/home' : card.path
-  return `/og${route}/v1-${(hash >>> 0).toString(36)}-${width}x${height}.png`
+  const version = width === height ? 2 : 1
+  return `/og${route}/v${version}-${(hash >>> 0).toString(36)}-${width}x${height}.png`
 }
+
+// Put each image before its own structured properties for Open Graph consumers.
+const openGraphImage = (card, [width, height]) => [
+  ['image', siteOrigin + socialImagePath(card, width, height)],
+  ['image:type', 'image/png'],
+  ['image:width', String(width)],
+  ['image:height', String(height)],
+  ['image:alt', `Navid Anindya’s share card for ${card.cardTitle || card.title}`]
+].map(([name, content]) => ({ hid: `og:${name}:${width}x${height}`, property: 'og:' + name, content }))
 
 // Expose the same generated URLs to Open Graph, Twitter, and article schema.
 export const socialImageMeta = (card) => {
   const url = siteOrigin + socialImagePath(card, ...socialSize)
   return [
-    { hid: 'og:image', property: 'og:image', content: url },
-    { hid: 'og:image:type', property: 'og:image:type', content: 'image/png' },
-    { hid: 'og:image:alt', property: 'og:image:alt', content: `Share card for ${card.cardTitle || card.title}` },
+    ...openGraphImage(card, socialSize),
+    ...openGraphImage(card, squareSocialSize),
     { hid: 'twitter:image', name: 'twitter:image', content: url },
-    { hid: 'twitter:image:alt', name: 'twitter:image:alt', content: `Share card for ${card.cardTitle || card.title}` }
+    { hid: 'twitter:image:alt', name: 'twitter:image:alt', content: `Navid Anindya’s share card for ${card.cardTitle || card.title}` }
   ]
 }

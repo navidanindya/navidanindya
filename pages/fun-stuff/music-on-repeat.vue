@@ -5,20 +5,23 @@
     <h2>Recently played</h2>
     <recently-played />
     <h2>Top tracks</h2>
-    <p v-if="status" role="status">
-      {{ status }}
-    </p>
-    <ol v-else class="!list-none !p-0">
-      <li v-for="(track, index) in tracks" :key="track.id" class="flex items-start gap-3 !p-0">
-        <span class="text-gray-700 dark:text-gray-300 w-7 shrink-0 text-sm">{{ index + 1 }}.</span>
-        <spotify-track-details
-          :name="track.name"
-          :artists="track.artists.map(artist => artist.name)"
-          :album="track.album"
-          :url="track.external_urls.spotify"
-        />
-      </li>
-    </ol>
+    <!-- Keep the footer below the rankings while Spotify responds. -->
+    <div class="min-h-[50vh]">
+      <p v-if="status" role="status">
+        {{ status }}
+      </p>
+      <ol v-else class="!list-none !p-0">
+        <li v-for="(track, index) in tracks" :key="track.id" class="flex items-start gap-3 !p-0">
+          <span class="text-gray-700 dark:text-gray-300 w-7 shrink-0 text-sm">{{ index + 1 }}.</span>
+          <spotify-track-details
+            :name="track.name"
+            :artists="track.artists.map(artist => artist.name)"
+            :album="track.album"
+            :url="track.external_urls.spotify"
+          />
+        </li>
+      </ol>
+    </div>
   </section>
 </template>
 
