@@ -15,8 +15,18 @@
     <path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
   <symbol id="system" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
-    <path d="M3.2 14.2222V4C3.2 2.89543 4.09543 2 5.2 2H18.8C19.9046 2 20.8 2.89543 20.8 4V14.2222M3.2 14.2222H20.8M3.2 14.2222L1.71969 19.4556C1.35863 20.7321 2.31762 22 3.64418 22H20.3558C21.6824 22 22.6414 20.7321 22.2803 19.4556L20.8 14.2222" stroke="currentColor" stroke-width="1.5"/>
-    <path d="M11 19L13 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9 18H15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10 21H14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9.00082 15C9.00098 13 8.50098 12.5 7.50082 11.5C6.50067 10.5 6.02422 9.48689 6.00082 8C5.95284 4.95029 8.00067 3 12.0008 3C16.001 3 18.0488 4.95029 18.0008 8C17.9774 9.48689 17.5007 10.5 16.5008 11.5C15.501 12.5 15.0008 13 15.0008 15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="www" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.33789 17C5.06694 19.989 8.29866 22 12.0001 22C15.7015 22 18.9332 19.989 20.6622 17"/>
+    <path d="M3.33789 7C5.06694 4.01099 8.29866 2 12.0001 2C15.7015 2 18.9332 4.01099 20.6622 7"/>
+    <path d="M13 21.9506C13 21.9506 14.4079 20.0966 15.2947 16.9999"/>
+    <path d="M13 2.04932C13 2.04932 14.4079 3.90328 15.2947 7"/>
+    <path d="M11 21.9506C11 21.9506 9.59215 20.0966 8.70532 16.9999"/>
+    <path d="M11 2.04932C11 2.04932 9.59215 3.90328 8.70532 7"/>
+    <path d="M9 10L10.5 15L12 10L13.5 15L15 10M1 10L2.5 15L4 10L5.5 15L7 10M17 10L18.5 15L20 10L21.5 15L23 10"/>
   </symbol>
   <symbol id="copy" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
     <path d="M14 11.9976C14 9.5059 11.683 7 8.85714 7C8.52241 7 7.41904 7.00001 7.14286 7.00001C4.30254 7.00001 2 9.23752 2 11.9976C2 14.376 3.70973 16.3664 6 16.8714C6.36756 16.9525 6.75006 16.9952 7.14286 16.9952" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>

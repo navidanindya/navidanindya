@@ -14,7 +14,7 @@
           <nuxt-link class="shrink-0 rounded-sm bg-site-ink dark:bg-transparent" to="/" aria-label="Navid Anindya, home">
             <square-image src="/icon.png" alt="Navid Anindya site logo" :size="56" class="max-[499px]:!h-10 max-[499px]:!w-10" />
           </nuxt-link>
-          <site-navigation class="col-span-3 row-start-2 min-[500px]:col-span-1 min-[500px]:col-start-2 min-[500px]:row-start-1" />
+          <site-navigation id="primary-navigation" :links="primaryLinks" aria-label="Main navigation" class="col-span-3 row-start-2 min-[500px]:col-span-1 min-[500px]:col-start-2 min-[500px]:row-start-1" />
           <theme-picker class="col-start-3 row-start-1 justify-self-end" />
         </header>
         <now-spotify class="pb-2" />
@@ -55,10 +55,12 @@
 import NowSpotify from '~/components/NowSpotify.vue'
 import SiteIcon from '~/components/icons/SiteIcon.vue'
 import SocialIcon from '~/components/icons/SocialIcon.vue'
+import { primaryLinks } from '~/utils/navigation'
 export default {
   components: { NowSpotify, SiteIcon, SocialIcon },
   data () {
     return {
+      primaryLinks,
       links: [
         {
           link: 'https://www.linkedin.com/in/navidanindya',
