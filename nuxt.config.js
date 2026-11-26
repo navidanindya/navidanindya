@@ -1,14 +1,19 @@
-import { mkdir, writeFile } from 'fs/promises'
+import { mkdir, readFile, writeFile } from 'fs/promises'
 import { dirname, join } from 'path'
-import { canonicalUrl } from './utils/socialCards'
+import { canonicalUrl, homeDescription } from './utils/socialCards'
 import { generateSocialImages } from './scripts/social-images'
+import { generateWebpImages, sizeContentImages } from './scripts/site-images'
 import { calendarDate, contentRoutes, normalizeContentDates } from './utils/content'
 import { bandFeedHistory, fetchBandReleases } from './utils/band'
 
+const staticDir = join(__dirname, 'static')
+
 // The static feeds share one release snapshot per build.
-const siteConfig = bandReleases => ({
+const siteConfig = (bandReleases, themeScript) => ({
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+  // Give module-capable browsers a smaller client bundle and retain the legacy fallback.
+  modern: 'client',
 
   // The generate hook writes a rendered 404 in place of Nuxt's empty fallback.
   generate: { fallback: false },
@@ -24,7 +29,7 @@ const siteConfig = bandReleases => ({
       { charset: 'utf-8' },
       { name: 'color-scheme', content: 'light dark' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.' },
+      { hid: 'description', name: 'description', content: homeDescription },
       { hid: 'robots', name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
       { hid: 'author', name: 'author', content: 'Navid Anindya' },
       { hid: 'theme-color', name: 'theme-color', content: '#111827' },
@@ -32,27 +37,28 @@ const siteConfig = bandReleases => ({
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'Navid Anindya' },
       { hid: 'og:title', property: 'og:title', content: 'Navid Anindya | I make and explore things.' },
-      { hid: 'og:description', property: 'og:description', content: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.' },
-      { hid: 'og:image', property: 'og:image', content: 'https://navidanindya.info/og.png' },
-      { hid: 'og:image:width', property: 'og:image:width', content: '1200' },
-      { hid: 'og:image:height', property: 'og:image:height', content: '630' },
-      { hid: 'og:image:alt', property: 'og:image:alt', content: 'Navid Anindya — I make and explore things' },
+      { hid: 'og:description', property: 'og:description', content: homeDescription },
       { hid: 'og:locale', property: 'og:locale', content: 'en_US' },
       // Twitter Card
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
       { hid: 'twitter:title', name: 'twitter:title', content: 'Navid Anindya | I make and explore things.' },
-      { hid: 'twitter:description', name: 'twitter:description', content: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.' },
-      { hid: 'twitter:image', name: 'twitter:image', content: 'https://navidanindya.info/og.png' }
+      { hid: 'twitter:description', name: 'twitter:description', content: homeDescription }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/png', sizes: '200x200', href: '/icon.png' },
       // Prefer an adaptive SVG in browsers that support it.
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'apple-touch-icon', href: '/pwa-icon.png' },
+      // Fetch the critical body and display faces in parallel with the page stylesheet.
+      { rel: 'preload', as: 'font', href: '/fonts/roboto-mono-v31-400.woff2', type: 'font/woff2', crossorigin: 'anonymous' },
+      { rel: 'preload', as: 'font', href: '/fonts/space-grotesk-v22-600.woff2', type: 'font/woff2', crossorigin: 'anonymous' },
       { rel: 'alternate', type: 'application/rss+xml', title: 'Navid Anindya — Writings and Notes', href: '/feed.xml' }
     ],
+    // This trusted local script applies the saved theme before the first paint.
+    __dangerouslyDisableSanitizersByTagID: { 'theme-preference': ['innerHTML'] },
     script: [
-      { hid: 'theme-preference', src: '/theme.js' },
+      { hid: 'theme-preference', innerHTML: themeScript },
       {
         hid: 'ld-json-website',
         type: 'application/ld+json',
@@ -62,7 +68,7 @@ const siteConfig = bandReleases => ({
           '@id': 'https://navidanindya.info/#website',
           url: canonicalUrl('/'),
           name: 'Navid Anindya',
-          description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.',
+          description: homeDescription,
           inLanguage: 'en',
           publisher: { '@id': 'https://navidanindya.info/#person' }
         }
@@ -77,7 +83,7 @@ const siteConfig = bandReleases => ({
           name: 'Navid Anindya',
           alternateName: 'Neel',
           url: canonicalUrl('/'),
-          image: 'https://navidanindya.info/icon.png',
+          image: 'https://navidanindya.info/navid-anindya.jpg',
           email: 'me@navidanindya.info',
           jobTitle: 'Technical Project Manager & Solutions Architect',
           worksFor: {
@@ -121,15 +127,11 @@ const siteConfig = bandReleases => ({
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss',
-    // https://google-fonts.nuxtjs.org/
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/tailwindcss'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
@@ -139,9 +141,6 @@ const siteConfig = bandReleases => ({
     // https://sitemap.nuxtjs.org
     '@nuxtjs/sitemap'
   ],
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -156,7 +155,7 @@ const siteConfig = bandReleases => ({
     manifest: {
       name: 'Navid Anindya',
       short_name: 'Navid Anindya',
-      description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.',
+      description: homeDescription,
       lang: 'en',
       start_url: '/',
       display: 'standalone',
@@ -164,8 +163,9 @@ const siteConfig = bandReleases => ({
       theme_color: '#111827'
     },
     meta: {
+      charset: false,
       name: 'Navid Anindya',
-      description: 'Navid Anindya — Technical Project Manager & Solutions Architect at Konstruct, Inc. Also a Fractional CTO. I make and explore things: cloud-native systems, music and philosophy.',
+      description: homeDescription,
       lang: 'en',
       theme_color: '#111827',
       ogImage: false,
@@ -248,14 +248,13 @@ const siteConfig = bandReleases => ({
     'content:file:beforeParse' (file) {
       if (file.extension === '.md') { file.data = normalizeContentDates(file.data) }
     },
-    'content:file:beforeInsert': (document) => {
-      // Render author-controlled note embeds in the feed HTML.
+    // Keep feed HTML and prerendered content in sync with the source entry.
+    async 'content:file:beforeInsert' (document) {
+      if (document.extension !== '.md') { return }
       // eslint-disable-next-line
       const md = require('markdown-it')({ html: true })
-      if (document.extension === '.md') {
-        const mdToHtml = md.render(document.text)
-        document.bodyText = mdToHtml
-      }
+      document.bodyText = md.render(document.text)
+      document.body = await sizeContentImages(document.body, staticDir)
     },
     generate: {
       // Generate share cards for the published collections.
@@ -277,26 +276,12 @@ const siteConfig = bandReleases => ({
           await writeFile(path, asset.src)
         }
         await writeFile(join(generator.distPath, '404.html'), html)
+        await generateWebpImages(generator.distPath)
       }
     },
     'vue-renderer:context' (context) {
       // Nuxt 2 skips error markup in static mode. Render only the fallback as SSR.
       if (context.renderNotFound) { context.target = 'server' }
-    }
-  },
-
-  // Google Web fonts
-  googleFonts: {
-    // Keep using the Google Fonts stylesheet instead of downloading fonts at build time.
-    download: false,
-    useStylesheet: true,
-    display: 'swap',
-    families: {
-      'Space+Grotesk': [600],
-      'Roboto+Mono': {
-        wght: [400],
-        ital: [600]
-      }
     }
   },
 
@@ -320,6 +305,8 @@ const siteConfig = bandReleases => ({
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    // Share one minified stylesheet between generated pages.
+    extractCSS: true,
     html: {
       minify: {
         // Keep the space in Tailwind dark descendant selectors when minifying inline CSS.
@@ -333,5 +320,6 @@ const siteConfig = bandReleases => ({
 export default async () => siteConfig(
   process.env.CF_PAGES === '1' && process.env.scid && process.env.scs
     ? await fetchBandReleases(process.env)
-    : bandFeedHistory
+    : bandFeedHistory,
+  await readFile(join(staticDir, 'theme.js'), 'utf8')
 )

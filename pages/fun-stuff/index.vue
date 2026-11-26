@@ -23,22 +23,25 @@
           description="A two-piece indie band I make music with."
           link-label="Check out our stuff"
         >
-          <p v-if="$fetchState.error" role="status" class="!my-0">
-            Could not load Spotify releases.
-          </p>
-          <p v-else-if="$fetchState.pending && !latestRelease" role="status" class="!my-0">
-            Loading Spotify releases…
-          </p>
-          <div v-if="latestRelease" class="flex items-start gap-3">
-            <square-image v-if="latestRelease.cover" :src="latestRelease.cover" :alt="latestRelease.coverAlt" :size="96" class="rounded-lg" />
-            <div class="min-w-0">
-              <p class="!my-0 font-medium">
-                Latest release
-              </p>
-              <p class="!my-0">
-                {{ latestRelease.title }} · {{ latestRelease.year }}
-              </p>
-              <release-links :release="latestRelease" />
+          <!-- Match the space needed by the album art and release links. -->
+          <div class="min-h-24">
+            <p v-if="$fetchState.error" role="status" class="!my-0">
+              Could not load Spotify releases.
+            </p>
+            <p v-else-if="$fetchState.pending && !latestRelease" role="status" class="!my-0">
+              Loading Spotify releases…
+            </p>
+            <div v-if="latestRelease" class="flex items-start gap-3">
+              <square-image v-if="latestRelease.cover" :src="latestRelease.cover" :alt="latestRelease.coverAlt" :size="96" class="rounded-lg" />
+              <div class="min-w-0">
+                <p class="!my-0 font-medium">
+                  Latest release
+                </p>
+                <p class="!my-0">
+                  {{ latestRelease.title }} · {{ latestRelease.year }}
+                </p>
+                <release-links :release="latestRelease" />
+              </div>
             </div>
           </div>
         </project-card>

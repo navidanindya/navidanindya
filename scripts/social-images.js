@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { Resvg } from '@resvg/resvg-js'
 import { contentTags, readContentCollections } from '../utils/content'
-import { articleSizes, postSocialCard, socialImagePath, socialSize, staticCards, staticSocialCard, tagSocialCard } from '../utils/socialCards'
+import { articleSizes, postSocialCard, socialImagePath, socialSize, squareSocialSize, staticCards, staticSocialCard, tagSocialCard } from '../utils/socialCards'
 
 const arts = {
   audio: [34, 61, 104, 155, 83, 187, 226, 122, 70, 32, 51, 74, 36].map((height, index) =>
@@ -32,11 +32,11 @@ const wrap = (text, width, measureLine) => text.trim().split(/\s+/).reduce((line
 }, [])
 
 // Fit the full title in up to three lines, reducing the font for longer titles.
-const fitTitle = (title, options) => {
+const fitTitle = (title, width, options) => {
   for (let size = 68; size >= 28; size -= 4) {
     const widthOf = line => measure(line, 'Space Grotesk', size, 600, options)
-    const lines = wrap(title, 755, widthOf)
-    if (lines.length <= 3 && lines.every(line => widthOf(line) <= 755)) { return { size, lines } }
+    const lines = wrap(title, width, widthOf)
+    if (lines.length <= 3 && lines.every(line => widthOf(line) <= width)) { return { size, lines } }
   }
   throw new Error(`Share card title does not fit: ${title}`)
 }
@@ -49,15 +49,17 @@ const textLines = (lines, x, y, leading, accent) => lines.map((line, index) =>
 // Fill the approved design and render a PNG with the packaged fonts.
 const render = (card, height, template, logo, options) => {
   const title = card.cardTitle || card.title
-  const { size, lines } = fitTitle(title, options)
+  const square = height === squareSocialSize[1]
+  const { size, lines } = fitTitle(title, square ? 1000 : 755, options)
   const descriptionWidth = line => measure(line, 'Roboto Mono', 23, 400, options)
-  const descriptionLines = card.description ? wrap(card.description, 744, descriptionWidth).slice(0, 3) : []
+  const descriptionLimit = square ? 990 : 744
+  const descriptionLines = card.description ? wrap(card.description, descriptionLimit, descriptionWidth).slice(0, 3) : []
   if (descriptionLines.length === 3 && descriptionLines.join(' ') !== card.description.trim()) {
     let lastLine = descriptionLines[2]
-    while (descriptionWidth(lastLine + '…') > 744) { lastLine = lastLine.slice(0, -1) }
+    while (descriptionWidth(lastLine + '…') > descriptionLimit) { lastLine = lastLine.slice(0, -1) }
     descriptionLines[2] = lastLine.trimEnd() + '…'
   }
-  const titleY = 295 - (lines.length - 1) * (size + 10) / 2
+  const titleY = (square ? 330 : 295) - (lines.length - 1) * (size + 10) / 2
   const fields = {
     height,
     frameHeight: height - 68,
@@ -66,11 +68,14 @@ const render = (card, height, template, logo, options) => {
     middleOffset: (height - 630) / 2,
     footerOffset: height - 630,
     titleSize: size,
-    art: arts[card.art] || arts.orbit,
+    art: square
+      ? `<rect x="507" y="-80" width="186" height="186" rx="26" fill="#18212f" stroke="#576373"/><image x="520" y="-67" width="160" height="160" xlink:href="${logo}"/>`
+      : `<rect x="846" y="134" width="288" height="377" fill="url(#dots)"/>${arts[card.art] || arts.orbit}`,
+    textAnchor: square ? 'middle' : 'start',
     logo,
     footer: escapeXml(card.date || card.path),
-    titleLines: textLines(lines, 70, titleY, size + 10, true),
-    descriptionLines: textLines(descriptionLines, 72, 425, 34, false)
+    titleLines: textLines(lines, square ? 600 : 70, titleY, size + 10, true),
+    descriptionLines: textLines(descriptionLines, square ? 600 : 72, square ? 480 : 425, 34, false)
   }
   const svg = template.replace(/{{(\w+)}}/g, (_, key) => fields[key])
   return new Resvg(svg, options).render().asPng()
@@ -98,7 +103,7 @@ export const generateSocialImages = async (generator, $content) => {
   if (missing.length) { throw new Error(`Missing share cards for: ${missing.join(', ')}`) }
   const logo = `data:image/png;base64,${icon.toString('base64')}`
   for (const card of cards) {
-    const sizes = card.article ? [socialSize, ...articleSizes] : [socialSize]
+    const sizes = [socialSize, ...(card.article ? articleSizes : [squareSocialSize])]
     for (const [width, height] of sizes) {
       const path = join(generator.distPath, socialImagePath(card, width, height))
       await mkdir(dirname(path), { recursive: true })

@@ -9,8 +9,8 @@ module.exports = {
   darkMode: 'selector',
   theme: {
     fontFamily: {
-      mono: ['"Roboto Mono"'],
-      display: ['"Space Grotesk"']
+      mono: '"Roboto Mono", "Liberation Mono", "Courier New", monospace',
+      display: '"Space Grotesk", Arial, sans-serif'
     },
     extend: {
       // Keep the viewer entrance as short as the theme toggle.
@@ -115,6 +115,12 @@ module.exports = {
     ({ addBase, addComponents, addVariant, theme }) => {
       // Apply hover styles only to wider layouts with a mouse or trackpad.
       addVariant('desktop-hover', '@media (min-width: 500px) and (hover: hover) and (pointer: fine) { &:hover }')
+      // Match the site’s three font faces with versioned Google Fonts WOFF2 subsets.
+      addBase([
+        { '@font-face': { fontFamily: '"Roboto Mono"', fontWeight: '400', fontStyle: 'normal', fontDisplay: 'swap', src: 'url(/fonts/roboto-mono-v31-400.woff2) format("woff2")' } },
+        { '@font-face': { fontFamily: '"Roboto Mono"', fontWeight: '600', fontStyle: 'italic', fontDisplay: 'swap', src: 'url(/fonts/roboto-mono-v31-600-italic.woff2) format("woff2")' } },
+        { '@font-face': { fontFamily: '"Space Grotesk"', fontWeight: '600', fontStyle: 'normal', fontDisplay: 'swap', src: 'url(/fonts/space-grotesk-v22-600.woff2) format("woff2")' } }
+      ])
       // Keep the reading column aligned and set ink outside the prose wrapper too.
       addBase({
         html: { scrollbarGutter: 'stable' },

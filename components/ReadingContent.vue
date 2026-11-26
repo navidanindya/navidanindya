@@ -11,9 +11,9 @@
 // Point Nuxt Content's Vue bindings at the original tree for each preview.
 const enhanceMedia = (node, path) => {
   const imageIndex = ['a', 'nuxt-link'].includes(node.tag)
-    ? node.children.findIndex(child => child.tag === 'img')
+    ? node.children.findIndex(child => child.tag === 'site-image')
     : -1
-  const isImage = node.tag === 'img' || imageIndex !== -1
+  const isImage = node.tag === 'site-image' || imageIndex !== -1
   if (isImage || node.tag === 'pre') {
     return {
       tag: 'reading-media',

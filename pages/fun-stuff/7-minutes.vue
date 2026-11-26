@@ -16,6 +16,30 @@
       We write melancholy songs about the feelings that linger after things go quiet.
     </p>
 
+    <section aria-labelledby="listen-and-follow">
+      <h2 id="listen-and-follow" class="flex items-center gap-2">
+        <site-icon name="headphones" class="h-5 w-5 shrink-0" />
+        Listen and follow
+      </h2>
+      <div v-for="group in linkGroups" :key="group.label">
+        <h3 class="flex items-center gap-2">
+          <site-icon :name="group.icon" class="h-4 w-4 shrink-0 text-site-accent dark:text-site-accent-dark" />
+          {{ group.label }}
+        </h3>
+        <ul class="!flex !list-none flex-wrap gap-x-4 gap-y-2 !p-0">
+          <li v-for="link in group.links" :key="link.url" class="!m-0 !p-0">
+            <a :href="link.url" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5">
+              <social-icon :name="link.icon" :class="link.color" class="h-4 w-4 shrink-0" />
+              <span v-text="link.label" />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <p>
+        <a href="https://ffm.bio/7minutesband" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5" v-text="'All 7 Minutes links'" />
+      </p>
+    </section>
+    <!-- Append the live catalog below the stable links to keep them in place. -->
     <section aria-labelledby="discography">
       <h2 id="discography">
         Discography
@@ -49,7 +73,7 @@
               class="relative grid aspect-square w-full place-items-center overflow-hidden rounded-xl bg-gray-900 sm:hidden"
               @click="playSong(song, $event.currentTarget)"
             >
-              <img
+              <site-image
                 v-if="song.cover"
                 :src="song.cover"
                 :alt="song.coverAlt"
@@ -57,7 +81,7 @@
                 height="304"
                 loading="lazy"
                 class="!m-0 h-full w-full object-cover"
-              >
+              />
               <span class="absolute grid h-10 w-10 place-items-center rounded-full bg-gray-900/90 text-white">
                 <site-icon name="play" class="h-5 w-5" />
               </span>
@@ -73,30 +97,6 @@
       <site-overlay ref="player" :aria-label="activeSong ? 'Spotify player for ' + activeSong.title : 'Spotify player'" @close="clearSong">
         <spotify-track-player v-if="activeSong" :url="activeSong.embedUrl" :title="activeSong.title" class="mx-auto max-w-xl" />
       </site-overlay>
-    </section>
-
-    <section aria-labelledby="listen-and-follow">
-      <h2 id="listen-and-follow" class="flex items-center gap-2">
-        <site-icon name="headphones" class="h-5 w-5 shrink-0" />
-        Listen and follow
-      </h2>
-      <div v-for="group in linkGroups" :key="group.label">
-        <h3 class="flex items-center gap-2">
-          <site-icon :name="group.icon" class="h-4 w-4 shrink-0 text-site-accent dark:text-site-accent-dark" />
-          {{ group.label }}
-        </h3>
-        <ul class="!flex !list-none flex-wrap gap-x-4 gap-y-2 !p-0">
-          <li v-for="link in group.links" :key="link.url" class="!m-0 !p-0">
-            <a :href="link.url" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5">
-              <social-icon :name="link.icon" :class="link.color" class="h-4 w-4 shrink-0" />
-              <span v-text="link.label" />
-            </a>
-          </li>
-        </ul>
-      </div>
-      <p>
-        <a href="https://ffm.bio/7minutesband" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5" v-text="'All 7 Minutes links'" />
-      </p>
     </section>
   </article>
 </template>
