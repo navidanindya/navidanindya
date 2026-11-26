@@ -3,7 +3,7 @@
     <section>
       <h1>
         <!-- Match the greeting to the site's existing terminal-inspired styles. -->
-        Hello, world! <site-icon name="system" class="inline-block h-[.65em] w-[.65em] align-baseline" />
+        Hello, world! <site-icon name="www" class="inline-block h-[.65em] w-[.65em] align-baseline" />
       </h1>
       <p class="text-base">
         I'm <nuxt-link to="/about/" class="font-semibold" v-text="'Navid Anindya'" />. I make and explore things.
