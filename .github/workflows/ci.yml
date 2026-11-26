@@ -2,13 +2,15 @@ name: CI
 
 on:
   pull_request:
-    branches: [staging, master]
+    branches: [staging]
 
 permissions:
   contents: read
 
 jobs:
   verify:
+    # Build feature PRs once before they enter the promotion branches.
+    if: github.head_ref != 'staging' && github.head_ref != 'master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
