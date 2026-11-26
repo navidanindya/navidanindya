@@ -12,7 +12,7 @@ There's a channel on YouTube called *Kurzgesagt - In a Nutshell*. I love their c
 
 They made a video called **Optimistic Nihilism**.
 
-<div style="position:relative;padding-bottom:56.25%;"><iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/MBRqu0YOH14" title="Optimistic Nihilism by Kurzgesagt on YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div style="position:relative;padding-bottom:56.25%;"><iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;" frameborder="0" width="560" height="315" loading="lazy" src="https://www.youtube-nocookie.com/embed/MBRqu0YOH14" title="Optimistic Nihilism by Kurzgesagt on YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 When I first saw this, it intrigued me a lot. It explained so much so elegantly.

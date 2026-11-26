@@ -55,9 +55,9 @@ export default {
       meta: [
         ...head.meta,
         { hid: 'og:type', property: 'og:type', content: 'article' },
-        { hid: 'og:article:published_time', property: 'og:article:published_time', content: published },
-        { hid: 'og:article:modified_time', property: 'og:article:modified_time', content: modified },
-        { hid: 'og:article:author', property: 'og:article:author', content: canonicalUrl('/about') }
+        { hid: 'article:published_time', property: 'article:published_time', content: published },
+        { hid: 'article:modified_time', property: 'article:modified_time', content: modified },
+        { hid: 'article:author', property: 'article:author', content: canonicalUrl('/about') }
       ],
       script: [
         {

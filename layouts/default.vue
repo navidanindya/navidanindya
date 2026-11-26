@@ -12,7 +12,7 @@
         <!-- Reserve a full navigation row below the logo on narrow screens. -->
         <header class="relative grid min-h-16 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-1.5 py-2 min-[500px]:gap-x-3.5">
           <nuxt-link class="shrink-0 rounded-sm bg-site-ink dark:bg-transparent" to="/" aria-label="Navid Anindya, home">
-            <square-image src="/icon.webp" alt="Navid Anindya site logo" :size="56" class="max-[499px]:!h-10 max-[499px]:!w-10" />
+            <square-image src="/icon.png" alt="Navid Anindya site logo" :size="56" class="max-[499px]:!h-10 max-[499px]:!w-10" />
           </nuxt-link>
           <site-navigation class="col-span-3 row-start-2 min-[500px]:col-span-1 min-[500px]:col-start-2 min-[500px]:row-start-1" />
           <theme-picker class="col-start-3 row-start-1 justify-self-end" />

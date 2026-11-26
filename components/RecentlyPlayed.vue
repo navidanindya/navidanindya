@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <!-- Reserve a track row while the history request is in flight. -->
+  <div class="min-h-[5.5rem]">
     <spotify-track-details v-if="track" v-bind="track" />
     <p v-else class="!my-0 text-gray-700 dark:text-gray-300" role="status">
       {{ status }}
